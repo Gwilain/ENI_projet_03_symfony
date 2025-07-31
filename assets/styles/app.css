@@ -1,3 +1,104 @@
+@charset "UTF-8";
+
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    --titleColor: #003156;
+
+    --hColor1:#004894;
+    --hColor2:#007d94;
+
+    --accent-color: #004894;
+    --accent-color2: #007d94;
+
+    --s:0.5rem;
+    --m:1rem;
+    --l:1.4rem;
+    --xl:2rem;
+
+}
+
+/*   display: flex; */
+/*   justify-content: space-between; */
+/* } */
+
+/*.montserrat-<uniquifier> {
+                 font-family: "Montserrat", sans-serif;
+                 font-optical-sizing: auto;
+                 font-weight: <weight>;
+                 font-style: normal;
+             }*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    font-family: 'Montserrat', sans-serif;    font-optical-sizing: auto;
+    font-weight: 300;
+    font-size: var(--l);
+    font-style: normal;
+}
+
+
+
+header{
+    background: linear-gradient(30deg, var(--accent-color),var(--accent-color2));
+    /*box-shadow: 0 6px 0 rgba(0, 0, 0, 1);*/
+    padding: 5px;
+    min-height: 100px;
+}
+
+
+.content{
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    /*background-color: greenyellow;*/
+}
+
+header .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*padding: 20px 50px;*/
+}
+
+a{
+    text-decoration: none;
+}
+#logo{
+    height: 80px;
+}
+
+nav ul li{
+    display: inline-block;
+    color: white;
+    margin-left: var(--m);
+}
+
+nav ul li a{
+    display: inline-block;
+    color: white;
+}
+
+header::after {
+   /* content: "";*/
+/*    display: block;
+    position: absolute;*/
+    /*top: 100%;
+    left: 0;*/
+    width: 100%;
+    min-height:800px; /* hauteur de la bande */
+    background-color: red;
+    /*background-image: url('/img/cover.jpg');*/
+    /*background-size: cover;
+    background-position: center;
+    z-index: -1;*/
 }
