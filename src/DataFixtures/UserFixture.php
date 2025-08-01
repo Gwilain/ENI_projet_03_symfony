@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Campus;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -29,7 +30,7 @@ class UserFixture extends Fixture
         $user->setLastname("McFerrin");
         $user->setEventAdmin(true);
         $user->setActive(true);
-
+        $user->setCampus($this->getReference("campus_0", Campus::class));
 
         $user->setRoles([ "ROLE_ADMIN"]);
         $user->setPassword( $this->hasher->hashPassword( $user, "123456") );
@@ -43,6 +44,9 @@ class UserFixture extends Fixture
             $user2->setLastname($faker->lastName());
             $user2->setRoles([ "ROLE_USER"]);
             $user2->setEventAdmin($faker->boolean(25));
+           // $course->setCategory( $this->getReference('cat'.$faker->numberBetween(1,2), Category::class) );
+            $campusIndex = $faker->numberBetween(0, 3); // 4 campus donc index 0 à 3
+            $user2->setCampus($this->getReference("campus_$campusIndex", Campus::class));
 
             $user2->setRoles([ "ROLE_USER"]);
             $user2->setPassword( $this->hasher->hashPassword( $user2, "123456") );
@@ -54,4 +58,12 @@ class UserFixture extends Fixture
 
         $manager->flush();
     }
+
+    public function getDependencies(): array
+    {
+        return [
+            CampusFixture::class
+        ];
+    }
+
 }
