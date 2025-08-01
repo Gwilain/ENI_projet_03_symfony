@@ -21,6 +21,8 @@ security:
                 check_path: app_login
                 enable_csrf: true
             logout:
+
+
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
@@ -34,8 +36,12 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # Autoriser l'accès public uniquement à la page de login et logout
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/logout, roles: PUBLIC_ACCESS }
+
+        # Interdire tout le reste aux non-authentifiés
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:
