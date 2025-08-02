@@ -2,42 +2,42 @@
 
 namespace App\Entity;
 
-use App\Repository\CampusRepository;
+use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity(fields: ['name'], message: 'Il y a déjà un campus de ce nom')]
-#[ORM\Entity(repositoryClass: CampusRepository::class)]
-class Campus
+#[ORM\Entity(repositoryClass: LieuRepository::class)]
+class Lieu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank()]
-    #[Assert\Length(min: 1, max: 100)]
     #[ORM\Column(length: 180)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'campus')]
-    private Collection $users;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $rue = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longitude = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lieux')]
+    private ?Ville $ville = null;
 
     /**
      * @var Collection<int, Sortie>
      */
-    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'campus', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'lieu')]
     private Collection $sorties;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->sorties = new ArrayCollection();
     }
 
@@ -58,32 +58,50 @@ class Campus
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
+    public function getRue(): ?string
     {
-        return $this->users;
+        return $this->rue;
     }
 
-    public function addUser(User $user): static
+    public function setRue(?string $rue): static
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setCampus($this);
-        }
+        $this->rue = $rue;
 
         return $this;
     }
 
-    public function removeUser(User $user): static
+    public function getLatitude(): ?float
     {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getCampus() === $this) {
-                $user->setCampus(null);
-            }
-        }
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): static
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): static
+    {
+        $this->ville = $ville;
 
         return $this;
     }
@@ -100,7 +118,7 @@ class Campus
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
-            $sorty->setCampus($this);
+            $sorty->setLieu($this);
         }
 
         return $this;
@@ -110,8 +128,8 @@ class Campus
     {
         if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getCampus() === $this) {
-                $sorty->setCampus(null);
+            if ($sorty->getLieu() === $this) {
+                $sorty->setLieu(null);
             }
         }
 

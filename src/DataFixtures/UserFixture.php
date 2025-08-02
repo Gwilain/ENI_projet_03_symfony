@@ -5,10 +5,11 @@ namespace App\DataFixtures;
 use App\Entity\Campus;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixture extends Fixture
+class UserFixture extends Fixture implements DependentFixtureInterface
 {
 
     public function __construct(
@@ -36,7 +37,7 @@ class UserFixture extends Fixture
         $user->setPassword( $this->hasher->hashPassword( $user, "123456") );
         $manager->persist($user);
 
-        for( $i = 0; $i < 10; $i++ ) {
+        for( $i = 0; $i <= 10; $i++ ) {
             $user2 = new User();
             $user2->setEmail("user".$i."@eni.fr");
             $user2->setPseudo("user".$i);
@@ -45,14 +46,14 @@ class UserFixture extends Fixture
             $user2->setRoles([ "ROLE_USER"]);
             $user2->setEventAdmin($faker->boolean(25));
            // $course->setCategory( $this->getReference('cat'.$faker->numberBetween(1,2), Category::class) );
-            $campusIndex = $faker->numberBetween(0, 3); // 4 campus donc index 0 à 3
+            $campusIndex = $faker->numberBetween(0, 3);
             $user2->setCampus($this->getReference("campus_$campusIndex", Campus::class));
 
             $user2->setRoles([ "ROLE_USER"]);
             $user2->setPassword( $this->hasher->hashPassword( $user2, "123456") );
             $user2->setActive(true);
             $manager->persist($user2);
-            //$this->addReference("user".$i, $user2);
+            $this->addReference("user_".$i, $user2);
 
         }
 

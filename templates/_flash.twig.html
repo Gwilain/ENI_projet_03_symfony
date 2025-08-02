@@ -1,0 +1,8 @@
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+    <div class="flash">
+        <span class="check">✔</span>{{ message }}
+    </div>
+    {% endfor %}
+{% endfor %}
+

@@ -4,10 +4,18 @@
 
 {% block body %}
     <div class="content">
-        <h1>TITRE DE LA PAGE</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque exercitationem, id necessitatibus nihil officia optio possimus quas repudiandae? Adipisci aperiam commodi corporis dolore ea excepturi minus numquam perspiciatis quasi recusandae?</p>
+        <div class="subContent">
 
+            <h2>Liste des sorties</h2>
 
+            <ul>
+                {% for sortie in sorties %}
+                    <li>{{ sortie.name }} - {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</li>
+
+                {% endfor %}
+            </ul>
+
+        </div>
     </div>
 {% endblock %}
 

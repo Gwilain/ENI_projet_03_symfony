@@ -37,6 +37,19 @@ final class ProfilController extends AbstractController
              "userForm" => $userForm->createView(),
         ]);
     }*/
+    #[Route('/detail', name: 'profil', methods: ['GET'])]
+    public function show(){
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $this->render('profil/show.html.twig', [
+            'user' => $user,
+        ]);
+
+    }
+
 
     #[Route('/modifier', name: 'profil_edit', methods: ['GET', 'POST'])]
     public function profile(
@@ -62,7 +75,7 @@ final class ProfilController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "Votre profil a bien été modifié.");
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('profil');
         }
 
         return $this->render('profil/edit.html.twig', [

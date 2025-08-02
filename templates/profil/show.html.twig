@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content">
+        <div class="subContent">
+            <h2>Mon profil</h2>
+            {% include "_flash.twig.html" %}
+            <h3>{{ user.pseudo }}</h3>
+            <dl>
+                <div class="flexLine">
+                    <dt>Campus</dt>
+                    <dd>{{ user.campus.name ?: 'Non renseigné' }}</dd>
+                </div>
+                {# <div class="flexLine">
+                    <dt>Pseudo</dt>
+                    <dd>{{ user.pseudo }}</dd>
+                </div> #}
+                <div class="flexLine">
+                    <dt>Nom</dt>
+                    <dd>{{ user.firstname ?: 'Non renseigné' }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Prénom</dt>
+                    <dd>{{ user.lastname ?: 'Non renseigné' }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Email</dt>
+                    <dd>{{ user.email }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Téléphone</dt>
+                    <dd>{{ user.phoneNumber ?: 'Non renseigné' }}</dd>
+                </div>
+            </dl>
+            <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

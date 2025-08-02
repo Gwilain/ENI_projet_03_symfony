@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
+use App\Entity\Category;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -19,8 +23,15 @@ class UserType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, ['label' => 'Pseudo', 'row_attr' => ['class' => 'flexLine']], )
-            ->add('firstname', TextType::class, ['label' => 'Prénom', 'row_attr' => ['class' => 'flexLine']])
-            ->add('lastname', TextType::class, ['label' => 'Nom', 'row_attr' => ['class' => 'flexLine']])
+            ->add('campus', EntityType::class, [
+                "label"=>"Campus",
+                'row_attr' => ['class' => 'flexLine'],
+                "class"=>Campus::class,
+                "choice_label"=>"name",
+                "placeholder"=>"Choisissez votre campus"
+            ])
+            ->add('firstname', TextType::class, ['label' => 'Prénom', 'required' => false, 'row_attr' => ['class' => 'flexLine']])
+            ->add('lastname', TextType::class, ['label' => 'Nom','required' => false, 'row_attr' => ['class' => 'flexLine']])
             ->add('email', EmailType::class, ['label' => 'Email', 'row_attr' => ['class' => 'flexLine']], )
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

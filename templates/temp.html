@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="user">
+    <div class="flexLine"><label for="user_pseudo" class="required">Pseudo</label><input type="text" id="user_pseudo"
+                                                                                         name="user[pseudo]"
+                                                                                         required="required"
+                                                                                         value="user1"/></div>
+    <div class="flexLine"><label for="user_campus" class="required">Campus</label><select id="user_campus"
+                                                                                          name="user[campus]"
+                                                                                          required="required">
+        <option value="">Votre campus</option>
+        <option value="17">nantes</option>
+        <option value="18">Rennes</option>
+        <option value="19">Quimper</option>
+        <option value="20" selected="selected">Niort</option>
+    </select></div>
+    <div class="flexLine"><label for="user_firstname">Prénom</label><input type="text" id="user_firstname"
+                                                                           name="user[firstname]" value="Érika"/></div>
+    <div class="flexLine"><label for="user_lastname">Nom</label><input type="text" id="user_lastname"
+                                                                       name="user[lastname]" value="Gravel"/></div>
+    <div class="flexLine"><label for="user_email" class="required">Email</label><input type="email" id="user_email"
+                                                                                       name="user[email]"
+                                                                                       required="required"
+                                                                                       value="user1@eni.fr"/></div>
+    <div class="flexLine"><label for="user_plainPassword_first">Nouveau mot de passe</label><input type="password"
+                                                                                                   id="user_plainPassword_first"
+                                                                                                   name="user[plainPassword][first]"
+                                                                                                   autocomplete="new-password"/>
+    </div>
+    <div class="flexLine"><label for="user_plainPassword_second">Confirmez le mot de passe</label><input type="password"
+                                                                                                         id="user_plainPassword_second"
+                                                                                                         name="user[plainPassword][second]"
+                                                                                                         autocomplete="new-password"/>
+    </div>
+    <input type="hidden" id="user__token" name="user[_token]"
+           value="f20df95.xtt4OXUWeN8bKt4UT3bky_6u4M6CVFg-9MxbrkTVJLo.oIkoTTBSIrlRaZEjPTWnnpaDpPnbFwB6zI4cn3zmEd6_vj5MP2IQqWMehw"/>
+</div>
+<button class="btn btn-primary btn-sm">Modifier</button>
+</form>
+
+
+</body>
+</html>
