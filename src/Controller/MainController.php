@@ -32,12 +32,20 @@ final class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $form = $this->createForm(FiltersType::class);
+        $defaultCampus = $user->getCampus();
+
+        $form = $this->createForm(FiltersType::class, ['campus' => $defaultCampus]);
         $form->handleRequest($request);
+       // if ($form->isSubmitted() && $form->isValid()) {
 
-        $filters = $form->getData();
+            $filters = $form->getData();
+            $filters['user'] = $this->getUser();
+//            $selectedOptions = $data['sortiesQue'] ?? [];
 
-        $sorties = $sortieRepository->findAll();
+            $sorties = $sortieRepository->findByFilters($filters);
+
+        //}
+
 
         //redirect connected user to login
         return $this->render('main/home.html.twig', [

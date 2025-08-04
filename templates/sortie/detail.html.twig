@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="subContent">
+    <h2>{{ sortie.name }}</h2>
+    {% include "_flash.twig.html" %}
+    <p>{{ sortie.infosSortie }}</p>
+
+    <dl>
+        {#<dt>Date et heure de la sprtie : </dt>
+        <dd>{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMMM yyyy  -  HH:mm', locale='fr')}}</dd>#}
+
+        {#<dt>Date limite d'inscription </dt>
+        <dd>{{ sortie.dateLimiteInscription|format_datetime(pattern='EE dd MMMM yyyy  -  HH:mm', locale='fr')}}</dd>#}
+
+        <dt>Nombre de place</dt>
+        <dd>{{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</dd>
+
+        <dt>Durée</dt>
+        <dd>{{ sortie.dureeFormate }} min.</dd>
+
+    </dl>
+
+    <dl>
+        <dt>Campus</dt>
+        <dd>{{ sortie.campus.name}}</dd>
+
+        <dt>Ville</dt>
+        <dd>{{ sortie.lieu.ville.name }}</dd>
+
+        <dt>Lieu</dt>
+        <dd>{{ sortie.lieu.name }}</dd>
+
+        <dt>Rue</dt>
+        <dd>{{ sortie.lieu.rue }}</dd>
+
+        <dt>Ville</dt>
+        <dd>{{ sortie.lieu.ville.codePostal }}</dd>
+    </dl>
+
+</section>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

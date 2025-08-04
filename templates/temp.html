@@ -1,40 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<h2>Liste des sorties</h2>
 <div class="subSubContent filters">
-    <div class="formCol">
-        <div><label for="filters_search">Recherche</label><input type="text" id="filters_search" name="filters[search]"
-                                                                 placeholder="Titre contient..."/></div>
-    </div>
+    <form name="filters" method="get">
+        <div>
+            <div><label for="filters_search">Recherche</label><input type="text" id="filters_search"
+                                                                     name="filters[search]"
+                                                                     placeholder="Titre contient..."/></div>
+        </div>
 
-    <div class="formRow">
-        <div>
-            <div><label for="filters_campus" class="required">Campus</label><select id="filters_campus"
-                                                                                    name="filters[campus]"
-                                                                                    required="required">
-                <option value="" selected="selected">Choisissez votre campus</option>
-                <option value="5">nantes</option>
-                <option value="6">Rennes</option>
-                <option value="7">Quimper</option>
-                <option value="8">Niort</option>
-            </select></div>
-        </div>
-        <div>
-            <div><label for="filters_dateDebut">Entre</label><input type="date" id="filters_dateDebut"
-                                                                    name="filters[dateDebut]"/></div>
-        </div>
-        <div>
-            <div><label for="filters_dateFin">et</label><input type="date" id="filters_dateFin"
-                                                               name="filters[dateFin]"/></div>
-        </div>
-    </div>
+        <div class="formRow">
+
+            <div>
+                <div><label for="filters_campus" class="required">Campus</label><select id="filters_campus"
+                                                                                        name="filters[campus]"
+                                                                                        required="required">
+                    <option value="">Choisissez votre campus</option>
+                    <option value="13" selected="selected">nantes</option>
+                    <option value="14">Rennes</option>
+                    <option value="15">Quimper</option>
+                    <option value="16">Niort</option>
+                </select></div>
+            </div>
+            <div class="dates">
+                <div>
+                    <div><label for="filters_dateDebut">Entre</label><input type="date" id="filters_dateDebut"
+                                                                            name="filters[dateDebut]"/></div>
+                </div>
+                <div>
+                    <div><label for="filters_dateFin">et</label><input type="date" id="filters_dateFin"
+                                                                       name="filters[dateFin]"/></div>
+                </div>
+            </div>
+
+            <div class="dropdown-multi">
+                <button type="button" class="dropdown-toggle">Sorties ... <img src="/img/arrow.svg" width="12px">
+                </button>
+                <div class="dropdown-menu">
+
+                    <div>
+                        <div id="filters_sortiesQue" class="checkbox-inline">
+                            <input type="checkbox"
+                                                                                    id="filters_sortiesQue_0"
+                                                                                    name="filters[sortiesQue][]"
+                                                                                    value="organise"/>
+                            <label
+                                for="filters_sortiesQue_0">Sorties que j&#039;organise</label>
+                            <input type="checkbox"
+                                                                                                     id="filters_sortiesQue_1"
+                                                                                                     name="filters[sortiesQue][]"
+                                                                                                     value="inscrit"/>
+                            <label
+                                for="filters_sortiesQue_1">Sorties auxquelles je suis inscrit/e</label>
+                            <input
+                                type="checkbox" id="filters_sortiesQue_2" name="filters[sortiesQue][]"
+                                value="pasInscrit"/><label for="filters_sortiesQue_2">Sorties auxquelles je ne suis pas
+                            inscrit/e</label><input type="checkbox" id="filters_sortiesQue_3"
+                                                    name="filters[sortiesQue][]" value="terminee"/><label
+                                for="filters_sortiesQue_3">Sorties terminées</label></div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btnSearch"><img class="search" src="/img/search.svg" alt="Rechercher"></button>
+            <input type="hidden" id="filters__token" name="filters[_token]"
+                   value="f65d4ab2a23e9.zJH8SmdwVlzcCEUZuM8QX30cGDDCCpBJ-nU8hiERiys.gcieEAgdGy2TRABP0pxGDi5PVWWpYOYsnRdY1BlfwBO69YosL0cOaLk9BA"/>
+    </form>
 </div>
 </div>
-
-
-</body>
-</html>
