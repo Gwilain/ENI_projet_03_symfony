@@ -6,16 +6,16 @@
 
 {% block body %}
 
-    <section class="content">
+{#    <section class="content">#}
 
         {{ form_start(userForm, {'attr': {'class': 'subContent'}} ) }}
         <h1>Modifier mon profil</h1>
 
         {{ form_widget(userForm) }}
-        <button class="btn btn-primary btn-sm">Enregistrer</button>
+        <button class="btn">Enregistrer</button>
         {{ form_end(userForm) }}
 
-    </section>
+{#    </section>#}
 
 {#
     <form name="user" method="post">
