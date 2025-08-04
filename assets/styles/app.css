@@ -12,7 +12,8 @@
     --sColor1:#fdb914;
     --sColor2:#fff200;
 
-    --grey:#d5d5d5;
+    /*--grey:#d5d5d5;*/
+    --grey:#06343a;
 
     /*--accent-color: #004894;
     --accent-color2: #007d94;*/
@@ -23,6 +24,7 @@
     --s:0.5rem;
     --sm:0.75rem;
     --m:1rem;
+    --ml:1.2rem;
     --l:1.4rem;
     --xl:2rem;
     --xxl:3rem;
@@ -180,7 +182,7 @@ header::after {
 
 
 /*****************FORMS********************/
-input, select{
+input, select, .dropdown-toggle{
     padding: 0.7rem 1.2rem;
     border-radius: 3rem;
     border: solid 1px var(--grey);
@@ -224,12 +226,18 @@ form .flexLine:nth-last-child(2){
     color: var(--titleColor);
     border-radius: var(--sm);
     cursor: pointer;
-    font-size: var(--l);
+    font-size: var(--ml);
+    font-weight: 800;
     /*background: linear-gradient(30deg, var(--accent-color), var(--accent-color2));*/
     background-color: var(--accent-color2);
-    /*border: solid 1px var(--accent-color);*/
+    border: solid 1px var(--grey);
     transition: filter 0.3s ease;
 
+}
+
+.btn {
+    color: white;
+    background-color: black;
 }
 
 .btn:hover{
@@ -313,14 +321,78 @@ main ul li .btn{
 .formRow{
     display: flex;
     flex-direction: row;
+    /*background-color: red;*/
+    /*justify-content: space-between;*/
+    align-items: center;
 }
 
-.filters{
-    margin-bottom: var(--m);
+.formRow > *{
+    margin: 0 0.5rem;
 }
-.filters input, select{
+
+.dates{
+    display: flex;
+    flex-direction: row;
+}
+
+/*
+.filters{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--m);
+    !*background-color: red;*!
+}
+*/
+
+.filters form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--m);
+    /*background-color: red;*/
+}
+
+.filters > *{
+
+    margin-bottom: var(--m);
+    /*display: inline;*/
+}
+
+.filters input, .filters select{
     margin:0 var(--s);
 }
+
+.dropdown-multi{
+    /*background-color: red;*/
+}
+
+.dropdown-toggle{
+    cursor: pointer;
+    /*margin:0;*/
+    /*background-color: red;*/
+    margin-left:0;
+    /*width: 100%;*/
+
+    /*padding: 0.7rem 1.2rem;*/
+    padding: 0.8rem 1.2rem;
+
+    border-radius: 3rem;
+    border: solid 1px var(--grey);
+    background-color: white;
+}
+input, select{
+    padding: 0.7rem 1.2rem;
+    border-radius: 3rem;
+    border: solid 1px var(--grey);
+    /*box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.4);*/
+    background-color: white;
+    margin-left: var(--xxl);
+    /*margin: 0 1rem;*/
+}
+
+
+
 .btnSearch{
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -334,6 +406,9 @@ main ul li .btn{
     width: 200px;
 }
 
+input[type=checkbox] {
+    accent-color: var(--accent-color2);
+}
 
 /**************************DROPDOWN MULTI**************************/
 .dropdown-multi {
@@ -341,34 +416,50 @@ main ul li .btn{
     display: inline-block;
 }
 
-.dropdown-toggle {
-    padding: 0.5em 1em;
-    border: 2px solid black;
-    background: white;
-    border-radius: 1em;
-    cursor: pointer;
-}
+
 
 .dropdown-menu {
     display: none;
     position: absolute;
     background: white;
     border: 1px solid black;
+    text-align: left;
     padding: 1em;
     margin-top: 0.2em;
     z-index: 1000;
-    width: 400px;
-    columns: 2; /* 2 colonnes */
-}
-
-.dropdown-menu label {
-    display: block;
-    margin-bottom: 0.5em;
+    /*width: 600px;*/
+    width: max-content;
+    min-width: 100%;
+    right: 0;
+    left: auto;
+    /*columns: 2;*/
 }
 
 .dropdown-multi.open .dropdown-menu {
     display: block;
 }
+/*.dropdown-menu label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+
+
+dropdown-menu label{
+    !*display: block;*!
+}*/
+
+.checkbox-inline label {
+    font-size: 1rem;
+    display: inline-block;
+    margin: var(--s);
+    cursor: pointer;
+}
+
+/*.checkbox-inline input,
+.checkbox-inline label {
+    display: inline-block;
+}*/
 
 /**************************END DROPDOWN MULTI**************************/
 

@@ -8,34 +8,47 @@
 
         <h2>Liste des sorties</h2>
         <div class="subSubContent filters">
+            {{ form_start(form) }}
             <div>
                 {{ form_row(form.search) }}
             </div>
 
             <div class="formRow">
-                <div>
+
+                <div >
                     {{ form_row(form.campus) }}
                 </div>
-                <div>
-                    {{ form_row(form.dateDebut) }}
-                </div>
-                <div>
-                    {{ form_row(form.dateFin) }}
-                </div>
-                <div>
-
+                <div class="dates">
+                    <div>
+                        {{ form_row(form.dateDebut) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.dateFin) }}
+                    </div>
                 </div>
 
                 <div class="dropdown-multi">
-                    <button class="dropdown-toggle">Thématiques ⌄</button>
-                    <div class="dropdown-menu">
-                        <label><input type="checkbox" name="thematiques[]" value="organise">Sorties que j'organise</label>
+                    <button  type="button" class="dropdown-toggle">Sorties ... <img src="{{ asset('img/arrow.svg') }}" width="12px"></button>
+                    <div class="dropdown-menu checkbox-inline">
+                        {% for checkbox in form.sortiesQue %}
+                            <div>
+                                {{ form_widget(checkbox) }}
+                                {{ form_label(checkbox) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+{#                    <div class="dropdown-menu">#}
+
+                        {#<label><input type="checkbox" name="sortiQue[]" value="organise">Sorties que j'organise</label>
                         <label><input type="checkbox" name="thematiques[]" value="inscrit">Sorties auxquelles je suis inscrit/e</label>
                         <label><input type="checkbox" name="thematiques[]" value="pasInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
-                        <label><input type="checkbox" name="thematiques[]" value="terminee">Sorties terminées</label>
-                    </div>
+                        <label><input type="checkbox" name="thematiques[]" value="terminee">Sorties terminées</label>#}
+{#                        {{ form_row(form.sortiesQue) }}#}
+{#                    </div>#}
                 </div>
-                <button class="btnSearch"><img class="search" src="{{ asset('/img/search.svg') }}" alt="Rechercher"></button>
+
+                <button type="submit" class="btnSearch"><img class="search" src="{{ asset('/img/search.svg') }}" alt="Rechercher"></button>
+                {{ form_end(form) }}
             </div>
         </div>
 
@@ -55,6 +68,7 @@
                     <div class="cardContent">
                         <div class="cardInfo">
                             <h3>{{ sortie.name }}</h3>
+                            <p>Campus : {{ sortie.campus.name }}</p>
                             <p>Clôture : {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
                             <p>participants : {{ sortie.nbInscriptionMax }}</p>
                             <p>État : {{ sortie.etat.libelle }}</p>

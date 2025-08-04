@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,29 +16,126 @@ class SortieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sortie::class);
     }
+    public function findByFilters(?array $filters): array
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->leftJoin('e.campus', 'c')
+            ->addSelect('c')
+            ->leftJoin('e.Etat', 'etat')
+            ->addSelect('etat');
 
-    //    /**
-    //     * @return Sortie[] Returns an array of Sortie objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        // Filtre pour les sorties publiées (par exemple, état "ouverte", "En cours", etc.)
+        $qb->andWhere('etat.libelle IN (:etatsPublies)')
+            ->setParameter('etatsPublies', ["ouverte", "En cours", "Cloturée"]);
 
-    //    public function findOneBySomeField($value): ?Sortie
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if (!empty($filters['campus'])) {
+            $qb->andWhere('e.campus = :campus')
+                ->setParameter('campus', $filters['campus']);
+        }
+
+        if (!empty($filters['search'])) {
+            $qb->andWhere('e.name LIKE :search')
+                ->setParameter('search', '%' . $filters['search'] . '%');
+        }
+
+        if (!empty($filters['dateDebut'])) {
+            $qb->andWhere('e.dateHeureDebut >= :dateDebut')
+                ->setParameter('dateDebut', $filters['dateDebut']);
+        }
+
+        if (!empty($filters['dateFin'])) {
+            $qb->andWhere('e.dateLimiteInscription <= :dateFin')
+                ->setParameter('dateFin', $filters['dateFin']);
+        }
+
+        if (!empty($filters['sortiesQue']) && is_array($filters['sortiesQue'])) {
+            $selected = $filters['sortiesQue'];
+
+            if (in_array('organise', $selected)) {
+                $qb->andWhere('e.organisateur = :user')
+                    ->setParameter('user', $filters['user']);
+            }
+
+            if (in_array('inscrit', $selected)) {
+                $qb->andWhere(':user MEMBER OF e.participants')
+                    ->setParameter('user', $filters['user']);
+            }
+
+            if (in_array('pasInscrit', $selected)) {
+                $qb->andWhere(':user NOT MEMBER OF e.participants')
+                    ->setParameter('user', $filters['user']);
+            }
+
+            if (in_array('terminee', $selected)) {
+                $qb->andWhere('etat.libelle = :etatTerminee')
+                    ->setParameter('etatTerminee', "Terminée");
+            }
+        }
+
+        // Si l'utilisateur est l'organisateur
+        if (!empty($filters['user'])) {
+            $qb->orWhere('e.organisateur = :user');
+            if (!empty($filters['campus'])) {
+                $qb->andWhere('e.campus = :campus');
+            }
+            $qb->setParameter('user', $filters['user']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /*public function findByFilters(?array $filters): array
+   {
+       /b = $this->createQueryBuilder('e')
+           ->leftJoin('e.campus', 'c')
+           ->addSelect('c');
+
+       if (!empty($filters['campus'])) {
+           $qb->andWhere('e.campus = :campus')
+               ->setParameter('campus', $filters['campus']);
+       }
+
+       if (!empty($filters['search'])) {
+           $qb->andWhere('e.name LIKE :search')
+               ->setParameter('search', '%' . $filters['search'] . '%');
+       }
+
+      if (!empty($filters['dateDebut'])) {
+           $qb->andWhere('e.dateHeureDebut >= :dateDebut')
+               ->setParameter('dateDebut', $filters['dateDebut']);
+       }
+
+       if (!empty($filters['dateFin'])) {
+           $qb->andWhere('e.dateLimiteInscription <= :dateFin')
+               ->setParameter('dateFin', $filters['dateFin']);
+       }
+
+       if (!empty($filters['sortiesQue']) && is_array($filters['sortiesQue'])) {
+           $selected = $filters['sortiesQue'];
+
+           if (in_array('organise', $selected)) {
+               $qb->andWhere('e.organisateur = :user')
+                   ->setParameter('user', $filters['user']);
+           }
+
+
+           if (in_array('inscrit', $selected)) {
+               $qb->andWhere(':user MEMBER OF e.participants')
+                   ->setParameter('user', $filters['user']);
+           }
+
+           if (in_array('pasInscrit', $selected)) {
+               $qb->andWhere(':user NOT MEMBER OF e.participants')
+                   ->setParameter('user', $filters['user']);
+           }
+           //marche pas comme je veux...
+           if (in_array('terminee', $selected) && !empty($filters['etatTerminee'])) {
+               $qb->andWhere('e.etat = :etatTerminee')
+                   ->setParameter('etatTerminee', $filters['etatTerminee']);
+           }
+       }
+
+       return $qb->getQuery()->getResult();
+   }*/
 }
