@@ -72,6 +72,9 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
             $lieu->setRue($faker->streetAddress);
             $villeId = $faker->numberBetween(0, VilleFixture::$count);
 
+            $lieu->setLatitude($faker->latitude(41.0, 51.0));
+            $lieu->setLongitude($faker->longitude(-5.0, 9.5));
+
             $lieu->setVille( $this->getReference('ville_' . $villeId, Ville::class) );
 
 
@@ -80,7 +83,7 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
             $manager->persist($lieu);
 
             $now = new \DateTimeImmutable('today');
-            if ($date < $now) {
+            if ($date > $now) {
                 $etatIndex = $faker->numberBetween(0, 1);
                 $sortie->setEtat($this->getReference('etat_' . $etatIndex, Etat::class));
             }else{

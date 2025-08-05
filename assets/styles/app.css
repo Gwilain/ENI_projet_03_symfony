@@ -249,10 +249,8 @@ main{
     /*background-color: green;*/
 }
 
-main ul{
-    /*display: flex;
-    flex-direction: column;
-    align-items: center;*/
+.sortieList{
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
@@ -269,7 +267,7 @@ main ul{
     text-align: left;
 }*/
 
-main ul li {
+.sortieHome{
     display: flex;
     flex-direction: column;
     border-radius: var(--m);
@@ -287,14 +285,23 @@ main ul li {
     width: 16%;
 }*/
 
-.date{
+
+.cardHeader{
     padding: var(--sm);
     border-top-left-radius:var(--m);
     border-top-right-radius:var(--m);
-    /*background: linear-gradient(10deg, var(--sColor1), var(--sColor2));*/
     background-color: var(--accent-color2);
-    /*background: linear-gradient(10deg, var(--accent-color), var(--accent-color2));*/
-    /*width: Calc(100% - var(--sm));*/
+    display: flex;
+    justify-content: space-between;
+    //height: var(--l);
+}
+.cardHeader img{
+    height: var(--l);
+}
+
+.date{
+    font-weight: 700;
+
 }
 
 .cardContent{
@@ -314,21 +321,74 @@ main ul li {
     font-size: 1.6rem;
 }
 
+.orgaLink{
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.orgaLink:hover{
+    text-decoration: underline;
+}
+
+
+
 main ul li .btn{
     margin-top: var(--m);
 }
 
-.formRow{
-    display: flex;
-    flex-direction: row;
-    /*background-color: red;*/
-    /*justify-content: space-between;*/
-    align-items: center;
+/***********************DETAIL SORTIE****************************/
+.details{
+    padding: 2rem 2rem;
+    width: 100%;
 }
 
-.formRow > *{
-    margin: 0 0.5rem;
+.details h2{
+    font-weight: 800;
 }
+
+.detailInfos{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    font-size: var(--ml);
+    font-weight: 400;
+}
+
+.infosSortie{
+    text-align: left;
+    margin-bottom: var(--xl);
+}
+.participantsection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.participantsList{
+    margin: 0 auto;
+    text-decoration: none;
+    list-style: none;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 4rem;
+}
+
+.participantsList a{
+    font-weight: 600;
+    color: var(--accent-color);
+}
+.participantsList a:hover{
+    text-decoration: underline;
+}
+
+.participantsList span{
+    margin-left: var(--m);
+}
+
+
+/*******************END DETAIL SORTIE****************************/
+
 
 .dates{
     display: flex;
@@ -344,6 +404,19 @@ main ul li .btn{
     !*background-color: red;*!
 }
 */
+
+/***************Filter Accueil******************/
+.formRow{
+    display: flex;
+    flex-direction: row;
+    /*background-color: red;*/
+    /*justify-content: space-between;*/
+    align-items: center;
+}
+
+.formRow > *{
+    margin: 0 0.5rem;
+}
 
 .filters form{
     display: flex;
@@ -410,6 +483,8 @@ input[type=checkbox] {
     accent-color: var(--accent-color2);
 }
 
+
+
 /**************************DROPDOWN MULTI**************************/
 .dropdown-multi {
     position: relative;
@@ -432,6 +507,9 @@ input[type=checkbox] {
     min-width: 100%;
     right: 0;
     left: auto;
+    border-bottom-left-radius: var(--s);;
+    border-bottom-right-radius: var(--s);;
+
     /*columns: 2;*/
 }
 
@@ -462,6 +540,9 @@ dropdown-menu label{
 }*/
 
 /**************************END DROPDOWN MULTI**************************/
+
+
+/***************END Filter Accueil******************/
 
 /*.cardContent .btn{
     background: linear-gradient(10deg, var(--sColor1), var(--sColor2));

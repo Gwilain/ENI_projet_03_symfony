@@ -24,7 +24,7 @@ class SortieRepository extends ServiceEntityRepository
             ->leftJoin('e.Etat', 'etat')
             ->addSelect('etat');
 
-        // Filtre pour les sorties publiées (par exemple, état "ouverte", "En cours", etc.)
+
         $qb->andWhere('etat.libelle IN (:etatsPublies)')
             ->setParameter('etatsPublies', ["ouverte", "En cours", "Cloturée"]);
 
@@ -80,6 +80,8 @@ class SortieRepository extends ServiceEntityRepository
             }
             $qb->setParameter('user', $filters['user']);
         }
+
+        $qb->orderBy('e.dateHeureDebut', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

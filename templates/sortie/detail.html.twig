@@ -2,44 +2,85 @@
 
 {% block body %}
 
-<section class="subContent">
-    <h2>{{ sortie.name }}</h2>
-    {% include "_flash.twig.html" %}
-    <p>{{ sortie.infosSortie }}</p>
+    <section class="subContent details">
+        <h2>{{ sortie.name }}</h2>
+        {% include "_flash.twig.html" %}
+        <p class="infosSortie">{{ sortie.infosSortie }}</p>
 
-    <dl>
-        {#<dt>Date et heure de la sprtie : </dt>
-        <dd>{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMMM yyyy  -  HH:mm', locale='fr')}}</dd>#}
+        <div class="detailInfos">
+            <dl>
+                <div class="flexLine">
+                    <dt>Organisé par :</dt>
+                    <dd><a class="orgaLink" href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a></dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Date :</dt>
+                    <dd>{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Heure :</dt>
+                    <dd>{{ sortie.dateHeureDebut|format_datetime('none', 'short', locale: 'fr')}}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Date limite d'inscription</dt>
+                    <dd>{{ sortie.dateLimiteInscription|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Nombre de place</dt>
+                    <dd>{{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Durée</dt>
+                    <dd>{{ sortie.dureeFormate }} min.</dd>
+                </div>
 
-        {#<dt>Date limite d'inscription </dt>
-        <dd>{{ sortie.dateLimiteInscription|format_datetime(pattern='EE dd MMMM yyyy  -  HH:mm', locale='fr')}}</dd>#}
+            </dl>
 
-        <dt>Nombre de place</dt>
-        <dd>{{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</dd>
+            <dl>
+                <div class="flexLine">
+                    <dt>Campus</dt>
+                    <dd>{{ sortie.campus.name }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Ville</dt>
+                    <dd>{{ sortie.lieu.ville.name }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Lieu</dt>
+                    <dd>{{ sortie.lieu.name }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Rue</dt>
+                    <dd>{{ sortie.lieu.rue }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Code postal</dt>
+                    <dd>{{ sortie.lieu.ville.codePostal }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Ville</dt>
+                    <dd>{{ sortie.lieu.ville.name }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Latitude / Longitude</dt>
+                    <dd>{{ sortie.lieu.latitude }} / {{ sortie.lieu.longitude }}</dd>
+                </div>
 
-        <dt>Durée</dt>
-        <dd>{{ sortie.dureeFormate }} min.</dd>
 
-    </dl>
+            </dl>
+        </div>
+    </section>
+    <section class="participantsection">
+        <h3>Participants :</h3>
+        <ul class="participantsList">
+            {% for participant in sortie.participants  %}
+                <li>
+                    <a href="{{ path('profil', {id: participant.id} ) }}">{{ participant.pseudo }}</a><span>-  {{ participant.firstname }} {{ participant.lastname }}</span>
+                </li>
 
-    <dl>
-        <dt>Campus</dt>
-        <dd>{{ sortie.campus.name}}</dd>
-
-        <dt>Ville</dt>
-        <dd>{{ sortie.lieu.ville.name }}</dd>
-
-        <dt>Lieu</dt>
-        <dd>{{ sortie.lieu.name }}</dd>
-
-        <dt>Rue</dt>
-        <dd>{{ sortie.lieu.rue }}</dd>
-
-        <dt>Ville</dt>
-        <dd>{{ sortie.lieu.ville.codePostal }}</dd>
-    </dl>
-
-</section>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}
 
 {% block title %}

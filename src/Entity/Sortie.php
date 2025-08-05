@@ -104,15 +104,14 @@ class Sortie
 
     public function getDureeFormate(): string
     {
-
         $duree = $this->getDuree();
 
-        $midnight = new \DateTime('00:00:00');
-        $interval = $duree->diff($midnight);
+        if ($duree !== null) {
+            $minutesTotal = (int) $duree->format('i') + ((int) $duree->format('H') * 60);
+            return (string) $minutesTotal;
+        }
 
-        $minutes = ($interval->h * 60) + $interval->i;
-
-        return $minutes;
+        return '';
     }
 
     public function getNbInscriptionMax(): ?int

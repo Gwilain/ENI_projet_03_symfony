@@ -32,7 +32,9 @@
                     <dd>{{ user.phoneNumber ?: 'Non renseigné' }}</dd>
                 </div>
             </dl>
-            <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+            {% if app.user == user %}
+                <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+            {% endif %}
         </section>
 
 {% endblock %}

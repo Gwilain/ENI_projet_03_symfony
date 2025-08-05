@@ -6,7 +6,6 @@
 
 {% block body %}
 
-{#    <section class="content">#}
 
         {{ form_start(userForm, {'attr': {'class': 'subContent'}} ) }}
         <h1>Modifier mon profil</h1>
@@ -15,35 +14,7 @@
         <button class="btn">Enregistrer</button>
         {{ form_end(userForm) }}
 
-{#    </section>#}
 
-{#
-    <form name="user" method="post">
-        <div id="user">
-            <div><label for="user_email" class="required">Email</label><input type="email" id="user_email"
-                                                                              name="user[email]" required="required"
-                                                                              maxlength="180" value="admin@eni.fr"/>
-            </div>
-            <div><label for="user_pseudo" class="required">Pseudo</label><input type="text" id="user_pseudo"
-                                                                                name="user[pseudo]" required="required"
-                                                                                value="adminet"/></div>
-            <div><label for="user_firstname" class="required">Prénom</label><input type="text" id="user_firstname"
-                                                                                   name="user[firstname]"
-                                                                                   required="required" value="bobby"/>
-            </div>
-            <div><label for="user_lastname" class="required">nom</label><input type="text" id="user_lastname"
-                                                                               name="user[lastname]" required="required"
-                                                                               value="McFerrin"/></div>
-            <div><label for="user_password" class="required">Password</label><input type="text" id="user_password"
-                                                                                    name="user[password]"
-                                                                                    required="required"
-                                                                                    value="$2y$13$GNuP0ctA.DzNETHfZFXuBuUAozwngikgVcwVzI6LhVukGAXeuCkm2"/>
-            </div>
-            <input type="hidden" id="user__token" name="user[_token]"
-                   value="e6132b7f24bbd9.zbS3uboNDccBkGifr5Nrs1rBy-erSCDc16vMKqQGbYc.oubbyu1Ha61CyAXJ8OI8wh-ymozHfkOultm6B-lrVLGG2tDziHxahVOkBw"/>
-        </div>
-        <button class="btn btn-primary btn-sm">Modifier</button>
-    </form>#}
 
 {% endblock %}
 

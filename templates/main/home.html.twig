@@ -61,10 +61,21 @@
         </div>#}
 
 
-        <ul>
+        <ul class="sortieList">
             {% for sortie in sorties %}
-                <li>
-                    <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMMM yyyy', locale='fr')  }}</p>
+                <li class="sortieHome">
+                    <div class="cardHeader">
+                         <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')  }}</p>
+                        <div>
+                            {% if sortie.participants.contains(app.user) %}
+                                <img src="{{ asset("img/person.svg") }}" alt="Je participe">
+                            {% endif %}
+                            {% if sortie.organisateur == app.user %}
+                                <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
+                            {% endif %}
+                        </div>
+                    </div>
+                    
                     <div class="cardContent">
                         <div class="cardInfo">
                             <h3>{{ sortie.name }}</h3>
@@ -73,7 +84,7 @@
 {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
                             <p>État : {{ sortie.etat.libelle }}</p>
-                            <p>organistaeur : {{ sortie.organisateur.pseudo }}</p>
+                            <a class="orgaLink" href="{{ path('profil', {id: organisateur.id} ) }}">organistaeur : {{ sortie.organisateur.pseudo }}</a>
                         </div>
                         <div class="flexLine">
                             <div></div>
@@ -82,8 +93,6 @@
                         </div>
                     </div>
                 </li>
-
-
             {% endfor %}
         </ul>
 

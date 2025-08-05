@@ -11,35 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/profile')]
 final class ProfilController extends AbstractController
 {
 
-    /*#[Route('/modifier', name: 'profil_edit', methods: ['GET',"POST"])]
-    public function profile(Request $request, EntityManagerInterface $em ): Response
-    {
-        $user = $this->getUser();
 
-        $userForm = $this->createForm(UserType::class, $user);
-
-        if($userForm->handleRequest($request)->isSubmitted()){
-
-            $em->persist($user);
-            $em->flush();
-            $this->addFlash("success", "Votre profile a bien été modifié");
-
-            return $this->redirectToRoute('home', []);
-        }
-
-         return $this->render('profil/edit.html.twig', [
-             "user" => $user,
-             "userForm" => $userForm->createView(),
-        ]);
-    }*/
-    #[Route('/detail', name: 'profil', methods: ['GET'])]
-    public function show(){
-        $user = $this->getUser();
+    #[Route('/{id}', name: 'profil', methods: ['GET'], requirements: ['id'=>'\d+'])]
+    public function show(User $user): Response{
+        //$user = $this->getUser();
         if (!$user) {
             throw $this->createAccessDeniedException();
         }
@@ -50,7 +31,7 @@ final class ProfilController extends AbstractController
 
     }
 
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/modifier', name: 'profil_edit', methods: ['GET', 'POST'])]
     public function profile(
         Request $request,
@@ -63,11 +44,10 @@ final class ProfilController extends AbstractController
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
 
-            //Récupération du mot de passe en clair (saisi dans le form)
             $plainPassword = $userForm->get('plainPassword')->getData();
 
             if ($plainPassword) {
-                // Hash du nouveau mot de passe, puis on le set dans l'entité
+
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
             }
