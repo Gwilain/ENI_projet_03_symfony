@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="dropdown-multi">
-                    <button  type="button" class="dropdown-toggle">Sorties ... <img src="{{ asset('img/arrow.svg') }}" width="12px"></button>
+                    <button  type="button" class="dropdown-toggle">Sorties ... <img src="{{ asset('img/arrow.svg') }}" width="12px" alt="arrow down"></button>
                     <div class="dropdown-menu checkbox-inline">
                         {% for checkbox in form.sortiesQue %}
                             <div>
@@ -99,7 +99,7 @@
     </section>
     {#    </div> #}
 
-    <script src="js/multiselect-dropdown.js"></script>
+    <script src="{{ 'assets(js/multiselect-dropdown.js') }}"></script>
 {% endblock %}
 
 {% block title %}Accueil{% endblock %}
