@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -16,7 +17,11 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
-
+    #[Assert\NotBlank(message: "Donner un titre à cette sortie")]
+    #[Assert\Length(min: 2, max: 180,
+        minMessage: "Donnez au moins {{ limit }} caractères ! ",
+        maxMessage: "Remplir au maximum {{ limit }} caractères ! "
+    )]
     #[ORM\Column(length: 180)]
     private ?string $name = null;
 
@@ -32,6 +37,10 @@ class Sortie
     #[ORM\Column(nullable: true)]
     private ?int $nbInscriptionMax = null;
 
+    #[Assert\Length(min: 2, max: 2000,
+        minMessage: "Donnez au moins {{ limit }} caractères ! ",
+        maxMessage: "Remplir au maximum {{ limit }} caractères ! "
+    )]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $infosSortie = null;
 

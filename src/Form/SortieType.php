@@ -29,12 +29,14 @@ class SortieType extends AbstractType
                 "label"=>'Date et heure :',
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
                 'row_attr' => ['class' => 'flexLine'],
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
                 "label"=>'Date limite d\'inscription :',
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
                 'row_attr' => ['class' => 'flexLine'],
             ])
 
@@ -46,18 +48,20 @@ class SortieType extends AbstractType
             ->add('duree', TimeType::class, [
                 'label' => 'Durée (en min.) :',
                 'row_attr' => ['class' => 'flexLine'],
-                'placeholder'=>"00"
+
             ])
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 "label"=>'Lieu :',
                 'choice_label' => 'name',
                 'placeholder' => 'Choisissez un lieu',
+                'required' => false,
                 'row_attr' => ['class' => 'flexLine'],
             ])->add('infosSortie', TextareaType::class,
                 [
                     'row_attr' => ['class' => 'taSortieInfo'],
                     'label' => 'Description de la sortie :',
+                    'required' => false,
                     'attr' => [
                         'rows' => 7,
                         'class' => 'form-control',

@@ -6,13 +6,12 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
-use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/sortie')]
@@ -65,6 +64,48 @@ final class SortieController extends AbstractController
         return $this->render('sortie/create.html.twig', [
             "formSorti"=>$form,
         ]);
+    }
+
+
+    #[Route('/modifier/{id}', name: 'sortie_edit', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function editSorti( Request $request,
+                               Sortie $sortie,
+                               EntityManagerInterface $em,
+                               EtatRepository $etatRepo
+    ): Response {
+
+        /*$user = $this->getUser();
+        if (
+            $sortie->getOrganisateur() !== $user || $sortie->getEtat()->getLibelle() !== 'En création') {
+            throw $this->createAccessDeniedException("Vous ne pouvez pas modifier cette sortie.");
+        }*/
+        //utilisation du Voter SortieVoter
+        $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
+
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $action = $request->request->get('action');
+            if ($action === 'publish') {
+                $state = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+                $sortie->setEtat($state);
+            }
+
+            $em->persist($sortie);
+            $em->flush();
+//            $this->addFlash("success", "Votre Sortie a bien été créée.");
+            $this->addFlash('success', "Sortie " . ($action === 'publish' ? "publiée" : "enregistrée") . " avec succès.");
+
+            return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+        }
+
+        return $this->render('sortie/create.html.twig', [
+            "formSorti"=>$form,
+        ]);
+
+
     }
 
 
