@@ -7,14 +7,48 @@
 {% block body %}
 
 
-        {{ form_start(userForm, {'attr': {'class': 'subContent'}} ) }}
+    {{ form_start(userForm, {'attr': {'class': 'subContent userForm'}} ) }}
         <h1>Modifier mon profil</h1>
+        {% include "_flash.twig.html" %}
 
         {{ form_widget(userForm) }}
+
         <button class="btn">Enregistrer</button>
         {{ form_end(userForm) }}
 
-
-
 {% endblock %}
+{#    {% include "_flash.twig.html" %}
+    {{ form_errors(userForm) }}
+        {% for field in userForm %}
+            {{ form_row(field) }}
+            <div class="formError">
+                {{ form_errors(field) }}
+            </div>
+
+        {% endfor %}
+        <button class="btn">Enregistrer</button>
+    {{ form_end(userForm) }}#}
+
+    {#        {{ form_start(userForm, {'attr': {'class': 'subContent'}} ) }}
+        <h1>Modifier mon profil</h1>
+        {% include "_flash.twig.html" %}
+        <div class="formError">
+            {{ form_errors(userForm) }}
+        </div>
+        {{ form_widget(userForm) }}
+        <button class="btn">Enregistrer</button>
+        {{ form_end(userForm) }} #}
+{#
+{% block body %}
+        {% include "_flash.twig.html" %}
+        {{ form_start(userForm, {'attr': {'class': 'subContent'}}) }}
+        <h1>Modifier mon profil</h1>
+        {{ form_errors(userForm) }}
+        {% for field in userForm %}
+                {{ form_row(field) }}
+                {{ form_errors(field) }}
+        {% endfor %}
+        <button class="btn">Enregistrer</button>
+        {{ form_end(userForm) }}
+{% endblock %} #}
 

@@ -120,6 +120,11 @@ header .content {
     width: 100%;
 }
 
+.mLarge{
+    padding: 2rem 2rem;
+    width: 100%;
+}
+
 
 #logo, #logoImg{
     height: 80px;
@@ -161,6 +166,10 @@ dl .flexLine:last-of-type {
 
 .check{
     color: #25a769;
+}
+
+.redCross{
+    color: #c33725;
 }
 
 header::after {
@@ -218,6 +227,21 @@ form .flexLine:nth-last-child(2){
     border-bottom-left-radius: 0;
     margin-left: 0.1rem;
 }
+
+.form-error {
+    color: red;
+    font-size: 0.9em;
+}
+
+
+.userForm ul li{
+    color: red;
+    font-size: 0.6em;
+    font-weight: 400;
+    list-style: none;
+    margin-left: 0.5rem;
+}
+
 /************************************/
 
 .btn{
@@ -543,6 +567,20 @@ dropdown-menu label{
 
 
 /***************END Filter Accueil******************/
+
+/**********************FORM CREATION SORTI*************************/
+
+.createSortiForm{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*.formCol{
+    !*width: 45%;*!
+    width: fit-content;
+}*/
+/**********************END FORM CREATION SORTI*********************/
 
 /*.cardContent .btn{
     background: linear-gradient(10deg, var(--sColor1), var(--sColor2));

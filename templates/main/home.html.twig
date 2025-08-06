@@ -84,7 +84,8 @@
 {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
                             <p>État : {{ sortie.etat.libelle }}</p>
-                            <a class="orgaLink" href="{{ path('profil', {id: organisateur.id} ) }}">organistaeur : {{ sortie.organisateur.pseudo }}</a>
+                            <a >organistaeur :
+                                <a class="orgaLink"href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a></p>
                         </div>
                         <div class="flexLine">
                             <div></div>
@@ -99,7 +100,7 @@
     </section>
     {#    </div> #}
 
-    <script src="{{ 'assets(js/multiselect-dropdown.js') }}"></script>
+    <script src="{{ asset('js/multiselect-dropdown.js') }}"></script>
 {% endblock %}
 
 {% block title %}Accueil{% endblock %}

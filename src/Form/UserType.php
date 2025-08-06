@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserType extends AbstractType
 {
@@ -24,12 +25,16 @@ class UserType extends AbstractType
         $builder
             ->add('pseudo', TextType::class, ['label' => 'Pseudo', 'row_attr' => ['class' => 'flexLine']], )
             ->add('campus', EntityType::class, [
-                "label"=>"Campus",
-                'row_attr' => ['class' => 'flexLine'],
-                "class"=>Campus::class,
-                "choice_label"=>"name",
-                "placeholder"=>"Choisissez votre campus"
-            ])
+    "label" => "Campus",
+    'row_attr' => ['class' => 'flexLine'],
+    "class" => Campus::class,
+    "choice_label" => "name",
+    "placeholder" => "Choisissez votre campus",
+    'required' => true,
+    'constraints' => [
+        new Assert\NotNull(message: 'Veuillez sélectionner un campus', groups: ['edit'])
+    ]
+])
             ->add('firstname', TextType::class, ['label' => 'Prénom', 'required' => false, 'row_attr' => ['class' => 'flexLine']])
             ->add('lastname', TextType::class, ['label' => 'Nom','required' => false, 'row_attr' => ['class' => 'flexLine']])
             ->add('email', EmailType::class, ['label' => 'Email', 'row_attr' => ['class' => 'flexLine']], )
@@ -63,6 +68,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['edit'],  // Ajoutez cette ligne
         ]);
     }
 }

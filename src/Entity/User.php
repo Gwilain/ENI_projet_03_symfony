@@ -6,12 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.', errorPath: 'email', groups: ['edit'])]
+#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà pris.',errorPath: 'pseudo', groups: ['edit'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,11 +21,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\Email()]
-    #[Assert\NotBlank]
-    #[ORM\Column(length: 180)]
+    #[Assert\Email(message: 'Email non valide.', groups: ['edit'])]
+    #[Assert\NotBlank(groups: ['edit'])]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[Assert\NotBlank(message: 'Un pseudo est necessaire', groups: ['edit'])]
+    #[Assert\Length(
+        min: 3,
+        max: 180,
+        minMessage: "Le pseudo doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le pseudo ne peut pas dépasser {{ limit }} caractères",
+        groups: ['edit']
+    )]
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $pseudo = null;
     /**
      * @var list<string> The user roles
      */
@@ -37,8 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 180)]
-    private ?string $pseudo = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
@@ -56,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phoneNumber = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
+    #[Assert\NotNull(message: 'Veuillez sélectionner un campus', groups: ['edit'])]
     private ?Campus $campus = null;
 
     /**

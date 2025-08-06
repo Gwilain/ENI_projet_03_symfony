@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="subContent mLarge">
+
+        <h2>Créer une sortie</h2>
+        {{ form_start(formSorti) }}
+        <div class="createSortiForm">
+            <div class="formCol">
+                {{ form_row(formSorti.name) }}
+                {{ form_row(formSorti.dateHeureDebut) }}
+                {{ form_row(formSorti.dateLimiteInscription) }}
+                {{ form_row(formSorti.nbInscriptionMax) }}
+                {{ form_row(formSorti.duree) }}
+            </div>
+
+            <div class="formCol">
+{#                {{ form_row(formSorti.campus) }}#}
+                <div class="flexLine"><span>Campus : </span><span>{{ formSorti.vars.data.campus.name }}</span></div>
+                {{ form_row(formSorti.lieu) }}
+
+{#                <div class="flexLine"><span>Campus : </span><span>{{ formSorti.vars.data.lieu.rue }}</span></div>#}
+
+            </div>
+
+        </div>
+        {#        {{ form_widget(formSorti) }} #}
+
+        {{ form_end(formSorti) }}
+
+
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

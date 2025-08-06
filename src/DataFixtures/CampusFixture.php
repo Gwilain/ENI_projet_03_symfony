@@ -10,7 +10,7 @@ class CampusFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $campuses = ["nantes", "Rennes", "Quimper", "Niort"];
+        $campuses = ["Nantes", "Rennes", "Quimper", "Niort"];
 
         foreach ($campuses as $key => $c) {
 
