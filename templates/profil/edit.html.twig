@@ -13,7 +13,13 @@
 
         {{ form_widget(userForm) }}
 
-        <button class="btn">Enregistrer</button>
+    <div class="flexLine">
+        <div></div>
+        <div>
+            <a class="btn cancelBtn" href="{{ path("profil", {id: app.user.id}) }}">Annuler</a>
+            <button class="btn">Enregistrer</button>
+        </div>
+    </div>
         {{ form_end(userForm) }}
 
 {% endblock %}

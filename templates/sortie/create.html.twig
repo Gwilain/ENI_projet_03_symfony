@@ -4,35 +4,53 @@
     <section class="subContent mLarge">
 
         <h2>Créer une sortie</h2>
+        {% include "_flash.twig.html" %}
         {{ form_start(formSorti) }}
         <div class="createSortiForm">
+
             <div class="formCol">
                 {{ form_row(formSorti.name) }}
                 {{ form_row(formSorti.dateHeureDebut) }}
                 {{ form_row(formSorti.dateLimiteInscription) }}
                 {{ form_row(formSorti.nbInscriptionMax) }}
-                {{ form_row(formSorti.duree) }}
+                <div class="flexLine">
+                    <label class="required">Durée :</label>
+                    <div>
+
+                        {{ form_widget(formSorti.duree.hour, { 'attr': {'class': 'duree-hour'} }) }}
+                        {{ form_widget(formSorti.duree.minute, { 'attr': {'class': 'duree-minute'} }) }}
+                    </div>
+                </div>
+                {#                {{ form_row(formSorti.duree) }} #}
             </div>
 
             <div class="formCol">
-{#                {{ form_row(formSorti.campus) }}#}
+
                 <div class="flexLine"><span>Campus : </span><span>{{ formSorti.vars.data.campus.name }}</span></div>
                 {{ form_row(formSorti.lieu) }}
 
-{#                <div class="flexLine"><span>Campus : </span><span>{{ formSorti.vars.data.lieu.rue }}</span></div>#}
+                <div id="infosLieu">
+                    <p class="flexLine">Adresse : <span id="lieuAdresse">_____________</span></p>
+                    <p class="flexLine">Code postal : <span id="lieuCodePostal">_____________</span></p>
+                    <p class="flexLine">Lat. / Long. : <span id="lieuCoor">_____________</span></p>
+                </div>
 
             </div>
-
         </div>
-        {#        {{ form_widget(formSorti) }} #}
+        <div class="infoContainer">
+            {{ form_row(formSorti.infosSortie) }}
+        </div>
+        <div class="flexLine">
+            <div></div>
+            <div>
+                <a class="btn cancelBtn" href="{{ path("home") }}">Annuler</a>
+                <button class="btn">Enregistrer</button>
+            </div>
+        </div>
 
         {{ form_end(formSorti) }}
-
-
-        </div>
-
     </section>
-
+    <script src="{{ asset('js/dymaForms.js') }}"></script>
 {% endblock %}
 
 {% block title %}

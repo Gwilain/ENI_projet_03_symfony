@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,13 +24,15 @@ class SortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add("name",TextType::class, ["label"=>'Nom de la sortie','row_attr' => ['class' => 'flexLine'],])
+            ->add("name",TextType::class, ["label"=>'Nom de la sortie :','row_attr' => ['class' => 'flexLine'],])
             ->add('dateHeureDebut', DateTimeType::class, [
+                "label"=>'Date et heure :',
                 'widget' => 'single_text',
                 'html5' => true,
                 'row_attr' => ['class' => 'flexLine'],
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
+                "label"=>'Date limite d\'inscription :',
                 'widget' => 'single_text',
                 'html5' => true,
                 'row_attr' => ['class' => 'flexLine'],
@@ -45,28 +48,27 @@ class SortieType extends AbstractType
                 'row_attr' => ['class' => 'flexLine'],
                 'placeholder'=>"00"
             ])
-
-
-
-            ->add('infosSortie')
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
+                "label"=>'Lieu :',
                 'choice_label' => 'name',
-            ])
-            ->add('Etat', EntityType::class, [
+                'placeholder' => 'Choisissez un lieu',
+                'row_attr' => ['class' => 'flexLine'],
+            ])->add('infosSortie', TextareaType::class,
+                [
+                    'row_attr' => ['class' => 'taSortieInfo'],
+                    'label' => 'Description de la sortie :',
+                    'attr' => [
+                        'rows' => 7,
+                        'class' => 'form-control',
+                    ],
+                ]
+            )
+            /*->add('Etat', EntityType::class, [
                 'class' => Etat::class,
                 'choice_label' => 'id',
-            ])
+            ])*/
 
-            ->add('organisateur', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('participants', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
         ;
     }
 

@@ -207,9 +207,9 @@ form .flexLine{
     margin-bottom: var(--xl);
 }
 
-form .flexLine:nth-last-child(2){
+/*form .flexLine:nth-last-child(2){
     margin-bottom: var(--xl);
-}
+}*/
 
 
 .shortInput{
@@ -262,6 +262,13 @@ form .flexLine:nth-last-child(2){
 .btn {
     color: white;
     background-color: black;
+    border: solid 1px black;
+}
+
+.cancelBtn{
+    background-color: grey;
+    border: solid 1px grey;
+    margin-right: var(--m);
 }
 
 .btn:hover{
@@ -573,8 +580,57 @@ dropdown-menu label{
 .createSortiForm{
     display: flex;
     justify-content: space-between;
+    font-size: var(--l);
 }
 
+.taSortieInfo textarea{
+    width: 100%;
+    margin-top: var(--sm);
+    padding: var(--m);
+    font-size: var(--l);
+    font-family: inherit;
+    font-weight: inherit;
+}
+
+.formCol input{
+    width: 150px;
+}
+
+.infoContainer{
+        text-align: left;
+        margin-bottom: var(--l);
+}
+
+#sortie_duree_hour, .duree-hour {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: 0;
+}
+
+
+#sortie_duree_minute, .duree-minute {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: 0;
+}
+
+
+/*.formCol input:first-of-type{
+    width: 300px;
+}*/
+
+
+/*
+.createSortiForm label,
+.infosLieu p {
+    font-size: var(--l);
+    font-weight: 100;
+    color: red;
+}
+*/
+#infosLieu p {
+    margin-top: 2.9rem;
+}
 
 /*.formCol{
     !*width: 45%;*!
