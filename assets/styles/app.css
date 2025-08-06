@@ -244,31 +244,36 @@ form .flexLine{
 
 /************************************/
 
+.btnContainer{
+    display: flex;
+    gap: var(--l);
+}
+
 .btn{
 
     padding: 0.5rem 1.2rem;
-    color: var(--titleColor);
     border-radius: var(--sm);
     cursor: pointer;
     font-size: var(--ml);
     font-weight: 600;
     /*background: linear-gradient(30deg, var(--accent-color), var(--accent-color2));*/
-    background-color: var(--accent-color2);
-    border: solid 1px var(--grey);
+    color: white;
+    background-color: black;
+    border: solid 1px black;
     transition: filter 0.3s ease;
 
 }
 
-.btn {
-    color: white;
-    background-color: black;
-    border: solid 1px black;
+
+.btnAccentColor{
+    color: var(--titleColor);
+    background-color: var(--accent-color2);
+    border: solid 1px var(--accent-color2);;
 }
 
 .cancelBtn{
     background-color: grey;
     border: solid 1px grey;
-    margin-right: var(--m);
 }
 
 .btn:hover{

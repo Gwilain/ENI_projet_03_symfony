@@ -42,9 +42,14 @@
         </div>
         <div class="flexLine">
             <div></div>
-            <div>
+            <div class="btnContainer">
                 <a class="btn cancelBtn" href="{{ path("home") }}">Annuler</a>
-                <button class="btn">Enregistrer</button>
+{#                <button class="btn">Enregistrer</button>#}
+
+                <button class="btn" type="submit" name="action" value="save" >Enregistrer</button>
+
+                <button class="btn btnAccentColor" type="submit" name="action" value="publish">Publier</button>
+
             </div>
         </div>
 

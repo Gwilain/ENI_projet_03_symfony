@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class EtatFixture extends Fixture
 {
-    private $states = ["En création", "ouverte", "En cours", "Cloturée", "Terminée", "Annulée", "Historisée"];
+    private $states = ["En création", "Ouverte", "En cours", "Cloturée", "Terminée", "Annulée", "Historisée"];
 
     public function load(ObjectManager $manager): void
     {
