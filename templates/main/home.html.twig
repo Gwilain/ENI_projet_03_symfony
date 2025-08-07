@@ -69,7 +69,7 @@
                          <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')  }}</p>
                         <div>
                             {% if sortie.participants.contains(app.user) %}
-                                <img src="{{ asset("img/person.svg") }}" alt="Je participe">
+                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a>
                             {% endif %}
                             {% if sortie.organisateur == app.user %}
                                 <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">

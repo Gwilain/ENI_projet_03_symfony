@@ -43,8 +43,14 @@
         <div class="flexLine">
             <div></div>
             <div class="btnContainer">
+
                 <a class="btn cancelBtn" href="{{ path("home") }}">Annuler</a>
-{#                <button class="btn">Enregistrer</button>#}
+
+                {% if modif %}
+
+                <a class="btn btn-danger" href="{{ path("sortie_supress", {id: formSorti.vars.data.id}) }}">Supprimer</a>
+
+                {% endif %}
 
                 <button class="btn" type="submit" name="action" value="save" >Enregistrer</button>
 

@@ -6,17 +6,20 @@ use App\Entity\Etat;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function Symfony\Component\Clock\now;
 
 final class SortieVoter extends Voter
 {
     public const EDIT = 'SORTIE_EDIT';
     public const VIEW = 'SORTIE_VIEW';
+    public const ENROLL = 'SORTIE_ENROLL';
+    public const WITHDRAW = 'SORTIE_WITHDRAW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
+        return in_array($attribute, [self::EDIT, self::VIEW, self::ENROLL, self::WITHDRAW])
             && $subject instanceof \App\Entity\Sortie;
     }
 
@@ -38,8 +41,18 @@ final class SortieVoter extends Voter
             case self::VIEW:
                 return $sortie->getOrganisateur() === $user
                     || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS], true);
-        }
 
+            case self::ENROLL:
+                return $sortie->getOrganisateur() !== $user
+                    && !in_array($user, $sortie->getParticipants()->toArray(), true)
+                    && $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE
+                    && $sortie->getDateLimiteInscription() > new \DateTimeImmutable('now')
+                    && count($sortie->getParticipants()) < $sortie->getNbInscriptionMax();
+
+            case self::WITHDRAW:
+                return in_array($user, $sortie->getParticipants()->toArray(), true)
+                    && $sortie->getDateHeureDebut() > new \DateTimeImmutable('now');
+        }
 
         return false;
     }

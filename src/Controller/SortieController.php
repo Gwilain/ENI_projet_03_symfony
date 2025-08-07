@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/sortie')]
 final class SortieController extends AbstractController
 {
+
+
     #[Route('/{id}', name: 'sortie_detail', requirements: ['id'=>'\d+'], methods: ['GET'])]
     public function sortie(Sortie $sortie): Response
     {
@@ -37,6 +39,8 @@ final class SortieController extends AbstractController
         $user = $this->getUser();
         $sortie->setOrganisateur( $user );
         $sortie->setCampus( $user->getCampus() );
+
+        $modif = false;
 
         $defaultState = $etatRepo->findOneBy(['code' => Etat::CODE_EN_CREATION]);
         $sortie->setEtat($defaultState);
@@ -63,6 +67,7 @@ final class SortieController extends AbstractController
 
         return $this->render('sortie/create.html.twig', [
             "formSorti"=>$form,
+            "modif"=>$modif
         ]);
     }
 
@@ -77,12 +82,15 @@ final class SortieController extends AbstractController
         //utilisation du Voter SortieVoter
         $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
 
+        $modif = true;
+
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $action = $request->request->get('action');
+
             if ($action === 'publish') {
                 $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
                 $sortie->setEtat($state);
@@ -98,14 +106,13 @@ final class SortieController extends AbstractController
 
         return $this->render('sortie/create.html.twig', [
             "formSorti"=>$form,
+            "modif"=>$modif
         ]);
-
-
     }
 
 
     #[Route('/publier/{id}', name: 'sortie_publish', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function publish(Sortie $sortie,  EntityManagerInterface $em,EtatRepository $etatRepo){
+    public function publish(Sortie $sortie,  EntityManagerInterface $em, EtatRepository $etatRepo){
 
         $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
 
@@ -116,6 +123,50 @@ final class SortieController extends AbstractController
 
         return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
     }
+
+    #[Route('/supprimer/{id}', name: 'sortie_supress', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function suppress(Sortie $sortie,  EntityManagerInterface $em){
+
+        $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
+
+        $em->remove($sortie);
+        $em->flush();
+
+        $this->addFlash('success', "La sortie a bien été supprimée");
+
+        return $this->redirectToRoute('home');
+    }
+
+    #[Route('/enroll/{id}', name: 'sortie_enroll', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function enroll(Sortie $sortie,  EntityManagerInterface $em ){
+
+        $this->denyAccessUnlessGranted('SORTIE_ENROLL', $sortie);
+
+        $sortie->addParticipant($this->getUser());
+
+        $em->persist($sortie);
+        $em->flush();
+
+        $this->addFlash('success', "Vous êtes bien inscrit à cette sortie !!!");
+
+        return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+    }
+
+    #[Route('/withdraw/{id}', name: 'sortie_withdraw', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function withdraw(Sortie $sortie,  EntityManagerInterface $em){
+
+        $this->denyAccessUnlessGranted('SORTIE_WITHDRAW', $sortie);
+
+        $sortie->removeParticipant($this->getUser());
+
+        $em->persist($sortie);
+        $em->flush();
+
+        $this->addFlash('success', "Vous n'êtes plus inscrit à cette sortie");
+
+        return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+    }
+
 
 
     #[Route('/lieu/adresse/{id}', name: 'sortie-adress', methods: ['GET'])]

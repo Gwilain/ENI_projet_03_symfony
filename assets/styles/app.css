@@ -22,6 +22,8 @@
     --accent-color2: #19d8ca;
     --accent-color3: #96d6d0;
 
+    --danger-color: #a31e00;
+
     --s:0.5rem;
     --sm:0.75rem;
     --m:1rem;
@@ -268,6 +270,11 @@ form .flexLine{
 .btnAccentColor{
     color: var(--titleColor);
     background-color: var(--accent-color2);
+    border: solid 1px  var(--titleColor);
+}
+
+.btn-danger{
+    background-color: var(--danger-color);
     border: solid 1px  var(--titleColor);;
 }
 

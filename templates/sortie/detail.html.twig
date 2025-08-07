@@ -22,15 +22,15 @@
                     <dd>{{ sortie.dateHeureDebut|format_datetime('none', 'short', locale: 'fr')}}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Date limite d'inscription</dt>
+                    <dt>Date limite d'inscription :</dt>
                     <dd>{{ sortie.dateLimiteInscription|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Nombre de place</dt>
+                    <dt>Nombre de participants :</dt>
                     <dd>{{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Durée</dt>
+                    <dt>Durée :</dt>
                     <dd>{{ sortie.dureeFormate }} min.</dd>
                 </div>
 
@@ -38,36 +38,35 @@
 
             <dl>
                 <div class="flexLine">
-                    <dt>Campus</dt>
+                    <dt>Campus :</dt>
                     <dd>{{ sortie.campus ? sortie.campus.name : "non renseigné" }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Ville</dt>
+                    <dt>Ville :</dt>
                     <dd>{{ sortie.lieu ? sortie.lieu.ville.name : "non renseigné" }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Lieu</dt>
+                    <dt>Lieu :</dt>
                     <dd>{{  sortie.lieu ? sortie.lieu.name  : "non renseigné"  }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Rue</dt>
+                    <dt>Rue :</dt>
                     <dd>{{ sortie.lieu ? sortie.lieu.rue : "non renseigné"  }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Code postal</dt>
+                    <dt>Code postal :</dt>
                     <dd>{{ sortie.lieu ? sortie.lieu.ville.codePostal : "non renseigné" }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Ville</dt>
+                    <dt>Ville :</dt>
                     <dd>{{ sortie.lieu ?sortie.lieu.ville.name : "non renseigné" }}</dd>
                 </div>
                 <div class="flexLine">
-                    <dt>Latitude / Longitude</dt>
+                    <dt>Latitude / Longitude :</dt>
                     {% if sortie.lieu %}
                         <dd>{{ sortie.lieu.latitude }} / {{ sortie.lieu.longitude }}</dd>
                         {% else %}
                         <dd>{{ "non renseigné" }}</dd>
-
                     {% endif %}
                 </div>
             </dl>
@@ -77,12 +76,15 @@
                 <a class="btn" href="{{ path('sortie_edit', {id: sortie.id}) }}">Modifier</a>
             {% endif %}
 
-        {#{% if app.user == sortie.organisateur and sortie.etat.libelle == 'En création'  %}
+            {% if is_granted('SORTIE_ENROLL', sortie) %}
+                <a class="btn btnAccentColor" href="{{ path('sortie_enroll', {id: sortie.id}) }}">S'inscrire</a>
+            {% endif %}
 
-            <a class="btn" href="{{ path('sortie_edit', {id:sortie.id}) }}">Modifier</a>
+            {% if is_granted('SORTIE_WITHDRAW', sortie) %}
+                <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>
+            {% endif %}
 
 
-        {% endif %}#}
     </section>
     <section class="participantsection">
         <h3>Participants :</h3>
