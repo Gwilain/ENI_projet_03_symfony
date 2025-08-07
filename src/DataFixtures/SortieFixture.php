@@ -84,11 +84,10 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
 
             $now = new \DateTimeImmutable('today');
             if ($date > $now) {
-                $etatIndex = $faker->numberBetween(0, 1);
-                $sortie->setEtat($this->getReference('etat_' . $etatIndex, Etat::class));
-            }else{
-                //etat_4  = Terminées
-                $sortie->setEtat($this->getReference('etat_4', Etat::class));
+                $etatCode = $faker->randomElement(['CREATION', 'OUVERTE']);
+                $sortie->setEtat($this->getReference('etat_' . $etatCode));
+            } else {
+                $sortie->setEtat($this->getReference('etat_TERMINEE'));
             }
 
             $sortie->setCampus( $organisateur->getCampus() );

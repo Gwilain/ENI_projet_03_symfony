@@ -64,7 +64,7 @@
         <ul class="sortieList">
             {% for sortie in sorties %}
                 <li class="sortieHome">
-                    <div class="cardHeader">
+                    <div class="cardHeader {{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_TERMINEE') ? 'cardHeaderFinished' :'' }}">
                          <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')  }}</p>
                         <div>
                             {% if sortie.participants.contains(app.user) %}
@@ -84,7 +84,7 @@
 {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
                             <p>État : {{ sortie.etat.libelle }}</p>
-                            <a >organistaeur :
+                            <p >organistaeur :
                                 <a class="orgaLink"href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a></p>
                         </div>
                         <div class="flexLine">

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
@@ -20,8 +21,7 @@ final class SortieController extends AbstractController
     #[Route('/{id}', name: 'sortie_detail', requirements: ['id'=>'\d+'], methods: ['GET'])]
     public function sortie(Sortie $sortie): Response
     {
-        //$sortie = $repo->findAll();
-
+        $this->denyAccessUnlessGranted('SORTIE_VIEW', $sortie);
 
         return $this->render('sortie/detail.html.twig', [
             'sortie' => $sortie,
@@ -38,7 +38,7 @@ final class SortieController extends AbstractController
         $sortie->setOrganisateur( $user );
         $sortie->setCampus( $user->getCampus() );
 
-        $defaultState = $etatRepo->findOneBy(["libelle"=>"En création"]);
+        $defaultState = $etatRepo->findOneBy(['code' => Etat::CODE_EN_CREATION]);
         $sortie->setEtat($defaultState);
 
         $form = $this->createForm(SortieType::class, $sortie);
@@ -48,7 +48,7 @@ final class SortieController extends AbstractController
 
             $action = $request->request->get('action');
             if ($action === 'publish') {
-                $state = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+                $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
                 $sortie->setEtat($state);
             }
 
@@ -74,11 +74,6 @@ final class SortieController extends AbstractController
                                EtatRepository $etatRepo
     ): Response {
 
-        /*$user = $this->getUser();
-        if (
-            $sortie->getOrganisateur() !== $user || $sortie->getEtat()->getLibelle() !== 'En création') {
-            throw $this->createAccessDeniedException("Vous ne pouvez pas modifier cette sortie.");
-        }*/
         //utilisation du Voter SortieVoter
         $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
 
@@ -89,7 +84,7 @@ final class SortieController extends AbstractController
 
             $action = $request->request->get('action');
             if ($action === 'publish') {
-                $state = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+                $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
                 $sortie->setEtat($state);
             }
 

@@ -20,6 +20,7 @@
 
     --accent-color: #0095a3;
     --accent-color2: #19d8ca;
+    --accent-color3: #96d6d0;
 
     --s:0.5rem;
     --sm:0.75rem;
@@ -330,13 +331,17 @@ main{
     justify-content: space-between;
     //height: var(--l);
 }
+
+.cardHeaderFinished{
+    background-color: var(--accent-color3);
+}
+
 .cardHeader img{
     height: var(--l);
 }
 
 .date{
     font-weight: 700;
-
 }
 
 .cardContent{

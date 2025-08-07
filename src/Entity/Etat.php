@@ -6,18 +6,35 @@ use App\Repository\EtatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
 class Etat
 {
+
+    public const CODE_EN_CREATION = 'en_creation';
+    public const CODE_OUVERTE = 'ouverte';
+    public const CODE_EN_COURS = 'en_cours';
+    public const CODE_CLOTUREE = 'cloturee';
+    public const CODE_TERMINEE = 'terminee';
+    public const CODE_ANNULEE = 'annulee';
+    public const CODE_HISTORISEE = 'historisee';
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 180)]
     private ?string $libelle = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
+    #[ORM\Column(length: 50, unique: true)]
+    private ?string $code = null;
     /**
      * @var Collection<int, Sortie>
      */
@@ -43,6 +60,17 @@ class Etat
     {
         $this->libelle = $libelle;
 
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): static
+    {
+        $this->code = $code;
         return $this;
     }
 

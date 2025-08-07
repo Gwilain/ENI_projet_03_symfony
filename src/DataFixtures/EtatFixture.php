@@ -8,20 +8,25 @@ use Doctrine\Persistence\ObjectManager;
 
 class EtatFixture extends Fixture
 {
-    private $states = ["En création", "Ouverte", "En cours", "Cloturée", "Terminée", "Annulée", "Historisée"];
+    private array $states = [
+        ['libelle' => 'En création', 'code' => Etat::CODE_EN_CREATION],
+        ['libelle' => 'Ouverte', 'code' => Etat::CODE_OUVERTE],
+        ['libelle' => 'En cours', 'code' => Etat::CODE_EN_COURS],
+        ['libelle' => 'Clôturée', 'code' => Etat::CODE_CLOTUREE],
+        ['libelle' => 'Terminée', 'code' => Etat::CODE_TERMINEE],
+        ['libelle' => 'Annulée', 'code' => Etat::CODE_ANNULEE],
+        ['libelle' => 'Historisée', 'code' => Etat::CODE_HISTORISEE],
+    ];
 
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        $faker = \Faker\Factory::create('fr_FR');
-
-        foreach ($this->states as $i => $state) {
+        foreach ($this->states as $state) {
             $etat = new Etat();
-            $etat->setLibelle($state);
+            $etat->setLibelle($state['libelle']);
+            $etat->setCode($state['code']);
             $manager->persist($etat);
 
-            $this->addReference('etat_' . $i, $etat);
+            $this->addReference('etat_' . $state['code'], $etat);
         }
 
         $manager->flush();
