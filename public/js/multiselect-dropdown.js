@@ -5,7 +5,7 @@ document.querySelectorAll('.dropdown-toggle').forEach(btn => {
   });
 });
 
-// Clique en dehors → ferme tous les dropdowns
+// Clique en dehors :: ferme tous les dropdowns
 document.addEventListener('click', function (e) {
   document.querySelectorAll('.dropdown-multi').forEach(drop => {
     if (!drop.contains(e.target)) {

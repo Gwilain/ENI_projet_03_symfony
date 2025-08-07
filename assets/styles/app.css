@@ -361,9 +361,21 @@ main{
     font-size: 1.6rem;
 }
 
+.noButton{
+       background-color: transparent;
+       border: 0 solid transparent;
+       border-radius: 0;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+
+}
+
+
 .orgaLink{
     font-weight: 600;
     color: var(--accent-color);
+    cursor: pointer;
 }
 
 .orgaLink:hover{
@@ -647,17 +659,73 @@ dropdown-menu label{
 }*/
 /**********************END FORM CREATION SORTI*********************/
 
-/*.cardContent .btn{
-    background: linear-gradient(10deg, var(--sColor1), var(--sColor2));
-}*/
 
 
-/*.accentBtn{
-    background: linear-gradient(30deg, var(--accent-color), var(--accent-color2));
-    border: solid 1px var(--accent-color);
+/***********************MODAL*******************************/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 }
 
-.accentBtn2{
-    background: linear-gradient(30deg, var(--accent-color2), var(--accent-color));
-    border: solid 1px var(--accent-color);
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: var(--l);
+    border: 1px solid #000;
+    width: 50%;
+    border-radius: var(--m);
+}
+
+.close {
+    color: var(--titleColor);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#secondTitle{
+    font-size: var(--l);
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+#secondLink{
+    color: var(--accent-color);
+}
+
+#secondLink:hover{
+    text-decoration: underline;
+}
+
+/*
+#modalLink{
+    margin-top: 300px !important;
+    color:red !important;
+}
+*/
+
+/*.modal a#modalLink.btn {
+    margin-top: 300px;
+    color: red;
 }*/
+
+.modal p:last-of-type{
+    margin-bottom: var(--xl);
+}
+
+/***********************END MODAL*******************************/
+

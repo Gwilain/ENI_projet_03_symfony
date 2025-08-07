@@ -7,6 +7,7 @@
     <section class="subContent large">
 
         <h2>Liste des sorties</h2>
+        {% include "_flash.twig.html" %}
         <div class="subSubContent filters">
             {{ form_start(form) }}
             <div>
@@ -83,9 +84,31 @@
                             <p>Clôture : {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
 {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
+                            {% if is_granted('SORTIE_EDIT', sortie) %}
+{#                            <p><span>État : </span><a class="orgaLink" href='#' title="Publier votre sortie">{{ sortie.etat.libelle }}</a></p>#}
+                            <p>
+                                <span>État : </span>
+                                <button
+                                        class="noButton orgaLink"
+                                        onclick="displayModal(this)"
+                                        data-template="publishModal"
+                                        title="Publier votre sortie"
+                                        data-second-title="{{ sortie.name }}"
+                                        data-sortie-link="{{ path("sortie_publish",{id : sortie.id}) }}"
+                                        data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                                    {{ sortie.etat.libelle }}
+                                </button>
+                                </p>
+
+
+
+                            {% else %}
                             <p>État : {{ sortie.etat.libelle }}</p>
-                            <p >organistaeur :
-                                <a class="orgaLink"href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a></p>
+
+                            {% endif %}
+                            <p >Organisateur :
+                                <a class="orgaLink"href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a>
+                            </p>
                         </div>
                         <div class="flexLine">
                             <div></div>
@@ -98,9 +121,19 @@
         </ul>
 
     </section>
+    {% include "modal.html.twig" %}
+    <template id="publishModal">
+        <h3>Publier la Sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Voulez-vous vraiment publier cette sortie ?</p>
+        <p>Vous ne pourrez plus la modifier.</p>
+        <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+        <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>
+    </template>
     {#    </div> #}
 
     <script src="{{ asset('js/multiselect-dropdown.js') }}"></script>
+    <script src="{{ asset('js/modal2.js') }}"></script>
 {% endblock %}
 
 {% block title %}Accueil{% endblock %}

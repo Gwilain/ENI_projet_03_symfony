@@ -104,6 +104,19 @@ final class SortieController extends AbstractController
     }
 
 
+    #[Route('/publier/{id}', name: 'sortie_publish', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function publish(Sortie $sortie,  EntityManagerInterface $em,EtatRepository $etatRepo){
+
+        $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
+
+        $etatOuvert = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
+        $sortie->setEtat( $etatOuvert );
+        $em->persist($sortie);
+        $em->flush();
+
+        return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+    }
+
 
     #[Route('/lieu/adresse/{id}', name: 'sortie-adress', methods: ['GET'])]
     public function getAdresse(int $id, LieuRepository $lieuRepository): JsonResponse
