@@ -47,12 +47,6 @@
         </div>
 
 
-{#        <div class="filters">
-            {{ form_start(form)}}
-            {{ form_widget(form) }}
-            <button class="btn">Rechercher</button>
-            {{ form_end(form)}}
-        </div>#}
 
 
         <ul class="sortieList">
@@ -65,7 +59,6 @@
 {#                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a>#}
                                 <button
                                         class="noButton orgaLink"
-                                        onclick="displayModal(this)"
                                         data-template="withdrawModal"
                                         title="Se désinscrire de la sortie"
                                         data-second-title="{{ sortie.name }}"
@@ -76,17 +69,24 @@
 
 
                             {% endif %}
-                            {% if sortie.organisateur == app.user %}
-                                <a href="{{ path("sortie_edit", {id:sortie.id}) }}">
-                                    <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
-                                </a>
+                            {% if sortie.organisateur == app.user%}
+                                {% if is_granted('SORTIE_EDIT', sortie) %}
+
+                                    <a href="{{ path("sortie_edit", {id:sortie.id}) }}">
+                                        <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
+                                    </a>
+                                {% else %}
+                                    <img  style="opacity: 0.4;" src="{{ asset("img/tools.svg") }}" alt="La sortie n'est plus modifiable">
+                                {% endif %}
+
+
                             {% endif %}
                         </div>
                     </div>
                     
                     <div class="cardContent">
                         <div class="cardInfo">
-                            <h3>{{ sortie.name }}</h3>
+                            <h3 class="{{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE') ? 'titleCardCanceled' :'' }}">{{ sortie.name }}</h3>
                             <p>Campus : {{ sortie.campus.name }}</p>
                             <p>Clôture : {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
 {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
@@ -97,7 +97,6 @@
                                 <span>État : </span>
                                 <button
                                         class="noButton orgaLink"
-                                        onclick="displayModal(this)"
                                         data-template="publishModal"
                                         title="Publier votre sortie"
                                         data-second-title="{{ sortie.name }}"
@@ -110,7 +109,7 @@
 
 
                             {% else %}
-                            <p>État : {{ sortie.etat.libelle }}</p>
+                                <p>État : <span class="{{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE') ? 'libelleCardCanceled' :'' }}">{{ sortie.etat.libelle }}</span></p>
 
                             {% endif %}
                             <p >Organisateur :
@@ -137,10 +136,11 @@
         <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
         <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>
     </template>
+
     <template id="withdrawModal">
         <h3>Se désinscrire de la sortie</h3>
         <h4 id="secondTitle"></h4>
-        <p>Voulez-vous vraiment vous désinscrire de cette sortie?</p>
+        <p>Voulez-vous vraiment vous désinscrire<br> de cette sortie?</p>
         <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
         <a id="modalLink" class="btn btnAccentColor" href="#">Se désister</a>
     </template>

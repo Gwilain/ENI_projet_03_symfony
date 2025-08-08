@@ -248,12 +248,13 @@ form .flexLine{
 /************************************/
 
 .btnContainer{
-    display: flex;
-    gap: var(--l);
+    /*display: flex;
+    gap: var(--l);*/
 }
 
 .btn{
-
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
     padding: 0.5rem 1.2rem;
     border-radius: var(--sm);
     cursor: pointer;
@@ -345,6 +346,15 @@ main{
 
 .cardHeader img{
     height: var(--l);
+}
+
+.titleCardCanceled{
+    text-decoration: line-through ;
+}
+
+.libelleCardCanceled{
+    font-weight: 600;
+    color: var(--danger-color);
 }
 
 .date{
@@ -445,6 +455,9 @@ main ul li .btn{
     margin-left: var(--m);
 }
 
+.motifAnnulation{
+    margin-bottom: var(--xl);
+}
 
 /*******************END DETAIL SORTIE****************************/
 
@@ -611,6 +624,10 @@ dropdown-menu label{
     font-size: var(--l);
 }
 
+.annulationSortie{
+    min-width: 60%;
+}
+
 .taSortieInfo textarea{
     width: 100%;
     margin-top: var(--sm);
@@ -619,6 +636,29 @@ dropdown-menu label{
     font-family: inherit;
     font-weight: inherit;
 }
+
+.taSortieMotifAnnulation{
+    display: flex;
+    flex-direction: column;
+    gap: var(--m);
+    margin-top: var(--m);
+
+}
+
+.taSortieMotifAnnulation label{
+    text-align: left;
+    margin-bottom:0;
+}
+
+.taSortieMotifAnnulation textarea{
+    margin-top: 0;
+    margin-bottom: var(--l);
+    padding: var(--m);
+    font-size: var(--l);
+    font-family: inherit;
+    font-weight: inherit;
+}
+
 
 .formCol input{
     width: 150px;

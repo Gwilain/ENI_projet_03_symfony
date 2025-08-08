@@ -1,3 +1,24 @@
+
+
+function initModal() {
+    const modal = document.getElementById("customModal");
+
+    document.querySelectorAll("[data-template]").forEach(btn => {
+        btn.addEventListener("click", () => displayModal(btn));
+    });
+
+    modal.querySelector(".close").onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+
+
 const modal = document.getElementById("customModal")
 
 function displayModal(item) {
@@ -22,13 +43,8 @@ function displayModal(item) {
     }
 }
 
+// Pour DOM classique
+document.addEventListener('DOMContentLoaded', initModal);
 
-modal.querySelector(".close").onclick = function () {
-    modal.style.display = "none";
-}
-
-window.onclick = function (event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
+// Pour navigation Turbo
+document.addEventListener('turbo:load', initModal);

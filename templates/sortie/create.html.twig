@@ -3,7 +3,15 @@
 {% block body %}
     <section class="subContent mLarge">
 
-        <h2>Créer une sortie</h2>
+
+        {% if modif %}
+            <h2>Modifier la sortie</h2>
+        {% else %}
+            <h2>Créer une sortie</h2>
+        {% endif %}
+
+
+
         {% include "_flash.twig.html" %}
         {{ form_start(formSorti) }}
         <div class="createSortiForm">
@@ -43,8 +51,12 @@
         <div class="flexLine">
             <div></div>
             <div class="btnContainer">
+                {% if modif %}
+                    <a class="btn cancelBtn" href="{{ path("sortie_detail", {id: formSorti.vars.data.id}) }}">Retour</a>
+                {% else %}
+                    <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
 
-                <a class="btn cancelBtn" href="{{ path("home") }}">Annuler</a>
+                {% endif %}
 
                 {% if modif %}
 

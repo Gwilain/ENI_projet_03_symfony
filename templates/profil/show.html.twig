@@ -3,7 +3,13 @@
 {% block body %}
 
         <section class="subContent">
-            <h2>Mon profil</h2>
+            {% if app.user == user %}
+                <h2>Mon profil</h2>
+            {% else %}
+                <h2>Détail du profil</h2>
+            {% endif %}
+
+
             {% include "_flash.twig.html" %}
             <h3>{{ user.pseudo }}</h3>
             <dl>
@@ -32,9 +38,16 @@
                     <dd>{{ user.phoneNumber ?: 'Non renseigné' }}</dd>
                 </div>
             </dl>
-            {% if app.user == user %}
-                <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
-            {% endif %}
+            <div>
+
+
+                <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
+                {% if app.user == user %}
+                    <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+                {% endif %}
+
+            </div>
+
         </section>
 
 {% endblock %}

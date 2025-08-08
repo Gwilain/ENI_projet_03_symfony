@@ -71,22 +71,32 @@
                 </div>
             </dl>
             </div>
+        {% if  sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE')%}
+            <h3>Motif de l'annulation :</h3>
+            <p class="motifAnnulation">{{ sortie.motifAnnulation }}</p>
+        {% endif %}
 
-            {% if is_granted('SORTIE_EDIT', sortie) %}
-                <a class="btn" href="{{ path('sortie_edit', {id: sortie.id}) }}">Modifier</a>
-            {% endif %}
+        <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
+        {% if is_granted('SORTIE_EDIT', sortie) %}
+            <a class="btn" href="{{ path('sortie_edit', {id: sortie.id}) }}">Modifier</a>
+        {% endif %}
 
-            {% if is_granted('SORTIE_ENROLL', sortie) %}
-                <a class="btn btnAccentColor" href="{{ path('sortie_enroll', {id: sortie.id}) }}">S'inscrire</a>
-            {% endif %}
 
-            {% if is_granted('SORTIE_CANCELABLE', sortie) %}
-                <a class="btn" href="{{ path('sortie_cancel', {id: sortie.id}) }}">Annuler</a>
-            {% endif %}
+        {% if is_granted('SORTIE_CANCELABLE', sortie) %}
+            <a class="btn" href="{{ path('sortie_cancel', {id: sortie.id}) }}">Annuler la sortie</a>
+        {% endif %}
 
-            {% if is_granted('SORTIE_WITHDRAW', sortie) %}
-                <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>
-            {% endif %}
+        {% if is_granted('SORTIE_WITHDRAW', sortie) %}
+            <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>
+        {% endif %}
+
+        {% if is_granted('SORTIE_ENROLL', sortie) %}
+            <a class="btn btnAccentColor" href="{{ path('sortie_enroll', {id: sortie.id}) }}">S'inscrire</a>
+        {% endif %}
+
+        {% if is_granted('SORTIE_EDIT', sortie) %}
+            <a class="btn btnAccentColor" href="{{ path('sortie_publish', {id: sortie.id}) }}">S'inscrire</a>
+        {% endif %}
 
 
     </section>

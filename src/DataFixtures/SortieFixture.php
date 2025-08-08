@@ -46,26 +46,15 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
             $organisateur = $this->getReference('user_' . $orgaIndex, User::class);
             $sortie->setOrganisateur($organisateur);
 
-            $sortie->addParticipant($organisateur);
-            $nbParticipant = $faker->numberBetween(0, $nbInscritMax-1);
-
-            for ($j = 0; $j < $nbParticipant; $j++) {
-                $participantIndex = $faker->numberBetween(0, 9);
-                $participant =  $this->getReference('user_' . $participantIndex, User::class);
-
-                if (!$sortie->getParticipants()->contains($participant)) {
-                    $sortie->addParticipant($participant);
-                }
-            }
 
             $rLName = $faker->name();
             $nomLieu = $faker->randomElement([
                     'Salle des fêtes',
-                    'Parc municipal',
-                    'Maison des associations',
+                    'Parc',
+                    'Musée',
                     'Gymnase',
                     'Espace culturel',
-                ]) .  $rLName;
+                ])." " .  $rLName;
 
             $lieu = new Lieu();
             $lieu->setName($nomLieu);
@@ -77,9 +66,7 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
 
             $lieu->setVille( $this->getReference('ville_' . $villeId, Ville::class) );
 
-
             $sortie->setLieu($lieu);
-
             $manager->persist($lieu);
 
             $now = new \DateTimeImmutable('today');
@@ -87,6 +74,24 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
                 $etatCode = $faker->randomElement([Etat::CODE_EN_CREATION, Etat::CODE_OUVERTE]);
 
                 $sortie->setEtat($this->getReference( $etatCode, Etat::class));
+
+                $sortie->addParticipant($organisateur);
+
+                if($etatCode == Etat::CODE_OUVERTE){
+                    $nbParticipant = $faker->numberBetween(0, $nbInscritMax-1);
+
+                    for ($j = 0; $j < $nbParticipant; $j++) {
+                        $participantIndex = $faker->numberBetween(0, 9);
+                        $participant =  $this->getReference('user_' . $participantIndex, User::class);
+
+                        if (!$sortie->getParticipants()->contains($participant)) {
+                            $sortie->addParticipant($participant);
+                        }
+                    }
+                }
+
+
+
             } else {
                 $sortie->setEtat($this->getReference(Etat::CODE_TERMINEE, Etat::class));
             }
@@ -95,10 +100,7 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
             //$campusIndex = $faker->numberBetween(0, 3);
 
             $manager->persist($sortie);
-
         }
-
-
 
         $manager->flush();
     }

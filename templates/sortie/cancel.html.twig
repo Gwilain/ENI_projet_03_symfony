@@ -2,6 +2,53 @@
 
 {% block body %}
 
+    <section class="subContent annulationSortie">
+        <h2>Annuler la sortie</h2>
+        {% include "_flash.twig.html" %}
+        <h3>{{ sortie.name }}</h3>
+
+        <div>
+            <dl>
+
+                <div class="flexLine">
+                    <dt>Date :</dt>
+                    <dd>{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Heure :</dt>
+                    <dd>{{ sortie.dateHeureDebut|format_datetime('none', 'short', locale: 'fr')}}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Campus :</dt>
+                    <dd>{{ sortie.campus ? sortie.campus.name : "non renseigné" }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Ville :</dt>
+                    <dd>{{ sortie.lieu ? sortie.lieu.ville.name : "non renseigné" }}</dd>
+                </div>
+                <div class="flexLine">
+                    <dt>Lieu :</dt>
+                    <dd>{{  sortie.lieu ? sortie.lieu.name  : "non renseigné"  }}</dd>
+                </div>
+
+            </dl>
+
+        </div>
+        {{ form_start(formSorti) }}
+        {{ form_widget(formSorti) }}
+        <div class="flexLine">
+            <div></div>
+            <div>
+            <a class="btn cancelBtn" href="{{ path("sortie_detail",{id:sortie.id}) }}">Retour</a>
+            <button class="btn">Enregistrer</button>
+
+            </div>
+        </div>
+
+        {{ form_end(formSorti) }}
+
+    </section>
+
 {% endblock %}
 
 {% block title %}

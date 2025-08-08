@@ -25,9 +25,9 @@ final class MainController extends AbstractController
     #[Route('/', name: 'home', methods: ['GET'])]
     public function home(Request $request, Security $security,SortieRepository $sortieRepository): Response
     {
-        $user = $security->getUser();
+       $user = $security->getUser();
 
-        if (!$user) {
+         if (!$user) {
             //redirect non donnected user to login
             return $this->redirectToRoute('app_login');
         }

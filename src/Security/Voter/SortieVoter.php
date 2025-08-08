@@ -52,12 +52,12 @@ final class SortieVoter extends Voter
 
             case self::WITHDRAW:
                 return in_array($user, $sortie->getParticipants()->toArray(), true)
+                    && !$sortie->getEtat()->getCode() === Etat::CODE_ANNULEE
                     && $sortie->getDateHeureDebut() > new \DateTimeImmutable('now');
 
             case self::CANCELABLE:
                 return $sortie->getOrganisateur() === $user
-                    && ($sortie->getEtat()->getCode() === Etat::CODE_EN_CREATION
-                    || $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE);
+                    && $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE;
         }
 
         return false;

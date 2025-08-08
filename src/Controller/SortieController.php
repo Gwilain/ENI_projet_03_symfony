@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Form\CancelationType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -98,7 +99,7 @@ final class SortieController extends AbstractController
 
             $em->persist($sortie);
             $em->flush();
-//            $this->addFlash("success", "Votre Sortie a bien été créée.");
+
             $this->addFlash('success', "Sortie " . ($action === 'publish' ? "publiée" : "enregistrée") . " avec succès.");
 
             return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
@@ -168,13 +169,36 @@ final class SortieController extends AbstractController
     }
 
     #[Route('/cancel/{id}', name: 'sortie_cancel', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function cancel(Sortie $sortie){
+    public function cancel(Sortie $sortie, Request $request, EntityManagerInterface $em, EtatRepository $etatRepo){
+
+        $this->denyAccessUnlessGranted('SORTIE_CANCELABLE', $sortie);;
+
+        $form = $this->createForm(CancelationType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $etat = $etatRepo->findOneBy(['code' => Etat::CODE_ANNULEE]);
+            $sortie->setEtat($etat);
+
+
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', "La sortie a bien été annulée");
+
+            return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+        }
 
         return $this->render('sortie/cancel.html.twig', [
+            "formSorti"=>$form,
             "sortie"=>$sortie,
         ]);
     }
 
+
+
+
+    /***********************************************************************/
     //MINI API POUR AVOIR L'ADRESSE DU LIEU DYNAMIQUEMENT'
 
     #[Route('/lieu/adresse/{id}', name: 'sortie-adress', methods: ['GET'])]
