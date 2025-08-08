@@ -80,6 +80,10 @@
                 <a class="btn btnAccentColor" href="{{ path('sortie_enroll', {id: sortie.id}) }}">S'inscrire</a>
             {% endif %}
 
+            {% if is_granted('SORTIE_CANCELABLE', sortie) %}
+                <a class="btn" href="{{ path('sortie_cancel', {id: sortie.id}) }}">Annuler</a>
+            {% endif %}
+
             {% if is_granted('SORTIE_WITHDRAW', sortie) %}
                 <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>
             {% endif %}

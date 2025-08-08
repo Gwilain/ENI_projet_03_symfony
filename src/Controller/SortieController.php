@@ -167,7 +167,15 @@ final class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
     }
 
+    #[Route('/cancel/{id}', name: 'sortie_cancel', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function cancel(Sortie $sortie){
 
+        return $this->render('sortie/cancel.html.twig', [
+            "sortie"=>$sortie,
+        ]);
+    }
+
+    //MINI API POUR AVOIR L'ADRESSE DU LIEU DYNAMIQUEMENT'
 
     #[Route('/lieu/adresse/{id}', name: 'sortie-adress', methods: ['GET'])]
     public function getAdresse(int $id, LieuRepository $lieuRepository): JsonResponse

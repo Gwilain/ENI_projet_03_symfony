@@ -26,7 +26,7 @@ class EtatFixture extends Fixture
             $etat->setCode($state['code']);
             $manager->persist($etat);
 
-            $this->addReference('etat_' . $state['code'], $etat);
+            $this->addReference($state['code'], $etat);
         }
 
         $manager->flush();

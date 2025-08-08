@@ -14,12 +14,13 @@ final class SortieVoter extends Voter
     public const VIEW = 'SORTIE_VIEW';
     public const ENROLL = 'SORTIE_ENROLL';
     public const WITHDRAW = 'SORTIE_WITHDRAW';
+    public const CANCELABLE = 'SORTIE_CANCELABLE';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW, self::ENROLL, self::WITHDRAW])
+        return in_array($attribute, [self::EDIT, self::VIEW, self::ENROLL, self::WITHDRAW, self::CANCELABLE])
             && $subject instanceof \App\Entity\Sortie;
     }
 
@@ -43,8 +44,8 @@ final class SortieVoter extends Voter
                     || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS], true);
 
             case self::ENROLL:
-                return $sortie->getOrganisateur() !== $user
-                    && !in_array($user, $sortie->getParticipants()->toArray(), true)
+                return
+                    !in_array($user, $sortie->getParticipants()->toArray(), true)
                     && $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE
                     && $sortie->getDateLimiteInscription() > new \DateTimeImmutable('now')
                     && count($sortie->getParticipants()) < $sortie->getNbInscriptionMax();
@@ -52,6 +53,11 @@ final class SortieVoter extends Voter
             case self::WITHDRAW:
                 return in_array($user, $sortie->getParticipants()->toArray(), true)
                     && $sortie->getDateHeureDebut() > new \DateTimeImmutable('now');
+
+            case self::CANCELABLE:
+                return $sortie->getOrganisateur() === $user
+                    && ($sortie->getEtat()->getCode() === Etat::CODE_EN_CREATION
+                    || $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE);
         }
 
         return false;

@@ -38,14 +38,7 @@
                             </div>
                         {% endfor %}
                     </div>
-{#                    <div class="dropdown-menu">#}
 
-                        {#<label><input type="checkbox" name="sortiQue[]" value="organise">Sorties que j'organise</label>
-                        <label><input type="checkbox" name="thematiques[]" value="inscrit">Sorties auxquelles je suis inscrit/e</label>
-                        <label><input type="checkbox" name="thematiques[]" value="pasInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
-                        <label><input type="checkbox" name="thematiques[]" value="terminee">Sorties terminées</label>#}
-{#                        {{ form_row(form.sortiesQue) }}#}
-{#                    </div>#}
                 </div>
 
                 <button type="submit" class="btnSearch"><img class="search" src="{{ asset('/img/search.svg') }}" alt="Rechercher"></button>
@@ -69,10 +62,24 @@
                          <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')  }}</p>
                         <div>
                             {% if sortie.participants.contains(app.user) %}
-                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a>
+{#                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a>#}
+                                <button
+                                        class="noButton orgaLink"
+                                        onclick="displayModal(this)"
+                                        data-template="withdrawModal"
+                                        title="Se désinscrire de la sortie"
+                                        data-second-title="{{ sortie.name }}"
+                                        data-sortie-link="{{ path("sortie_withdraw",{id : sortie.id}) }}"
+                                        data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                                    <img src="{{ asset("img/person.svg") }}" alt="Je participe">
+                                </button>
+
+
                             {% endif %}
                             {% if sortie.organisateur == app.user %}
-                                <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
+                                <a href="{{ path("sortie_edit", {id:sortie.id}) }}">
+                                    <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
+                                </a>
                             {% endif %}
                         </div>
                     </div>
@@ -130,7 +137,13 @@
         <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
         <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>
     </template>
-    {#    </div> #}
+    <template id="withdrawModal">
+        <h3>Se désinscrire de la sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Voulez-vous vraiment vous désinscrire de cette sortie?</p>
+        <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+        <a id="modalLink" class="btn btnAccentColor" href="#">Se désister</a>
+    </template>
 
     <script src="{{ asset('js/multiselect-dropdown.js') }}"></script>
     <script src="{{ asset('js/modal2.js') }}"></script>

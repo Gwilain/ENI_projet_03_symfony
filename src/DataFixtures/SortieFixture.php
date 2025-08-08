@@ -20,7 +20,7 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
         $verbs = ['Randonnée', 'Atelier', 'Soirée', 'Balade', 'Découverte', 'Initiation', 'Sortie', 'Tournoi', 'Marche', 'Visite'];
         $adjectives= ['dans le parc', 'gourmande', 'au musée', 'entre amis', 'créative', 'nocturne', 'nature', 'sportive', 'musicale', 'au bord de l’eau'];
 
-        for( $i = 0; $i < 60; $i++ ) {
+        for( $i = 0; $i < 90; $i++ ) {
             $sortie = new Sortie();
 
             $title = $faker->randomElement($verbs) . ' ' . $faker->randomElement($adjectives);
@@ -84,10 +84,11 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
 
             $now = new \DateTimeImmutable('today');
             if ($date > $now) {
-                $etatCode = $faker->randomElement(['CREATION', 'OUVERTE']);
-                $sortie->setEtat($this->getReference('etat_' . $etatCode));
+                $etatCode = $faker->randomElement([Etat::CODE_EN_CREATION, Etat::CODE_OUVERTE]);
+
+                $sortie->setEtat($this->getReference( $etatCode, Etat::class));
             } else {
-                $sortie->setEtat($this->getReference('etat_TERMINEE'));
+                $sortie->setEtat($this->getReference(Etat::CODE_TERMINEE, Etat::class));
             }
 
             $sortie->setCampus( $organisateur->getCampus() );

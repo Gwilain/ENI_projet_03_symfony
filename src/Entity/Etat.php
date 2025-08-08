@@ -82,7 +82,7 @@ class Etat
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): static
+    /*public function addSorty(Sortie $sorty): static
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties->add($sorty);
@@ -102,5 +102,5 @@ class Etat
         }
 
         return $this;
-    }
+    }*/
 }
