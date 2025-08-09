@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content headerContent">
 
     <h1 id="logo"><a href="{{ path('home') }}"><img id="logoImg" src="{{ '/img/logo2.png' }}" alt="logo sortir.com"></a></h1>
 
@@ -11,12 +11,10 @@
         <ul>
 {#            <li><a href="#">Administration</a></li>#}
             <li><a href="{{ path('home') }}">Accueil</a></li>
-            <li><a href="{{ path('sortie_create') }}">Créer une sortie</a></li>
+{#            <li><a href="{{ path('sortie_create') }}">Créer une sortie</a></li>#}
 
             <li><a href="{{ path('profil', {id: app.user.id} ) }}">Mon profil</a></li>
             <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-
-
         </ul>
             {% endif %}
     </nav>
@@ -24,9 +22,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             const btnBurger = document.querySelector('.btnBurger');
             const menu = document.querySelector('nav ul');
+            const nav = document.querySelector('nav');
+
+            /*window.addEventListener('click', () => {
+                // menu.classList.toggle('open');
+                nav.classList.toggle('open');
+            });*/
 
             btnBurger.addEventListener('click', () => {
-                menu.classList.toggle('open');
+                // menu.classList.toggle('open');
+                nav.classList.toggle('open');
             });
         });
     </script>
