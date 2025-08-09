@@ -122,6 +122,9 @@ final class SortieController extends AbstractController
         $em->persist($sortie);
         $em->flush();
 
+        $this->addFlash('success', "Sortie publiée avec succès.");
+
+
         return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
     }
 

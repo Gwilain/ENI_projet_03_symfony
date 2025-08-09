@@ -2,9 +2,11 @@
 
 {% block body %}
 
-    <section class="subContent details">
+    <section class="subContent details mLarge">
         <h2>{{ sortie.name }}</h2>
         {% include "_flash.twig.html" %}
+
+        <div class="wrapper">
         <p class="infosSortie">{{ sortie.infosSortie }}</p>
 
         <div class="detailInfos">
@@ -71,6 +73,8 @@
                 </div>
             </dl>
             </div>
+
+        </div>
         {% if  sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE')%}
             <h3>Motif de l'annulation :</h3>
             <p class="motifAnnulation">{{ sortie.motifAnnulation }}</p>

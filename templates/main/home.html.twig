@@ -7,8 +7,21 @@
     <section class="subContent large">
 
         <h2>Liste des sorties</h2>
+
+
         {% include "_flash.twig.html" %}
         <div class="subSubContent filters">
+
+            <div class="btnPlusContainer">
+                <a href="{{ path('sortie_create') }}" title="Ajouter une sortie">
+                    <div class="btnPlus">+</div>
+                    <div class="btnPlusWrapper">
+                        <div class="btnPlusTxt">Ajouter une sortie</div>
+                    </div>
+                </a>
+            </div>
+
+
             {{ form_start(form) }}
             <div>
                 {{ form_row(form.search) }}
@@ -16,7 +29,7 @@
 
             <div class="formRow">
 
-                <div >
+                <div>
                     {{ form_row(form.campus) }}
                 </div>
                 <div class="dates">
@@ -27,36 +40,40 @@
                         {{ form_row(form.dateFin) }}
                     </div>
                 </div>
+                <div>
 
-                <div class="dropdown-multi">
-                    <button  type="button" class="dropdown-toggle">Sorties ... <img src="{{ asset('img/arrow.svg') }}" width="12px" alt="arrow down"></button>
-                    <div class="dropdown-menu checkbox-inline">
-                        {% for checkbox in form.sortiesQue %}
-                            <div>
-                                {{ form_widget(checkbox) }}
-                                {{ form_label(checkbox) }}
-                            </div>
-                        {% endfor %}
+                    <div class="dropdown-multi">
+                        <button type="button" class="dropdown-toggle">Sorties ... <img
+                                    src="{{ asset('img/arrow.svg') }}"
+                                    width="12px" alt="arrow down">
+                        </button>
+                        <div class="dropdown-menu checkbox-inline">
+                            {% for checkbox in form.sortiesQue %}
+                                <div>
+                                    {{ form_widget(checkbox) }}
+                                    {{ form_label(checkbox) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
                     </div>
 
+                    <button type="submit" class="btnSearch"><img class="search" src="{{ asset('/img/search.svg') }}"
+                                                                 alt="Rechercher"></button>
                 </div>
-
-                <button type="submit" class="btnSearch"><img class="search" src="{{ asset('/img/search.svg') }}" alt="Rechercher"></button>
                 {{ form_end(form) }}
             </div>
         </div>
-
-
 
 
         <ul class="sortieList">
             {% for sortie in sorties %}
                 <li class="sortieHome">
                     <div class="cardHeader {{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_TERMINEE') ? 'cardHeaderFinished' :'' }}">
-                         <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')  }}</p>
+                        <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</p>
                         <div>
                             {% if sortie.participants.contains(app.user) %}
-{#                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a>#}
+                                {#                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a> #}
                                 <button
                                         class="noButton orgaLink"
                                         data-template="withdrawModal"
@@ -69,56 +86,60 @@
 
 
                             {% endif %}
-                            {% if sortie.organisateur == app.user%}
+                            {% if sortie.organisateur == app.user %}
                                 {% if is_granted('SORTIE_EDIT', sortie) %}
 
                                     <a href="{{ path("sortie_edit", {id:sortie.id}) }}">
                                         <img src="{{ asset("img/tools.svg") }}" alt="Modifier la sortie">
                                     </a>
                                 {% else %}
-                                    <img  style="opacity: 0.4;" src="{{ asset("img/tools.svg") }}" alt="La sortie n'est plus modifiable">
+                                    <img style="opacity: 0.4;" src="{{ asset("img/tools.svg") }}"
+                                         alt="La sortie n'est plus modifiable">
                                 {% endif %}
 
 
                             {% endif %}
                         </div>
                     </div>
-                    
+
                     <div class="cardContent">
                         <div class="cardInfo">
                             <h3 class="{{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE') ? 'titleCardCanceled' :'' }}">{{ sortie.name }}</h3>
                             <p>Campus : {{ sortie.campus.name }}</p>
                             <p>Clôture : {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
-{#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p>#}
+                            {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p> #}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
                             {% if is_granted('SORTIE_EDIT', sortie) %}
-{#                            <p><span>État : </span><a class="orgaLink" href='#' title="Publier votre sortie">{{ sortie.etat.libelle }}</a></p>#}
-                            <p>
-                                <span>État : </span>
-                                <button
-                                        class="noButton orgaLink"
-                                        data-template="publishModal"
-                                        title="Publier votre sortie"
-                                        data-second-title="{{ sortie.name }}"
-                                        data-sortie-link="{{ path("sortie_publish",{id : sortie.id}) }}"
-                                        data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
-                                    {{ sortie.etat.libelle }}
-                                </button>
+                                {#                            <p><span>État : </span><a class="orgaLink" href='#' title="Publier votre sortie">{{ sortie.etat.libelle }}</a></p> #}
+                                <p>
+                                    <span>État : </span>
+                                    <button
+                                            class="noButton orgaLink"
+                                            data-template="publishModal"
+                                            title="Publier votre sortie"
+                                            data-second-title="{{ sortie.name }}"
+                                            data-sortie-link="{{ path("sortie_publish",{id : sortie.id}) }}"
+                                            data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                                        {{ sortie.etat.libelle }}
+                                    </button>
                                 </p>
 
 
 
                             {% else %}
-                                <p>État : <span class="{{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE') ? 'libelleCardCanceled' :'' }}">{{ sortie.etat.libelle }}</span></p>
+                                <p>État : <span
+                                            class="{{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_ANNULEE') ? 'libelleCardCanceled' :'' }}">{{ sortie.etat.libelle }}</span>
+                                </p>
 
                             {% endif %}
-                            <p >Organisateur :
-                                <a class="orgaLink"href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a>
+                            <p>Organisateur :
+                                <a class="orgaLink"
+                                   href="{{ path('profil', {id: sortie.organisateur.id} ) }}">{{ sortie.organisateur.pseudo }}</a>
                             </p>
                         </div>
                         <div class="flexLine">
                             <div></div>
-{#                            <a href="{{ path("sortie_detail")~"/"~sortie.id }}" class="btn">Détail</a>#}
+                            {#                            <a href="{{ path("sortie_detail")~"/"~sortie.id }}" class="btn">Détail</a> #}
                             <a href="{{ path('sortie_detail', { id: sortie.id }) }}" class="btn">Détail</a>
                         </div>
                     </div>
