@@ -139,11 +139,16 @@ final class SortieController extends AbstractController
     }
 
     #[Route('/enroll/{id}', name: 'sortie_enroll', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function enroll(Sortie $sortie,  EntityManagerInterface $em ){
+    public function enroll(Sortie $sortie,  EntityManagerInterface $em, EtatRepository $etatRepo ){
 
         $this->denyAccessUnlessGranted('SORTIE_ENROLL', $sortie);
 
         $sortie->addParticipant($this->getUser());
+
+        //ON change l'état si c'est plein
+        if($sortie->getParticipants()->count() == $sortie->getNbInscriptionMax() ){
+            $sortie->setEtat($etatRepo->findOneBy(['code' => Etat::CODE_CLOTUREE]));
+        }
 
         $em->persist($sortie);
         $em->flush();
@@ -154,11 +159,17 @@ final class SortieController extends AbstractController
     }
 
     #[Route('/withdraw/{id}', name: 'sortie_withdraw', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function withdraw(Sortie $sortie,  EntityManagerInterface $em){
+    public function withdraw(Sortie $sortie,  EntityManagerInterface $em, EtatRepository $etatRepo){
 
         $this->denyAccessUnlessGranted('SORTIE_WITHDRAW', $sortie);
 
+        //ON change l'état si c'est plus plein
+        if($sortie->getParticipants()->count() == $sortie->getNbInscriptionMax() ){
+            $sortie->setEtat($etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]));
+        }
+
         $sortie->removeParticipant($this->getUser());
+
 
         $em->persist($sortie);
         $em->flush();

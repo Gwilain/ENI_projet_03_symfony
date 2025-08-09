@@ -775,4 +775,53 @@ dropdown-menu label{
 }
 
 /***********************END MODAL*******************************/
+.btnBurger{
+    width: 50px;
+    background-color: transparent;
+    border: 0 solid transparent;
+    display: none;
+    margin-right: var(--l);
+    cursor: pointer;
+}
 
+
+#hamburger{
+    color: var(--titleColor);
+    width: 50px;
+    height: 50px;
+}
+
+nav ul {
+    display: flex; /* par défaut, menu visible sur desktop en ligne */
+    gap: 20px; /* juste un exemple d’espacement */
+}
+
+@media screen and (max-width: 1024px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        align-items: flex-end;
+        right: 0;
+        top: 80px;
+        padding: var(--xl);
+        border-radius: 5px;
+        background-color: var(--accent-color2);
+        z-index: 100;
+    }
+
+    nav ul.open {
+        display: flex; /* affiche le menu quand la classe open est ajoutée */
+    }
+
+    .btnBurger {
+        display: block; /* bouton visible sur mobile */
+    }
+}
+
+@media screen and (max-width: 560px) {
+
+    .sortieList{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

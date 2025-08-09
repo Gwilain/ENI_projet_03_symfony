@@ -41,7 +41,7 @@ final class SortieVoter extends Voter
 
             case self::VIEW:
                 return $sortie->getOrganisateur() === $user
-                    || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS], true);
+                    || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS, Etat::CODE_CLOTUREE], true);
 
             case self::ENROLL:
                 return
@@ -52,7 +52,9 @@ final class SortieVoter extends Voter
 
             case self::WITHDRAW:
                 return in_array($user, $sortie->getParticipants()->toArray(), true)
-                    && !$sortie->getEtat()->getCode() === Etat::CODE_ANNULEE
+                    && ($sortie->getEtat()->getCode() === Etat::CODE_OUVERTE
+                    || $sortie->getEtat()->getCode() === Etat::CODE_CLOTUREE)
+                    && $sortie->getEtat()->getCode() !== Etat::CODE_ANNULEE
                     && $sortie->getDateHeureDebut() > new \DateTimeImmutable('now');
 
             case self::CANCELABLE:

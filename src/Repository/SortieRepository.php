@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -87,57 +88,26 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    /*public function findByFilters(?array $filters): array
-   {
-       /b = $this->createQueryBuilder('e')
-           ->leftJoin('e.campus', 'c')
-           ->addSelect('c');
+    public function findSortiesTermineesDepuis(\DateTimeImmutable $date): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateHeureDebut < :date')
+            ->andWhere('s.etat.code != :historisee')
+            ->setParameter('date', $date)
+            ->setParameter('historisee', Etat::CODE_HISTORISEE)
+            ->getQuery()
+            ->getResult();
+    }
 
-       if (!empty($filters['campus'])) {
-           $qb->andWhere('e.campus = :campus')
-               ->setParameter('campus', $filters['campus']);
-       }
+    public function findSortiesDateLimiteDepassee(\DateTimeImmutable $now): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateLimiteInscription <= :now')
+            ->andWhere('s.etat.code != :cloturee')
+            ->setParameter('now', $now)
+            ->setParameter('cloturee', Etat::CODE_CLOTUREE)
+            ->getQuery()
+            ->getResult();
+    }
 
-       if (!empty($filters['search'])) {
-           $qb->andWhere('e.name LIKE :search')
-               ->setParameter('search', '%' . $filters['search'] . '%');
-       }
-
-      if (!empty($filters['dateDebut'])) {
-           $qb->andWhere('e.dateHeureDebut >= :dateDebut')
-               ->setParameter('dateDebut', $filters['dateDebut']);
-       }
-
-       if (!empty($filters['dateFin'])) {
-           $qb->andWhere('e.dateLimiteInscription <= :dateFin')
-               ->setParameter('dateFin', $filters['dateFin']);
-       }
-
-       if (!empty($filters['sortiesQue']) && is_array($filters['sortiesQue'])) {
-           $selected = $filters['sortiesQue'];
-
-           if (in_array('organise', $selected)) {
-               $qb->andWhere('e.organisateur = :user')
-                   ->setParameter('user', $filters['user']);
-           }
-
-
-           if (in_array('inscrit', $selected)) {
-               $qb->andWhere(':user MEMBER OF e.participants')
-                   ->setParameter('user', $filters['user']);
-           }
-
-           if (in_array('pasInscrit', $selected)) {
-               $qb->andWhere(':user NOT MEMBER OF e.participants')
-                   ->setParameter('user', $filters['user']);
-           }
-           //marche pas comme je veux...
-           if (in_array('terminee', $selected) && !empty($filters['etatTerminee'])) {
-               $qb->andWhere('e.etat = :etatTerminee')
-                   ->setParameter('etatTerminee', $filters['etatTerminee']);
-           }
-       }
-
-       return $qb->getQuery()->getResult();
-   }*/
 }

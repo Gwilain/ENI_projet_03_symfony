@@ -3,6 +3,10 @@
     <h1 id="logo"><a href="{{ path('home') }}"><img id="logoImg" src="{{ '/img/logo2.png' }}" alt="logo sortir.com"></a></h1>
 
     <nav>
+        <button class="btnBurger">
+            <img class="hamburger" src="{{ asset('img/hamburger2.svg') }}" id="hamburger" alt="hamburger">
+        </button>
+
             {% if  app.user %}
         <ul>
 {#            <li><a href="#">Administration</a></li>#}
@@ -16,5 +20,15 @@
         </ul>
             {% endif %}
     </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnBurger = document.querySelector('.btnBurger');
+            const menu = document.querySelector('nav ul');
+
+            btnBurger.addEventListener('click', () => {
+                menu.classList.toggle('open');
+            });
+        });
+    </script>
 </div>
 
