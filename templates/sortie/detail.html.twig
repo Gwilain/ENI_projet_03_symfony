@@ -106,14 +106,19 @@
     </section>
     <section class="participantsection">
         <h3>Participants :</h3>
+        {% if sortie.participants is empty %}
+
+        <p>Aucun participant pour l’instant.</p>
+
+        {% else %}
         <ul class="participantsList">
             {% for participant in sortie.participants  %}
                 <li>
                     <a href="{{ path('profil', {id: participant.id} ) }}">{{ participant.pseudo }}</a><span>-  {{ participant.firstname }} {{ participant.lastname }}</span>
                 </li>
-
             {% endfor %}
         </ul>
+        {% endif %}
     </section>
 {% endblock %}
 
