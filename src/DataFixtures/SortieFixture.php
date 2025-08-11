@@ -89,9 +89,6 @@ class SortieFixture extends Fixture implements DependentFixtureInterface
                         }
                     }
                 }
-
-
-
             } else {
                 $sortie->setEtat($this->getReference(Etat::CODE_TERMINEE, Etat::class));
             }

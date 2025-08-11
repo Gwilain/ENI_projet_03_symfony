@@ -110,7 +110,7 @@
                             {#                            <p>Clôture : {{ sortie.dateLimiteInscription |  format_datetime(pattern='EEEE dd MMMM yyyy', locale='fr')   }}</p> #}
                             <p>participants : {{ sortie.participants.count }} / {{ sortie.nbInscriptionMax }}</p>
                             {% if is_granted('SORTIE_EDIT', sortie) %}
-                                {#                            <p><span>État : </span><a class="orgaLink" href='#' title="Publier votre sortie">{{ sortie.etat.libelle }}</a></p> #}
+                                {#<p><span>État : </span><a class="orgaLink" href='#' title="Publier votre sortie">{{ sortie.etat.libelle }}</a></p> #}
                                 <p>
                                     <span>État : </span>
                                     <button

@@ -87,14 +87,14 @@ class SortieRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-
-    public function findSortiesTermineesDepuis(\DateTimeImmutable $date): array
+    public function findToArchive(\DateTimeImmutable $dateLimite): array
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.dateHeureDebut < :date')
-            ->andWhere('s.etat.code != :historisee')
-            ->setParameter('date', $date)
-            ->setParameter('historisee', Etat::CODE_HISTORISEE)
+            ->join('s.Etat', 'e')
+            ->andWhere('s.dateHeureDebut < :dateLimite')
+            ->andWhere('e.code != :archiveCode')
+            ->setParameter('dateLimite', $dateLimite)
+            ->setParameter('archiveCode', \App\Entity\Etat::CODE_HISTORISEE)
             ->getQuery()
             ->getResult();
     }
@@ -102,8 +102,9 @@ class SortieRepository extends ServiceEntityRepository
     public function findSortiesDateLimiteDepassee(\DateTimeImmutable $now): array
     {
         return $this->createQueryBuilder('s')
+            ->join('s.Etat', 'e')
             ->andWhere('s.dateLimiteInscription <= :now')
-            ->andWhere('s.etat.code != :cloturee')
+            ->andWhere('e.code != :cloturee')
             ->setParameter('now', $now)
             ->setParameter('cloturee', Etat::CODE_CLOTUREE)
             ->getQuery()

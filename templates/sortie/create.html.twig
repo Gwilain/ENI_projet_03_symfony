@@ -68,12 +68,57 @@
 
                 <button class="btn btnAccentColor" type="submit" name="action" value="publish">Publier</button>
 
+              {#  <button
+                        class="noButton orgaLink"
+                        data-template="publishModal"
+                        title="Publier votre sortie"
+                        data-second-title="{{ sortie.name }}"
+                        data-sortie-link="{{ path("sortie_publish",{id : sortie.id}) }}"
+                        data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                    {{ sortie.etat.libelle }}
+                </button>#}
+
+               {# <template id="publishModal">
+                    <h3>Publier la Sortie</h3>
+                    <h4 id="secondTitle"></h4>
+                    <p>Voulez-vous vraiment publier cette sortie ?</p>
+                    <p>Vous ne pourrez plus la modifier.</p>
+                    <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+                    #}{#        <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>#}{#
+                    <button class="btn btnAccentColor" type="submit" name="action" value="publish">Publier</button>
+                </template>#}
+
+
             </div>
         </div>
 
         {{ form_end(formSorti) }}
     </section>
-{#    <script src="{{ asset('js/dymaForms.js') }}"></script>#}
+
+{#    <template id="publishModal">
+        <h3>Publier la Sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Voulez-vous vraiment publier cette sortie ?</p>
+        <p>Vous ne pourrez plus la modifier.</p>
+        <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+#}{#        <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>#}{#
+        <button class="btn btnAccentColor" type="submit" name="action" value="publish">Publier</button>
+    </template>#}
+
+    {#<template id="withdrawModal">
+        <h3>Se désinscrire de la sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Voulez-vous vraiment vous désinscrire<br> de cette sortie?</p>
+        <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+        <a id="modalLink" class="btn btnAccentColor" href="#">Se désister</a>
+    </template>
+
+    <template id="supprModal">
+        <h3>Supprimer la sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Voulez-vous vraiment vous supprimer cette sortie?</p>
+        <a id="modalLink" class="btn btn-danger" href="#">Supprimer</a>
+    </template>#}
 {% endblock %}
 
 {% block title %}

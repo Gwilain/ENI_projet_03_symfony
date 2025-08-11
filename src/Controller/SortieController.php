@@ -63,6 +63,7 @@ final class SortieController extends AbstractController
 //            $this->addFlash("success", "Votre Sortie a bien été créée.");
             $this->addFlash('success', "Sortie " . ($action === 'publish' ? "publiée" : "enregistrée") . " avec succès.");
 
+
             return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
         }
 
