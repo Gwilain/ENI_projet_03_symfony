@@ -8,7 +8,20 @@
 
 
     {{ form_start(userForm, {'attr': {'class': 'subContent userForm'}} ) }}
+
+    {% if isNew %}
+
+        <h1>Créer un nouvel utilisateur</h1>
+    {% elseif app.user.id == user.id %}
+
         <h1>Modifier mon profil</h1>
+    {% else %}
+
+        <h1>Modifier le profil</h1>
+    {% endif %}
+
+
+
         {% include "_flash.twig.html" %}
 
         {% if app.user.imageFile %}

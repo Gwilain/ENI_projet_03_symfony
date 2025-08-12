@@ -49,8 +49,8 @@
 
 
             <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
-            {% if app.user == user %}
-                <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+            {% if app.user == user or is_granted('ROLE_ADMIN') %}
+                <a class="btn" href="{{ path('profil_edit', {id:user.id}) }}">Modifier</a>
             {% endif %}
 
         </div>

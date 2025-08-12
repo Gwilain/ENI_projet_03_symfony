@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.', errorPath: 'email', groups: ['edit'])]
-#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà pris.',errorPath: 'pseudo', groups: ['edit'])]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.', errorPath: 'email', groups: ['create','edit'])]
+#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà pris.',errorPath: 'pseudo', groups: ['create', 'edit'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -89,6 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->sorties = new ArrayCollection();
         $this->sortiesInscrit = new ArrayCollection();
+        $this->event_admin = true;
     }
 
     public function getId(): ?int

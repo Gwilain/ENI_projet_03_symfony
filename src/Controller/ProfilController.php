@@ -35,21 +35,36 @@ final class ProfilController extends AbstractController
     }
 
 
-    #[Route('/modifier/{id}', name: 'profil_edit', methods: ['GET', 'POST'], requirements: ['id'=>'\d+'])]
+//    #[Route('/modifier/{id}', name: 'profil_edit', methods: ['GET', 'POST'], requirements: ['id'=>'\d+'])]
+    #[Route('/modifier/{id}', name: 'profil_edit', methods: ['GET', 'POST'], defaults: ['id' => null])]
     public function profile(
         Request $request,
         EntityManagerInterface $em,
-        User $user,
         UserPasswordHasherInterface $passwordHasher,
         SluggerInterface $slugger,
+        ?User $user = null,
     ): Response {
+        $isNew = false;
 
-//        $user = $this->getUser();
-        $userForm = $this->createForm(UserType::class, $user, ["validation_groups" => ["edit"]]);
+        if (!$user) {
+            // Création d'un nouvel utilisateur
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+            $user = new User();
+            $user->setEventAdmin(true);
+            $isNew = true;
+        } else {
+            // Edition d'un utilisateur existant
+            $this->denyAccessUnlessGranted('USER_EDIT', $user);
+        }
+
+
+        $userForm = $this->createForm(UserType::class, $user, [
+            'is_new' => $isNew,
+            "validation_groups" =>  $isNew ? ['create'] : ['edit'],
+            "is_admin" => $this->isGranted('ROLE_ADMIN') && $user != $this->getUser(),]);
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-//            dd($userForm);
 
                 $plainPassword = $userForm->get('plainPassword')->getData();
                 if ($plainPassword) {
@@ -57,17 +72,16 @@ final class ProfilController extends AbstractController
                     $user->setPassword($hashedPassword);
                 }
 
-                 $removePhoto = $userForm->get('removePhoto')->getData();
+                $removePhoto = $userForm->get('removePhoto')->getData();
                 $profilePictureFile = $userForm->get('profilePicture')->getData();
 
                 if ($removePhoto) {
-                    // Supprimer la photo sur le serveur si existante
+
                     if ($user->getImageFile()) {
                         unlink($this->getParameter('profile_pictures_directory').'/'.$user->getImageFile());
                         $user->setImageFile(null);
                     }
                 }
-
 
                 if ($profilePictureFile) {
                     $originalFilename = pathinfo($profilePictureFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -88,9 +102,11 @@ final class ProfilController extends AbstractController
 
                 $em->persist($user);
                 $em->flush();
-                $this->addFlash("success", "Votre profil a bien été modifié.");
 
-                return $this->redirectToRoute('profil', ['id' => $user->getId()]);
+            $message = $isNew ? "L'utilisateur a bien été créé." : "Le profil a bien été modifié.";
+            $this->addFlash("success", $message);
+
+            return $this->redirectToRoute('profil', ['id' => $user->getId()]);
 
         }elseif ($userForm->isSubmitted()) {
 
@@ -101,6 +117,7 @@ final class ProfilController extends AbstractController
         return $this->render('profil/edit.html.twig', [
             "user" => $user,
             "userForm" => $userForm,
+            "isNew" => $isNew,
         ]);
     }
 

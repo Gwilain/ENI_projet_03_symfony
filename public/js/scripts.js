@@ -65,12 +65,11 @@ function displayModal(item) {
     const secondTItle = document.getElementById("secondTitle");
     secondTItle.innerHTML = item.dataset.secondTitle;
 
-
     const modalLink = document.getElementById("modalLink");
-    modalLink.href = item.dataset.sortieLink;
+    modalLink.href = item.dataset.link;
     const modalLink2 = document.getElementById("secondLink");
     if (modalLink2) {
-        modalLink2.href = item.dataset.sortieSecondLink;
+        modalLink2.href = item.dataset.secondLink;
     }
 }
 
@@ -99,7 +98,7 @@ function initDropDownAccueil() {
 
 
 /*************************************************************************/
-// Affichage dynamique du lieu sur la page créatin modif d'une sortie
+// Affichage dynamique du lieu sur la page créatiOn modif d'une sortie
 /*************************************************************************/
 
 function onLieuChangeListener() {

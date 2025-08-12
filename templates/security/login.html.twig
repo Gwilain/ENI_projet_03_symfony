@@ -5,6 +5,10 @@
 {% block body %}
     <div class="content">
     <form class="subContent" method="post">
+
+
+        <h2>Merci de vous connecter</h2>
+
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -15,7 +19,6 @@
             </div>
         {% endif %}
 
-        <h2>Merci de vous connecter</h2>
 
         <div class="flexLine">
             <label for="username">Email</label>

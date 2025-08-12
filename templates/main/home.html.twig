@@ -118,8 +118,8 @@
                                             data-template="publishModal"
                                             title="Publier votre sortie"
                                             data-second-title="{{ sortie.name }}"
-                                            data-sortie-link="{{ path("sortie_publish",{id : sortie.id}) }}"
-                                            data-sortie-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                                            data-link="{{ path("sortie_publish",{id : sortie.id}) }}"
+                                            data-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
                                         {{ sortie.etat.libelle }}
                                     </button>
                                 </p>

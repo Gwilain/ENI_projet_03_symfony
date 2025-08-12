@@ -197,6 +197,11 @@ a:hover .btnPlusWrapper{
     /*transition: width 0.3s ease;*/
 }
 
+.alert{
+    font-weight: 600;
+    color: var(--danger-color);
+    margin-bottom: var(--l);
+}
 /*.btnPlus{
 
     font-weight: 800;
@@ -318,6 +323,12 @@ form .flexLine{
 .btnAccentColor{
     color: var(--titleColor);
     background-color: var(--accent-color2);
+    border: solid 1px  var(--titleColor);
+}
+
+.btnWhite{
+    color: black;
+    background-color: white;
     border: solid 1px  var(--titleColor);
 }
 
@@ -548,9 +559,9 @@ main ul li .btn{
 
 /***********************Liste des users***************************/
 .pictoModif{
-    height: 2rem;
+    height: 1.8rem;
     width: auto;
-    transform: translateY(0.5rem);
+    transform: translateY(0.4rem);
     border-radius: 50%;
     background-color: white;
     padding: 0.2rem;
@@ -600,6 +611,14 @@ main ul li .btn{
     height: 2rem;
     margin-right: var(--s);
     transition: filter 0.3s ease;
+}
+
+.bbDefWidth{
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: var(--xl);
+    margin-top: var(--xxl);
+    /*width: 450px;*/
 }
 
 img[src$="campus.svg"] {
@@ -953,6 +972,88 @@ header::after {
 }
 
 /***********************END MODAL*******************************/
+
+/*********************LISTE DES VILLES(ADMIN)******************************/
+
+.villes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.citiesList{
+   display: flex;
+    flex-direction: column;
+    gap: var(--l);
+    align-items: center;
+    margin: 0 auto;
+}
+
+.citiesList li, .newVille{
+    list-style: none;
+    padding: var(--l);
+    border-radius: var(--m);
+    border: solid 1px var(--titleColor);
+    background-color: var(--accent-color2);
+    width: fit-content;
+}
+
+.citiesList li form, .newVille form{
+    display: flex;
+    align-items: center !important;
+    justify-content: space-between;
+    width: 100%;
+    gap: var(--l);
+}
+
+
+
+.citiesList li form input, .newVille form input{
+    margin: 0;
+}
+
+.citiesList li form #ville, .newVille form #ville{
+    display: flex;
+    align-items: center;
+    gap: var(--l);
+}
+
+.villesBtns{
+    display: flex;
+    justify-content: flex-end;
+    width: 240px;
+}
+
+.villesBtns button{
+    margin-top: 0 !important;
+}
+
+.btnModif{
+}
+
+.newVille{
+    margin-top:  var(--l);
+}
+
+.btnSave{
+    align-self: flex-start;
+}
+
+.hidden{
+    display: none;
+}
+
+.btnTrash, .btnTrash img{
+    height: 2.35rem;
+    width: auto;
+    margin-left: var(--s);
+    cursor: pointer;
+}
+
+
+
+/*********************END LISTE DES VILLES(ADMIN)******************************/
+
 
 .content{
     width: 100%;

@@ -1,67 +1,81 @@
-<form name="user" method="post" class="subContent userForm" enctype="multipart/form-data">
-    <h1>Modifier mon profil</h1>
+<section class="subContent villes mLarge">
+    <h2>Gérer les Villes</h2>
 
 
-    <img class="avatarDetail" src="/img/default-avatar.png" alt="Photo par défaut">
+    <ul class="citiesList">
+        <li>
+            <form name="ville" method="post" action="/admin/villes?id=33">
+                <div id="ville">
+                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
+                                class="city-name" value="Nantes"/></div>
+                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
+                                readonly="readonly" class="city-zip" value="44000"/></div>
+                    <input type="hidden" id="ville__token" name="ville[_token]"
+                           value="f6db1b8e8767.C-PAG5Qkp2g01bEYov67UE0bQ0X19cYuwkZ29ftDnDE.cY-mNu5R0B91gf5f042KJn5TFAy2h4BYoAoskpgJ0VdFoYd_wlf4UEGx6A"/>
+                </div>
 
-    <div id="user">
-        <div class="flexLine"><label for="user_pseudo" class="required">Pseudo :</label><input type="text"
-                                                                                               id="user_pseudo"
-                                                                                               name="user[pseudo]"
-                                                                                               required="required"
-                                                                                               value="user1"/></div>
-        <div class="flexLine"><label for="user_campus" class="required">Campus :</label><select id="user_campus"
-                                                                                                name="user[campus]"
-                                                                                                required="required">
-            <option value="">Choisissez votre campus</option>
-            <option value="29">Nantes</option>
-            <option value="30">Rennes</option>
-            <option value="31" selected="selected">Quimper</option>
-            <option value="32">Niort</option>
-        </select></div>
-        <div class="flexLine"><label for="user_firstname">Prénom :</label><input type="text" id="user_firstname"
-                                                                                 name="user[firstname]" value="Nicole"/>
-        </div>
-        <div class="flexLine"><label for="user_lastname">Nom :</label><input type="text" id="user_lastname"
-                                                                             name="user[lastname]" value="Dubois"/>
-        </div>
-        <div class="flexLine"><label for="user_profilePicture">Photo de profil :</label><input type="file"
-                                                                                               id="user_profilePicture"
-                                                                                               name="user[profilePicture]"/>
-        </div>
-        <div class="flexLine"><label for="user_removePhoto">Supprimer la photo actuelle :</label><input type="checkbox"
-                                                                                                        id="user_removePhoto"
-                                                                                                        name="user[removePhoto]"
-                                                                                                        value="1"/>
-        </div>
-        <div class="flexLine"><label for="user_phoneNumber">Téléphone</label><input type="text" id="user_phoneNumber"
-                                                                                    name="user[phoneNumber]"
-                                                                                    placeholder="09 69 39 40 20"
-                                                                                    pattern="^\+?[0-9\s\-]{6,15}$"/>
-        </div>
-        <div class="flexLine"><label for="user_email" class="required">Email :</label><input type="email"
-                                                                                             id="user_email"
-                                                                                             name="user[email]"
-                                                                                             required="required"
-                                                                                             value="user1@eni.fr"/>
-        </div>
-        <div class="flexLine"><label for="user_plainPassword_first">Nouveau mot de passe :</label><input type="password"
-                                                                                                         id="user_plainPassword_first"
-                                                                                                         name="user[plainPassword][first]"
-                                                                                                         autocomplete="new-password"/>
-        </div>
-        <div class="flexLine"><label for="user_plainPassword_second">Confirmez le mot de passe :</label><input
-                type="password" id="user_plainPassword_second" name="user[plainPassword][second]"
-                autocomplete="new-password"/></div>
-        <input type="hidden" id="user__token" name="user[_token]"
-               value="94b371e7264dbf1881c500dee9.mUxNp15biBk35a0zpmPxgpbpTBz_DDOYOvDMzbtxYyA.1zsdwGse4WgBnNVb0DmB7POPJFTMP3joS5S0r9gaIVXKGgX2PR7_WkGd3g"/>
-    </div>
+                <div>
+                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
 
-    <div class="flexLine">
-        <div></div>
-        <div>
-            <a class="btn cancelBtn" href="/profile/87">Retour</a>
-            <button class="btn">Enregistrer</button>
-        </div>
-    </div>
-</form>
+                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                </div>
+            </form>
+        </li>
+        <li>
+            <form name="ville" method="post" action="/admin/villes?id=34">
+                <div id="ville">
+                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
+                                class="city-name" value="Rennes"/></div>
+                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
+                                readonly="readonly" class="city-zip" value="35000"/></div>
+                    <input type="hidden" id="ville__token" name="ville[_token]"
+                           value="da235d.ZXhe5CmbVVo0MYyrAJx1HOJgwb1l9ccJ2kOksgdCB60.HxQ4yVPuIi11ZcPsce9EatEolvQmh4F_uA_-1WQISssrOhmAf-gKYkFV1Q"/>
+                </div>
+
+                <div>
+                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
+
+                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                </div>
+            </form>
+        </li>
+        <li>
+            <form name="ville" method="post" action="/admin/villes?id=35">
+                <div id="ville">
+                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
+                                class="city-name" value="Quimper"/></div>
+                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
+                                readonly="readonly" class="city-zip" value="29000"/></div>
+                    <input type="hidden" id="ville__token" name="ville[_token]"
+                           value="4586c47d9.KPF3hNah9fCmk-ZrN_AEhbEZt703cv2Rc-VvgTcjVM4.Up0RqazUgofnx6ksRoM184JR4PR0ALvnEak15lRpGahmszDggNKqyNP3vw"/>
+                </div>
+
+                <div>
+                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
+
+                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                </div>
+            </form>
+        </li>
+        <li>
+            <form name="ville" method="post" action="/admin/villes?id=36">
+                <div id="ville">
+                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
+                                class="city-name" value="Niort"/></div>
+                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
+                                readonly="readonly" class="city-zip" value="79000"/></div>
+                    <input type="hidden" id="ville__token" name="ville[_token]"
+                           value="bb8067ed60d884976d95f5de328f.24vH-bhnA6wZDhlmR_aGqAuSJ6c3xl3mE_WzCUhP934.oeeh1MISdNtYWlYhNoW33jjacO50tBuQcbnpbisFuhiVyYCd7hRclGxqQA"/>
+                </div>
+
+                <div>
+                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
+
+                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                </div>
+            </form>
+        </li>
+    </ul>
+
+
+</section>

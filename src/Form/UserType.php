@@ -76,34 +76,51 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
-                'required' => false, // pour ne pas forcer le changement à chaque modif
+                'required' => $options['is_new'],
                 'first_options'  => [
-                    'label' => 'Nouveau mot de passe :',
+                    'label' => $options['is_new'] ? 'Mot de passe' : 'Nouveau mot de passe',
                     'row_attr' => ['class' => 'flexLine'],
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'second_options' => [
-                    'label' => 'Confirmez le mot de passe :',
+                    'label' => 'Confirmez le mot de passe',
                     'row_attr' => ['class' => 'flexLine'],
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
-                'constraints' => [
+                'constraints' => $options['is_new'] ? [
+                    new NotBlank(['message' => 'Le mot de passe est obligatoire.']),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères.',
+                        'max' => 4096,
+                    ]),
+                ] : [
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères.',
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
+
+
+        if ($options['is_admin']) {
+            $builder->add('active', CheckboxType::class, [
+                'row_attr' => ['class' => 'flexLine'],
+                'label' => 'Compte actif',
+                'required' => false,
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'validation_groups' => ['edit'],  // Ajoutez cette ligne
+            'is_new' => false,
+            'validation_groups' => ['edit'],
+            'is_admin' => false,
         ]);
     }
 }
