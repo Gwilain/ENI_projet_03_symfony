@@ -236,8 +236,6 @@ dl .flexLine:last-of-type {
     /*flex-flow: wrap;*/
 }
 
-
-
 /*****************FORMS********************/
 input, select, .dropdown-toggle{
     padding: 0.7rem 1.2rem;
@@ -247,6 +245,10 @@ input, select, .dropdown-toggle{
     background-color: white;
     margin-left: var(--xxl);
     /*margin: 0 1rem;*/
+}
+
+#user_profilePicture{
+    width: 208px;
 }
 
 
@@ -517,6 +519,15 @@ main ul li .btn{
     margin-bottom: var(--xl);
 }
 
+.profilMiniature{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: solid 1px var(--titleColor);
+    margin-right: var(--s);
+    transform: translateY(0.5rem);
+}
+
 /*******************END DETAIL SORTIE****************************/
 
 
@@ -534,6 +545,80 @@ main ul li .btn{
     !*background-color: red;*!
 }
 */
+
+/***********************Liste des users***************************/
+.pictoModif{
+    height: 2rem;
+    width: auto;
+    transform: translateY(0.5rem);
+    border-radius: 50%;
+    background-color: white;
+    padding: 0.2rem;
+    border: 1 solid var(--titleColor);
+    margin-right: var(--m);
+}
+
+/***********************END Liste des users***************************/
+
+
+/***************************PAGE ADMIN***************************/
+
+.adminMenu {
+    /*background-color: red;*/
+    /*margin-top: var(--xl);*/
+    /* pour que la largeur s'ajuste au contenu */
+    display: inline-flex;
+    gap: var(--xl);
+    flex-direction: column;
+    /* stretch par défaut, mais explicite */
+    align-items: stretch;
+}
+
+.adminMenu li {
+    list-style: none;
+    /*margin-bottom: 5rem;*/
+}
+
+.bigButton {
+    color: var(--titleColor);
+    padding: var(--l) var(--xl);
+    border-radius: var(--m);
+    cursor: pointer;
+    font-size: var(--ml);
+    font-weight: 800;
+    border: solid 1px var(--titleColor);
+    transition: filter 0.3s ease;
+    /*margin-bottom: var(--xl);*/
+    /* pour que l'élément prenne toute la largeur disponible */
+    display: flex;
+    align-items: center;
+    /*width: 100%;*/
+
+}
+
+.bigButton img{
+    height: 2rem;
+    margin-right: var(--s);
+    transition: filter 0.3s ease;
+}
+
+img[src$="campus.svg"] {
+    height: 2.5rem;
+    width: auto;
+    transform: translateY(-0.25rem);
+}
+
+.bigButton:hover {
+    color: #0095a3; /* texte */
+}
+
+.bigButton:hover img {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(75%) saturate(1359%) hue-rotate(150deg) brightness(85%) contrast(101%);
+}
+
+/***************************END PAGE ADMIN***************************/
+
+
 
 /***************Filter Accueil******************/
 .formRow{
@@ -776,7 +861,18 @@ dropdown-menu label{
 }*/
 /**********************END FORM CREATION SORTI*********************/
 
+/********************** PROFILE*********************/
 
+.avatarDetail{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: solid 1px var(--titleColor);
+    margin: 0 auto;
+    margin-bottom: var(--m);
+}
+
+/**********************END PROFILE*********************/
 
 /***********************MODAL*******************************/
 .modal {

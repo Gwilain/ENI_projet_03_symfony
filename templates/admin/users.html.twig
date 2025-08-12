@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<section class="subContent participantsection mLarge">
+    <h2>Liste des utilisateurs</h2>
+    {% include "_flash.twig.html" %}
+
+    <ul class="participantsList">
+        {% for user in users  %}
+            <li>
+                <img class="profilMiniature" src="{{ user.imageFile ? asset('uploads/profile_pictures/' ~ user.imageFile) : asset('img/default-avatar.png') }}" alt="avatar utilisateur">
+                <a href="{{ path('profil', {id: user.id} ) }}">{{ user.pseudo }}</a><span>-  {{ user.firstname }} {{ user.lastname }}</span>
+                <a href="{{ path('profil_edit', {id: user.id} ) }}"><img class="pictoModif" src="{{ asset('img/tools2.svg') }}" alt="Modifier"></a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+</section>
+{% endblock %}
+

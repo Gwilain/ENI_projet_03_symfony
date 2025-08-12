@@ -27,7 +27,8 @@ class UserFixture extends Fixture implements DependentFixtureInterface
 
         $user->setEmail("admin@eni.fr");
         $user->setPseudo("adminet");
-        $user->setFirstName("bobby");
+        $user->setRoles([ "ROLE_ADMIN"]);
+        $user->setFirstName("Bobby");
         $user->setLastname("McFerrin");
         $user->setEventAdmin(true);
         $user->setActive(true);

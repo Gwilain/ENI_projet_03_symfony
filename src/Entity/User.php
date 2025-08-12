@@ -82,6 +82,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participants')]
     private Collection $sortiesInscrit;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageFile = null;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -295,6 +298,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->sortiesInscrit->removeElement($sortiesInscrit)) {
             $sortiesInscrit->removeParticipant($this);
         }
+
+        return $this;
+    }
+
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?string $imageFile): static
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }

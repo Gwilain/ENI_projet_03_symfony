@@ -14,6 +14,9 @@
 {#            <li><a href="{{ path('sortie_create') }}">Créer une sortie</a></li>#}
 
             <li><a href="{{ path('profil', {id: app.user.id} ) }}">Mon profil</a></li>
+            {%  if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin') }}">Admin</a></li>
+            {% endif %}
             <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         </ul>
             {% endif %}

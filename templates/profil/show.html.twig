@@ -2,53 +2,60 @@
 
 {% block body %}
 
-        <section class="subContent">
-            {% if app.user == user %}
-                <h2>Mon profil</h2>
+    <section class="subContent">
+        {% if app.user == user %}
+            <h2>Mon profil</h2>
+        {% else %}
+            <h2>Détail du profil</h2>
+        {% endif %}
+
+
+        {% include "_flash.twig.html" %}
+
+
+
+            {% if user.imageFile %}
+                <img class="avatarDetail" src="{{ asset('uploads/profile_pictures/' ~ user.imageFile) }}" alt="Photo de profil">
             {% else %}
-                <h2>Détail du profil</h2>
+                <img class="avatarDetail" src="{{ asset('img/default-avatar.png') }}" alt="Photo par défaut">
             {% endif %}
 
-
-            {% include "_flash.twig.html" %}
             <h3>{{ user.pseudo }}</h3>
-            <dl>
-                <div class="flexLine">
-                    <dt>Campus</dt>
-                    <dd>{{ user.campus.name ?: 'Non renseigné' }}</dd>
-                </div>
-                {# <div class="flexLine">
-                    <dt>Pseudo</dt>
-                    <dd>{{ user.pseudo }}</dd>
-                </div> #}
-                <div class="flexLine">
-                    <dt>Nom</dt>
-                    <dd>{{ user.firstname ?: 'Non renseigné' }}</dd>
-                </div>
-                <div class="flexLine">
-                    <dt>Prénom</dt>
-                    <dd>{{ user.lastname ?: 'Non renseigné' }}</dd>
-                </div>
-                <div class="flexLine">
-                    <dt>Email</dt>
-                    <dd>{{ user.email }}</dd>
-                </div>
-                <div class="flexLine">
-                    <dt>Téléphone</dt>
-                    <dd>{{ user.phoneNumber ?: 'Non renseigné' }}</dd>
-                </div>
-            </dl>
-            <div>
 
 
-                <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
-                {% if app.user == user %}
-                    <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
-                {% endif %}
-
+        <dl>
+            <div class="flexLine">
+                <dt>Campus :</dt>
+                <dd>{{ user.campus.name ?: 'Non renseigné' }}</dd>
             </div>
+            <div class="flexLine">
+                <dt>Nom :</dt>
+                <dd>{{ user.firstname ?: 'Non renseigné' }}</dd>
+            </div>
+            <div class="flexLine">
+                <dt>Prénom :</dt>
+                <dd>{{ user.lastname ?: 'Non renseigné' }}</dd>
+            </div>
+            <div class="flexLine">
+                <dt>Email :</dt>
+                <dd>{{ user.email }}</dd>
+            </div>
+            <div class="flexLine">
+                <dt>Téléphone :</dt>
+                <dd>{{ user.phoneNumber ?: 'Non renseigné' }}</dd>
+            </div>
+        </dl>
+        <div>
 
-        </section>
+
+            <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
+            {% if app.user == user %}
+                <a class="btn" href="{{ path('profil_edit') }}">Modifier</a>
+            {% endif %}
+
+        </div>
+
+    </section>
 
 {% endblock %}
 

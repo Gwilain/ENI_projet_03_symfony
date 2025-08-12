@@ -1,96 +1,67 @@
-<div class="flexLine">
-    <label class="required">Durée :</label>
-    <div>
+<form name="user" method="post" class="subContent userForm" enctype="multipart/form-data">
+    <h1>Modifier mon profil</h1>
 
-        <select id="sortie_duree_hour" name="sortie[duree][hour]" required="required" class="duree-hour">
-            <option value="" selected="selected">00</option>
-            <option value="0">00</option>
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-        </select>
-        <select id="sortie_duree_minute" name="sortie[duree][minute]" required="required" class="duree-minute">
-            <option value="" selected="selected">00</option>
-            <option value="0">00</option>
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
-            <option value="33">33</option>
-            <option value="34">34</option>
-            <option value="35">35</option>
-            <option value="36">36</option>
-            <option value="37">37</option>
-            <option value="38">38</option>
-            <option value="39">39</option>
-            <option value="40">40</option>
-            <option value="41">41</option>
-            <option value="42">42</option>
-            <option value="43">43</option>
-            <option value="44">44</option>
-            <option value="45">45</option>
-            <option value="46">46</option>
-            <option value="47">47</option>
-            <option value="48">48</option>
-            <option value="49">49</option>
-            <option value="50">50</option>
-            <option value="51">51</option>
-            <option value="52">52</option>
-            <option value="53">53</option>
-            <option value="54">54</option>
-            <option value="55">55</option>
-            <option value="56">56</option>
-            <option value="57">57</option>
-            <option value="58">58</option>
-            <option value="59">59</option>
-        </select>
+
+    <img class="avatarDetail" src="/img/default-avatar.png" alt="Photo par défaut">
+
+    <div id="user">
+        <div class="flexLine"><label for="user_pseudo" class="required">Pseudo :</label><input type="text"
+                                                                                               id="user_pseudo"
+                                                                                               name="user[pseudo]"
+                                                                                               required="required"
+                                                                                               value="user1"/></div>
+        <div class="flexLine"><label for="user_campus" class="required">Campus :</label><select id="user_campus"
+                                                                                                name="user[campus]"
+                                                                                                required="required">
+            <option value="">Choisissez votre campus</option>
+            <option value="29">Nantes</option>
+            <option value="30">Rennes</option>
+            <option value="31" selected="selected">Quimper</option>
+            <option value="32">Niort</option>
+        </select></div>
+        <div class="flexLine"><label for="user_firstname">Prénom :</label><input type="text" id="user_firstname"
+                                                                                 name="user[firstname]" value="Nicole"/>
+        </div>
+        <div class="flexLine"><label for="user_lastname">Nom :</label><input type="text" id="user_lastname"
+                                                                             name="user[lastname]" value="Dubois"/>
+        </div>
+        <div class="flexLine"><label for="user_profilePicture">Photo de profil :</label><input type="file"
+                                                                                               id="user_profilePicture"
+                                                                                               name="user[profilePicture]"/>
+        </div>
+        <div class="flexLine"><label for="user_removePhoto">Supprimer la photo actuelle :</label><input type="checkbox"
+                                                                                                        id="user_removePhoto"
+                                                                                                        name="user[removePhoto]"
+                                                                                                        value="1"/>
+        </div>
+        <div class="flexLine"><label for="user_phoneNumber">Téléphone</label><input type="text" id="user_phoneNumber"
+                                                                                    name="user[phoneNumber]"
+                                                                                    placeholder="09 69 39 40 20"
+                                                                                    pattern="^\+?[0-9\s\-]{6,15}$"/>
+        </div>
+        <div class="flexLine"><label for="user_email" class="required">Email :</label><input type="email"
+                                                                                             id="user_email"
+                                                                                             name="user[email]"
+                                                                                             required="required"
+                                                                                             value="user1@eni.fr"/>
+        </div>
+        <div class="flexLine"><label for="user_plainPassword_first">Nouveau mot de passe :</label><input type="password"
+                                                                                                         id="user_plainPassword_first"
+                                                                                                         name="user[plainPassword][first]"
+                                                                                                         autocomplete="new-password"/>
+        </div>
+        <div class="flexLine"><label for="user_plainPassword_second">Confirmez le mot de passe :</label><input
+                type="password" id="user_plainPassword_second" name="user[plainPassword][second]"
+                autocomplete="new-password"/></div>
+        <input type="hidden" id="user__token" name="user[_token]"
+               value="94b371e7264dbf1881c500dee9.mUxNp15biBk35a0zpmPxgpbpTBz_DDOYOvDMzbtxYyA.1zsdwGse4WgBnNVb0DmB7POPJFTMP3joS5S0r9gaIVXKGgX2PR7_WkGd3g"/>
     </div>
-</div>
+
+    <div class="flexLine">
+        <div></div>
+        <div>
+            <a class="btn cancelBtn" href="/profile/87">Retour</a>
+            <button class="btn">Enregistrer</button>
+        </div>
+    </div>
+</form>

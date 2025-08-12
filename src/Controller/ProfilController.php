@@ -7,11 +7,13 @@ use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/profile')]
@@ -33,15 +35,16 @@ final class ProfilController extends AbstractController
     }
 
 
-    #[Route('/modifier', name: 'profil_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'profil_edit', methods: ['GET', 'POST'], requirements: ['id'=>'\d+'])]
     public function profile(
         Request $request,
         EntityManagerInterface $em,
+        User $user,
         UserPasswordHasherInterface $passwordHasher,
-
+        SluggerInterface $slugger,
     ): Response {
 
-        $user = $this->getUser();
+//        $user = $this->getUser();
         $userForm = $this->createForm(UserType::class, $user, ["validation_groups" => ["edit"]]);
         $userForm->handleRequest($request);
 
@@ -53,6 +56,36 @@ final class ProfilController extends AbstractController
                     $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                     $user->setPassword($hashedPassword);
                 }
+
+                 $removePhoto = $userForm->get('removePhoto')->getData();
+                $profilePictureFile = $userForm->get('profilePicture')->getData();
+
+                if ($removePhoto) {
+                    // Supprimer la photo sur le serveur si existante
+                    if ($user->getImageFile()) {
+                        unlink($this->getParameter('profile_pictures_directory').'/'.$user->getImageFile());
+                        $user->setImageFile(null);
+                    }
+                }
+
+
+                if ($profilePictureFile) {
+                    $originalFilename = pathinfo($profilePictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $profilePictureFile->guessExtension();
+
+                    try {
+                        $profilePictureFile->move(
+                            $this->getParameter('profile_pictures_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+//                        throw new \Exception("Erreur lors de l'enregistrement de l'image");
+                    }
+
+                    $user->setImageFile($newFilename);
+                }
+
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash("success", "Votre profil a bien été modifié.");
@@ -72,47 +105,4 @@ final class ProfilController extends AbstractController
     }
 
 
-
-/*    #[IsGranted('ROLE_USER')]
-    #[Route('/modifier', name: 'profil_edit', methods: ['GET', 'POST'])]
-    public function profile(
-        Request $request,
-        EntityManagerInterface $em,
-        UserPasswordHasherInterface $passwordHasher,
-        ValidatorInterface $validator
-    ): Response {
-        $user = $this->getUser();
-        $userForm = $this->createForm(UserType::class, $user, ["validation_groups" => ["edit"]]);
-        $userForm->handleRequest($request);
-
-        if ($userForm->isSubmitted()) {
-//            dd($userForm);
-
-            if ($userForm->isValid()) {
-                $plainPassword = $userForm->get('plainPassword')->getData();
-                if ($plainPassword) {
-                    $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-                    $user->setPassword($hashedPassword);
-                }
-
-                try {
-                    $em->flush();
-                    $this->addFlash("success", "Votre profil a bien été modifié.");
-                    return $this->redirectToRoute('profil', ['id' => $user->getId()]);
-                } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    $this->addFlash('error', 'Un élément doit être unique (email ou pseudo) est déjà utilisé.');
-                }
-            }else{
-
-
-                $this->addFlash('error', 'Un élément doit être unique (email ou pseudo) est déjà utilisé.');
-            }
-        }
-
-
-        return $this->render('profil/edit.html.twig', [
-            "user" => $user,
-            "userForm" => $userForm->createView(),
-        ]);
-    }*/
 }

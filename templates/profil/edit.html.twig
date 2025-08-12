@@ -11,6 +11,12 @@
         <h1>Modifier mon profil</h1>
         {% include "_flash.twig.html" %}
 
+        {% if app.user.imageFile %}
+            <img class="avatarDetail" src="{{ asset('uploads/profile_pictures/' ~ app.user.imageFile) }}" alt="Photo de profil">
+        {% else %}
+            <img class="avatarDetail" src="{{ asset('img/default-avatar.png') }}" alt="Photo par défaut">
+        {% endif %}
+
         {{ form_widget(userForm) }}
 
     <div class="flexLine">
@@ -23,38 +29,4 @@
         {{ form_end(userForm) }}
 
 {% endblock %}
-{#    {% include "_flash.twig.html" %}
-    {{ form_errors(userForm) }}
-        {% for field in userForm %}
-            {{ form_row(field) }}
-            <div class="formError">
-                {{ form_errors(field) }}
-            </div>
-
-        {% endfor %}
-        <button class="btn">Enregistrer</button>
-    {{ form_end(userForm) }}#}
-
-    {#        {{ form_start(userForm, {'attr': {'class': 'subContent'}} ) }}
-        <h1>Modifier mon profil</h1>
-        {% include "_flash.twig.html" %}
-        <div class="formError">
-            {{ form_errors(userForm) }}
-        </div>
-        {{ form_widget(userForm) }}
-        <button class="btn">Enregistrer</button>
-        {{ form_end(userForm) }} #}
-{#
-{% block body %}
-        {% include "_flash.twig.html" %}
-        {{ form_start(userForm, {'attr': {'class': 'subContent'}}) }}
-        <h1>Modifier mon profil</h1>
-        {{ form_errors(userForm) }}
-        {% for field in userForm %}
-                {{ form_row(field) }}
-                {{ form_errors(field) }}
-        {% endfor %}
-        <button class="btn">Enregistrer</button>
-        {{ form_end(userForm) }}
-{% endblock %} #}
 

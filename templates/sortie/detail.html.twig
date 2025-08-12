@@ -114,7 +114,7 @@
         <ul class="participantsList">
             {% for participant in sortie.participants  %}
                 <li>
-                    <a href="{{ path('profil', {id: participant.id} ) }}">{{ participant.pseudo }}</a><span>-  {{ participant.firstname }} {{ participant.lastname }}</span>
+                    <img class="profilMiniature" src="{{ participant.imageFile ? asset('uploads/profile_pictures/' ~ participant.imageFile) : asset('img/default-avatar.png') }}" alt="avatar participant"><a href="{{ path('profil', {id: participant.id} ) }}">{{ participant.pseudo }}</a><span>-  {{ participant.firstname }} {{ participant.lastname }}</span>
                 </li>
             {% endfor %}
         </ul>
