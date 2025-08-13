@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Form\VilleType;
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -60,11 +61,15 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/villes/new', name: 'villes_new', methods: ['POST'])]
+    #[Route('/villes/new', name: 'villes_new', methods: ['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $newCity = new Ville();
-        $form = $this->createForm(VilleType::class, $newCity, ['editable' => true,]);
+        $form = $this->createForm(VilleType::class, $newCity, [
+            'method' => 'POST',
+            'editable' => true,
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +80,7 @@ final class AdminController extends AbstractController
         return $this->redirectToRoute('villes');
     }
 
-    #[Route('/villes/edit/{id}', name: 'villes_edit', methods: ['POST'])]
+    #[Route('/villes/edit/{id}', name: 'villes_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Ville $city, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(VilleType::class, $city);
@@ -89,7 +94,7 @@ final class AdminController extends AbstractController
     }
 
 
-    #[Route('/villes/delete/{id}', name: 'villes_delete', methods: ['POST'])]
+    #[Route('/villes/delete/{id}', name: 'villes_delete', methods: ['GET','POST'])]
     public function delete(Request $request, Ville $city, EntityManagerInterface $em): Response
     {
 
@@ -100,5 +105,75 @@ final class AdminController extends AbstractController
 
         return $this->redirectToRoute('villes');
     }
+
+    /************************************************************/
+    /***********************CAMPUS*******************************/
+    /************************************************************/
+
+    #[Route('/villes', name: 'villes', methods: ['GET'])]
+    public function campus(CampusRepository $campusRepo): Response
+    {
+        $allCampus = $campusRepo->findAll();
+        $campusForms = [];
+
+        // Formulaire d'ajout
+        $formNew = $this->createForm(VilleType::class, new Ville(), ['editable' => true,]);
+
+        // Formulaires d'édition
+        foreach ($allCampus as $campus) {
+            $campusForms[$campus->getId()] = $this->createForm(VilleType::class, $campus)->createView();
+        }
+
+        return $this->render('admin/campus.html.twig', [
+            'citiesForms' => $campusForms,
+            'newCitieForm' => $formNew->createView(),
+            'cities' => $allCampus,
+        ]);
+    }
+
+    /*#[Route('/villes/new', name: 'villes_new', methods: ['GET','POST'])]
+    public function new(Request $request, EntityManagerInterface $em): Response
+    {
+        $newCity = new Ville();
+        $form = $this->createForm(VilleType::class, $newCity, [
+            'method' => 'POST',
+            'editable' => true,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($newCity);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('villes');
+    }
+
+    #[Route('/villes/edit/{id}', name: 'villes_edit', methods: ['GET','POST'])]
+    public function edit(Request $request, Ville $city, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(VilleType::class, $city);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('villes');
+    }
+
+
+    #[Route('/villes/delete/{id}', name: 'villes_delete', methods: ['GET','POST'])]
+    public function delete(Request $request, Ville $city, EntityManagerInterface $em): Response
+    {
+
+        $em->remove($city);
+//        $em->persist($city);
+        $em->flush();
+
+
+        return $this->redirectToRoute('villes');
+    }*/
 
 }
