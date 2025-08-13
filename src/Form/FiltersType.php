@@ -46,10 +46,10 @@ class FiltersType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'choices' => [
+                    "Sorties que j'ai organisées" => 'terminee',
                     "Sorties que j'organise" => 'organise',
                     "Sorties auxquelles je suis inscrit/e" => 'inscrit',
                     "Sorties auxquelles je ne suis pas inscrit/e" => 'pasInscrit',
-                    "Sorties terminées" => 'terminee'
                 ],
                 'attr' => [
                     'class' => 'checkbox-inline'

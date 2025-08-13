@@ -113,8 +113,6 @@ final class SortieController extends AbstractController
             $sortie->setEtat($state);
         }
 
-
-
         $etatOuvert = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
         $sortie->setEtat( $etatOuvert );
         $em->persist($sortie);
