@@ -65,12 +65,11 @@
             </div>
         </div>
 
-
         <ul class="sortieList">
             {% for sortie in sorties %}
                 <li class="sortieHome">
                     <div class="cardHeader {{ sortie.etat.code == constant('App\\Entity\\Etat::CODE_TERMINEE') ? 'cardHeaderFinished' :'' }}">
-                        <p class="date">{{ sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr') }}</p>
+                        <p class="date">{{ sortie.dateHeureDebut ? (sortie.dateHeureDebut|format_datetime(pattern='EE dd MMM yyyy', locale='fr')) : "Date à venir" }}</p>
                         <div>
                             {% if sortie.participants.contains(app.user) %}
                                 {#                                <a href="{{ path("sortie_withdraw", {id: sortie.id }) }}"><img src="{{ asset("img/person.svg") }}" alt="Je participe"></a> #}

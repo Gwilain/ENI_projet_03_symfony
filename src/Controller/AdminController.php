@@ -42,10 +42,11 @@ final class AdminController extends AbstractController
             'users' => $allUsers,
         ]);
     }
+
     #[Route('/villes', name: 'villes', methods: ['GET'])]
     public function villes(VilleRepository $villeRepo): Response
     {
-        $allCities = $villeRepo->findAll();
+        $allCities = $villeRepo->findBy([], ['name' => 'ASC']);
         $citiesForms = [];
 
         // Formulaire d'ajout
@@ -120,7 +121,7 @@ final class AdminController extends AbstractController
     #[Route('/campus', name: 'campus', methods: ['GET'])]
     public function campus(CampusRepository $campusRepo): Response
     {
-        $allCampus = $campusRepo->findAll();
+        $allCampus = $campusRepo->findBy([], ['name' => 'ASC']);
         $campusForms = [];
 
         // Formulaire d'ajout

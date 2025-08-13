@@ -77,6 +77,7 @@ class Sortie
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->duree = new \DateTime('01:30');
     }
 
     public function getId(): ?int

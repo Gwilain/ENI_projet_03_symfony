@@ -7,6 +7,9 @@
     <section class="subContent">
         <h2>Gérer les campus</h2>
         {% include "_flash.twig.html" %}
+
+        <input type="text" id="searchCampus" placeholder="Rechercher un campus" />
+
         <ul class="citiesList">
             {% for campus in campuses %}
                 <li>

@@ -41,7 +41,7 @@ final class SortieVoter extends Voter
 
             case self::VIEW:
                 return $sortie->getOrganisateur() === $user
-                    || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS, Etat::CODE_CLOTUREE], true);
+                    || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS, Etat::CODE_CLOTUREE, Etat::CODE_ANNULEE], true);
 
             case self::ENROLL:
                 return

@@ -657,6 +657,10 @@ img[src$="campus.svg"] {
 }
 
 
+#sortie_name{
+    width: 300px;
+}
+
 /*.formRow > *{*/
 /*    margin: 0 0.5rem;*/
 /*}*/
@@ -780,11 +784,13 @@ input[type=checkbox] {
     align-items: center;
 }
 
-.filters input, .filters select, .dropdown-toggle{
+.filters input, .filters select, .dropdown-toggle, .btnSearch{
     transform: translateY(-0.15rem);
 }
 
-
+.dropdown-multi input{
+    transform: translateY(0);
+}
 /*.checkbox-inline input,
 .checkbox-inline label {
     display: inline-block;
@@ -848,13 +854,13 @@ input[type=checkbox] {
         margin-bottom: var(--l);
 }
 
-
-
-
 #sortie_duree_hour, .duree-hour {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     margin-right: 0;
+    width: 72px;
+    font-size: 0.7rem;
+
 }
 
 
@@ -862,8 +868,14 @@ input[type=checkbox] {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: 0;
+    width: 72px;
+    font-size: 0.7rem;
 }
 
+
+#searchCity, #searchCampus{
+    margin: 0 auto var(--l) auto;
+}
 
 /*.formCol input:first-of-type{
     width: 300px;

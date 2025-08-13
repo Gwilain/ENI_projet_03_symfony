@@ -80,7 +80,7 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('etatsPublies', $etats)
             ->setParameter('enCreation', Etat::CODE_EN_CREATION);
 
-        $qb->orderBy('e.dateHeureDebut', 'DESC');
+        $qb->orderBy('e.dateHeureDebut', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

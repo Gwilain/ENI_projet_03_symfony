@@ -5,8 +5,11 @@ function init() {
 
     initMenu();
     onLieuChangeListener();
+    initCreaForm();
     initDropDownAccueil();
     initModal();
+    initSearchCity();
+    initSearchCampus();
 }
 
 /*************************************************************************/
@@ -27,6 +30,93 @@ function initMenu() {
 }
 
 /*************************************************************************/
+// CREATION sortie
+/*************************************************************************/
+
+
+function initCreaForm() {
+
+    const cal1 = document.getElementById('sortie_dateHeureDebut');
+    const cal2 = document.getElementById('sortie_dateLimiteInscription');
+    if(!cal1 || !cal2) return;
+    cal1.addEventListener('change', function () {
+        if (this.value) {
+            // On sépare date et heure manuellement
+            const [datePart, timePart] = this.value.split('T');
+            let [year, month, day] = datePart.split('-').map(Number);
+            let [hour, minute] = timePart.split(':').map(Number);
+
+            hour -= 3;
+            if (hour < 0) {
+                hour += 24;
+                day -= 1;
+
+                const d = new Date(year, month - 1, day);
+                year = d.getFullYear();
+                month = d.getMonth() + 1;
+                day = d.getDate();
+            }
+
+            // Reformater correctement
+            const moisStr = String(month).padStart(2, '0');
+            const jourStr = String(day).padStart(2, '0');
+            const heureStr = String(hour).padStart(2, '0');
+            const minuteStr = String(minute).padStart(2, '0');
+
+            cal2.value = `${year}-${moisStr}-${jourStr}T${heureStr}:${minuteStr}`;
+        }
+    });
+}
+
+/*************************************************************************/
+// SEARCH CITY
+/*************************************************************************/
+function initSearchCity() {
+
+    const searchInput = document.getElementById('searchCity');
+    const cityListItems = document.querySelectorAll('.citiesList li');
+
+    if (!searchInput || !cityListItems) return;
+
+    searchInput.addEventListener('input', function () {
+        const filter = searchInput.value.toLowerCase();
+
+        cityListItems.forEach(li => {
+            const cityName = li.querySelector('.city-name').value.toLowerCase();
+            if (cityName.includes(filter)) {
+                li.style.display = '';
+            } else {
+                li.style.display = 'none';
+            }
+        });
+    });
+}
+
+/*************************************************************************/
+// SEARCH Campus
+/*************************************************************************/
+function initSearchCampus() {
+
+    const searchInput = document.getElementById('searchCampus');
+    const cityListItems = document.querySelectorAll('.citiesList li');
+
+    if (!searchInput || !cityListItems) return;
+
+    searchInput.addEventListener('input', function () {
+        const filter = searchInput.value.toLowerCase();
+
+        cityListItems.forEach(li => {
+            const cityName = li.querySelector('.city-name').value.toLowerCase();
+            if (cityName.includes(filter)) {
+                li.style.display = '';
+            } else {
+                li.style.display = 'none';
+            }
+        });
+    });
+}
+
+/*************************************************************************/
 // MODAL MODAL
 /*************************************************************************/
 
@@ -34,6 +124,8 @@ function initModal() {
     // var modal = document.getElementById("customModal")
 
     const modal = document.getElementById("customModal");
+
+    if (!modal) return;
 
     document.querySelectorAll("[data-template]").forEach(btn => {
         btn.addEventListener("click", () => displayModal(btn));
@@ -70,10 +162,10 @@ function displayModal(item) {
 
     // try{
     const modalLink = document.getElementById("modalLink");
-    if(modalLink){
+    if (modalLink) {
         modalLink.href = item.dataset.link;
 
-    }else{
+    } else {
         console.log("il n'y a pas de a tout est normal")
     }
 
@@ -91,7 +183,6 @@ function displayModal(item) {
 function initDropDownAccueil() {
 
 
-    console.log("initDropDownAccueil")
 
     document.querySelectorAll('.dropdown-toggle').forEach(btn => {
         btn.addEventListener('click', function () {
@@ -100,7 +191,7 @@ function initDropDownAccueil() {
         });
     });
 
-// Clique en dehors :: ferme tous les dropdowns
+    // Clique en dehors :: ferme tous les dropdowns
     document.addEventListener('click', function (e) {
         document.querySelectorAll('.dropdown-multi').forEach(drop => {
             if (!drop.contains(e.target)) {
