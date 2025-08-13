@@ -47,8 +47,7 @@
         </dl>
         <div>
 
-
-            <a class="btn cancelBtn" href="{{ path("home") }}">Retour</a>
+            <a class="btn cancelBtn" href="javascript:history.back()">Retour</a>
             {% if app.user == user or is_granted('ROLE_ADMIN') %}
                 <a class="btn" href="{{ path('profil_edit', {id:user.id}) }}">Modifier</a>
             {% endif %}

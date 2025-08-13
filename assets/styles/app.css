@@ -477,7 +477,7 @@ main ul li .btn{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: var(--xl);
     width: 100%;
     font-size: var(--ml);
@@ -644,6 +644,7 @@ img[src$="campus.svg"] {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: var(--m);
 }
 
 .formRow > div:last-of-type{
@@ -652,9 +653,10 @@ img[src$="campus.svg"] {
     gap: 1rem;;
 }
 
-.formRow > *{
-    margin: 0 0.5rem;
-}
+
+/*.formRow > *{*/
+/*    margin: 0 0.5rem;*/
+/*}*/
 
 .filters{
     position: relative;
@@ -669,7 +671,7 @@ img[src$="campus.svg"] {
     /*background-color: red;*/
 }
 
-.filters > *{
+.filters{
 
     margin-bottom: var(--m);
     /*display: inline;*/
@@ -708,7 +710,6 @@ input, select{
 }
 
 
-
 .btnSearch{
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -725,6 +726,7 @@ input, select{
 input[type=checkbox] {
     accent-color: var(--accent-color2);
 }
+
 
 
 
@@ -759,16 +761,7 @@ input[type=checkbox] {
 .dropdown-multi.open .dropdown-menu {
     display: block;
 }
-/*.dropdown-menu label {
-    display: block;
-    margin-bottom: 0.5em;
-}
 
-
-
-dropdown-menu label{
-    !*display: block;*!
-}*/
 
 .checkbox-inline label {
     font-size: 1rem;
@@ -776,6 +769,18 @@ dropdown-menu label{
     margin: var(--s);
     cursor: pointer;
 }
+
+.formRow{
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--m);
+    align-items: center;
+}
+
+.filters input, .filters select, .dropdown-toggle{
+    transform: translateY(-0.15rem);
+}
+
 
 /*.checkbox-inline input,
 .checkbox-inline label {
@@ -963,8 +968,6 @@ header::after {
     margin-top: 300px;
     color: red;
 }*/
-
-
 
 
 .modal p:last-of-type{
@@ -1185,7 +1188,10 @@ nav{
         width: 100%;
         font-size: var(--ml);
         font-weight: 400;
+    }
 
+    .detailInfos dl:first-of-type{
+        flex: 1;
     }
 }
 

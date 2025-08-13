@@ -10,7 +10,7 @@
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
-            <script src="{{ asset('js/scripts.js') }}"></script>
+            <script src="{{ asset('js/scripts.js') }}?v={{ date().timestamp }}"></script>
         {% endblock %}
 
     </head>

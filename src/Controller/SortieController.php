@@ -8,6 +8,7 @@ use App\Form\CancelationType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use App\Service\PublishableSortieValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,7 +34,8 @@ final class SortieController extends AbstractController
 
 
     #[Route('/creer', name: 'sortie_create', methods: ['GET', 'POST'])]
-    public function createSortie(Request $request, EntityManagerInterface $em, EtatRepository $etatRepo): Response
+    public function createSortie(Request $request, EntityManagerInterface $em,
+                                 EtatRepository $etatRepo, PublishableSortieValidator $validator): Response
     {
         $sortie = new Sortie();
 
@@ -53,10 +55,27 @@ final class SortieController extends AbstractController
 
             $action = $request->request->get('action');
             if ($action === 'publish') {
-                $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
-                $sortie->setEtat($state);
-            }
 
+                $errors = $validator->validate($sortie);
+
+                if (!empty($errors)) {
+
+                    foreach ($errors as $error) {
+                        $this->addFlash('error', $error);
+                    }
+                    $em->persist($sortie);
+                    $em->flush();
+
+                    /*return $this->render('sortie/create.html.twig', [
+                        "formSorti"=>$form,
+                        "modif"=>$modif
+                    ]);*/
+                    return $this->redirectToRoute('sortie_edit', ['id' => $sortie->getId()]);
+                }else{
+                    $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
+                    $sortie->setEtat($state);
+                }
+            }
 
             $em->persist($sortie);
             $em->flush();
@@ -65,7 +84,7 @@ final class SortieController extends AbstractController
 
 
             return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
-        }
+        } //end form
 
         return $this->render('sortie/create.html.twig', [
             "formSorti"=>$form,
@@ -78,7 +97,8 @@ final class SortieController extends AbstractController
     public function editSorti( Request $request,
                                Sortie $sortie,
                                EntityManagerInterface $em,
-                               EtatRepository $etatRepo
+                               EtatRepository $etatRepo,
+                               PublishableSortieValidator $validator
     ): Response {
 
         //utilisation du Voter SortieVoter
@@ -93,9 +113,24 @@ final class SortieController extends AbstractController
 
             $action = $request->request->get('action');
 
+            $action = $request->request->get('action');
             if ($action === 'publish') {
-                $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
-                $sortie->setEtat($state);
+
+                $errors = $validator->validate($sortie);
+
+                if (!empty($errors)) {
+
+                    foreach ($errors as $error) {
+                        $this->addFlash('error', $error);
+                    }
+                    $em->persist($sortie);
+                    $em->flush();
+
+                    return $this->redirectToRoute('sortie_edit', ['id' => $sortie->getId()]);
+                }else{
+                    $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
+                    $sortie->setEtat($state);
+                }
             }
 
             $em->persist($sortie);
@@ -209,9 +244,6 @@ final class SortieController extends AbstractController
             "sortie"=>$sortie,
         ]);
     }
-
-
-
 
     /***********************************************************************/
     //MINI API POUR AVOIR L'ADRESSE DU LIEU DYNAMIQUEMENT'

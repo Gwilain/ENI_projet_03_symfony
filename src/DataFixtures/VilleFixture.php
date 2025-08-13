@@ -28,7 +28,8 @@ class VilleFixture extends Fixture
 
             $this->addReference("ville_" . $i, $ville);
         }
-        $count = $i;
+        //$count = $i;
+        self::$count = $i;
 
         $manager->flush();
     }

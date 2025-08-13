@@ -1,81 +1,58 @@
-<section class="subContent villes mLarge">
-    <h2>Gérer les Villes</h2>
+<div>
+    <div><label for="filters_search">Recherche</label><input type="text" id="filters_search" name="filters[search]"
+                                                             placeholder="Titre contient..."/></div>
+</div>
 
+<div class="formRow">
 
-    <ul class="citiesList">
-        <li>
-            <form name="ville" method="post" action="/admin/villes?id=33">
-                <div id="ville">
-                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
-                                class="city-name" value="Nantes"/></div>
-                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
-                                readonly="readonly" class="city-zip" value="44000"/></div>
-                    <input type="hidden" id="ville__token" name="ville[_token]"
-                           value="f6db1b8e8767.C-PAG5Qkp2g01bEYov67UE0bQ0X19cYuwkZ29ftDnDE.cY-mNu5R0B91gf5f042KJn5TFAy2h4BYoAoskpgJ0VdFoYd_wlf4UEGx6A"/>
-                </div>
-
+    <div>
+        <div><label for="filters_campus" class="required">Campus</label><select id="filters_campus"
+                                                                                name="filters[campus]"
+                                                                                required="required">
+            <option value="">Choisissez votre campus</option>
+            <option value="50">Nantes</option>
+            <option value="51">Rennes</option>
+            <option value="52" selected="selected">Quimper</option>
+            <option value="53">Niort</option>
+        </select></div>
+    </div>
+    <div class="dates">
+        <div>
+            <div><label for="filters_dateDebut">Entre</label><input type="date" id="filters_dateDebut"
+                                                                    name="filters[dateDebut]"/></div>
+        </div>
+        <div>
+            <div><label for="filters_dateFin">et</label><input type="date" id="filters_dateFin"
+                                                               name="filters[dateFin]"/></div>
+        </div>
+    </div>
+    <div>
+        <div class="dropdown-multi">
+            <button type="button" class="dropdown-toggle">Sorties ... <img
+                    src="/img/arrow.svg"
+                    width="12px" alt="arrow down">
+            </button>
+            <div class="dropdown-menu checkbox-inline">
                 <div>
-                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
-
-                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                    <input type="checkbox" id="filters_sortiesQue_0" name="filters[sortiesQue][]" value="organise"/>
+                    <label for="filters_sortiesQue_0">Sorties que j&#039;organise</label>
                 </div>
-            </form>
-        </li>
-        <li>
-            <form name="ville" method="post" action="/admin/villes?id=34">
-                <div id="ville">
-                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
-                                class="city-name" value="Rennes"/></div>
-                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
-                                readonly="readonly" class="city-zip" value="35000"/></div>
-                    <input type="hidden" id="ville__token" name="ville[_token]"
-                           value="da235d.ZXhe5CmbVVo0MYyrAJx1HOJgwb1l9ccJ2kOksgdCB60.HxQ4yVPuIi11ZcPsce9EatEolvQmh4F_uA_-1WQISssrOhmAf-gKYkFV1Q"/>
-                </div>
-
                 <div>
-                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
-
-                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                    <input type="checkbox" id="filters_sortiesQue_1" name="filters[sortiesQue][]" value="inscrit"/>
+                    <label for="filters_sortiesQue_1">Sorties auxquelles je suis inscrit/e</label>
                 </div>
-            </form>
-        </li>
-        <li>
-            <form name="ville" method="post" action="/admin/villes?id=35">
-                <div id="ville">
-                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
-                                class="city-name" value="Quimper"/></div>
-                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
-                                readonly="readonly" class="city-zip" value="29000"/></div>
-                    <input type="hidden" id="ville__token" name="ville[_token]"
-                           value="4586c47d9.KPF3hNah9fCmk-ZrN_AEhbEZt703cv2Rc-VvgTcjVM4.Up0RqazUgofnx6ksRoM184JR4PR0ALvnEak15lRpGahmszDggNKqyNP3vw"/>
-                </div>
-
                 <div>
-                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
-
-                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                    <input type="checkbox" id="filters_sortiesQue_2" name="filters[sortiesQue][]" value="pasInscrit"/>
+                    <label for="filters_sortiesQue_2">Sorties auxquelles je ne suis pas inscrit/e</label>
                 </div>
-            </form>
-        </li>
-        <li>
-            <form name="ville" method="post" action="/admin/villes?id=36">
-                <div id="ville">
-                    <div><input type="text" id="ville_name" name="ville[name]" required="required" readonly="readonly"
-                                class="city-name" value="Niort"/></div>
-                    <div><input type="text" id="ville_codePostal" name="ville[codePostal]" required="required"
-                                readonly="readonly" class="city-zip" value="79000"/></div>
-                    <input type="hidden" id="ville__token" name="ville[_token]"
-                           value="bb8067ed60d884976d95f5de328f.24vH-bhnA6wZDhlmR_aGqAuSJ6c3xl3mE_WzCUhP934.oeeh1MISdNtYWlYhNoW33jjacO50tBuQcbnpbisFuhiVyYCd7hRclGxqQA"/>
-                </div>
-
                 <div>
-                    <button class="btn" type="button" onclick="editField(this, '.city-zip')">Mofifier</button>
-
-                    <button class="btn btnAccentColor" type="submit">Enregister</button>
+                    <input type="checkbox" id="filters_sortiesQue_3" name="filters[sortiesQue][]" value="terminee"/>
+                    <label for="filters_sortiesQue_3">Sorties terminées</label>
                 </div>
-            </form>
-        </li>
-    </ul>
+            </div>
 
+        </div>
 
-</section>
+        <button type="submit" class="btnSearch"><img class="search" src="/img/search.svg"
+                                                     alt="Rechercher"></button>
+    </div>

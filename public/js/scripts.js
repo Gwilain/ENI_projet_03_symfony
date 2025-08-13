@@ -1,4 +1,8 @@
 function init() {
+
+    if (init.done) return;
+    init.done = true;
+
     initMenu();
     onLieuChangeListener();
     initDropDownAccueil();
@@ -11,16 +15,15 @@ function init() {
 
 function initMenu() {
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const btnBurger = document.querySelector('.btnBurger');
-        const menu = document.querySelector('nav ul');
-        const nav = document.querySelector('nav');
+    const btnBurger = document.querySelector('.btnBurger');
+    const menu = document.querySelector('nav ul');
+    const nav = document.querySelector('nav');
 
-        btnBurger.addEventListener('click', () => {
-            // menu.classList.toggle('open');
-            nav.classList.toggle('open');
-        });
+    btnBurger.addEventListener('click', () => {
+        // menu.classList.toggle('open');
+        nav.classList.toggle('open');
     });
+
 }
 
 /*************************************************************************/
@@ -65,8 +68,16 @@ function displayModal(item) {
     const secondTItle = document.getElementById("secondTitle");
     secondTItle.innerHTML = item.dataset.secondTitle;
 
+    // try{
     const modalLink = document.getElementById("modalLink");
-    modalLink.href = item.dataset.link;
+    if(modalLink){
+        modalLink.href = item.dataset.link;
+
+    }else{
+        console.log("il n'y a pas de a tout est normal")
+    }
+
+
     const modalLink2 = document.getElementById("secondLink");
     if (modalLink2) {
         modalLink2.href = item.dataset.secondLink;
@@ -78,6 +89,9 @@ function displayModal(item) {
 /*************************************************************************/
 
 function initDropDownAccueil() {
+
+
+    console.log("initDropDownAccueil")
 
     document.querySelectorAll('.dropdown-toggle').forEach(btn => {
         btn.addEventListener('click', function () {

@@ -91,7 +91,14 @@
         {% endif %}
 
         {% if is_granted('SORTIE_WITHDRAW', sortie) %}
-            <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>
+{#            <a class="btn btn-danger" href="{{ path('sortie_withdraw', {id: sortie.id}) }}">Se désister</a>#}
+
+            <button class="btn btn-danger"
+                    data-template="sortieWithdrawModal"
+                    title="Se désister"
+                    data-second-title="{{ sortie.name }}"
+                    data-link="{{ path('sortie_withdraw', {id: sortie.id}) }}"
+                    type="button">Se désister</button>
         {% endif %}
 
         {% if is_granted('SORTIE_ENROLL', sortie) %}
@@ -102,8 +109,17 @@
             <a class="btn btnAccentColor" href="{{ path('sortie_publish', {id: sortie.id}) }}">S'inscrire</a>
         {% endif %}
 
-
     </section>
+
+    {% include "modal.html.twig" %}
+    <template id="sortieWithdrawModal">
+        <h3>Se désister de la sortie</h3>
+        <h4 id="secondTitle"></h4>
+        <p>Êtes-vous certain de vouloir <br>vous desister ?</p>
+
+        <a id="modalLink" class="btn btn-danger" href="#">Se désister</a>
+    </template>
+
     <section class="participantsection">
         <h3>Participants :</h3>
         {% if sortie.participants is empty %}
