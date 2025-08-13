@@ -32,94 +32,40 @@ final class SortieController extends AbstractController
         ]);
     }
 
-
     #[Route('/creer', name: 'sortie_create', methods: ['GET', 'POST'])]
-    public function createSortie(Request $request, EntityManagerInterface $em,
-                                 EtatRepository $etatRepo, PublishableSortieValidator $validator): Response
+    public function createSortie(Request $request, EntityManagerInterface $em, EtatRepository $etatRepo, PublishableSortieValidator $validator): Response
     {
         $sortie = new Sortie();
-
         $user = $this->getUser();
-        $sortie->setOrganisateur( $user );
-        $sortie->setCampus( $user->getCampus() );
-
-        $modif = false;
-
+        $sortie->setOrganisateur($user);
+        $sortie->setCampus($user->getCampus());
         $defaultState = $etatRepo->findOneBy(['code' => Etat::CODE_EN_CREATION]);
         $sortie->setEtat($defaultState);
 
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
+        return $this->handleSortieForm($request, $sortie, false, $em, $etatRepo, $validator);
+    }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    #[Route('/modifier/{id}', name: 'sortie_edit', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    public function editSorti(Request $request, Sortie $sortie, EntityManagerInterface $em, EtatRepository $etatRepo, PublishableSortieValidator $validator): Response
+    {
+        $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
 
-            $action = $request->request->get('action');
-            if ($action === 'publish') {
-
-                $errors = $validator->validate($sortie);
-
-                if (!empty($errors)) {
-
-                    foreach ($errors as $error) {
-                        $this->addFlash('error', $error);
-                    }
-                    $em->persist($sortie);
-                    $em->flush();
-
-                    /*return $this->render('sortie/create.html.twig', [
-                        "formSorti"=>$form,
-                        "modif"=>$modif
-                    ]);*/
-                    return $this->redirectToRoute('sortie_edit', ['id' => $sortie->getId()]);
-                }else{
-                    $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
-                    $sortie->setEtat($state);
-                }
-            }
-
-            $em->persist($sortie);
-            $em->flush();
-//            $this->addFlash("success", "Votre Sortie a bien été créée.");
-            $this->addFlash('success', "Sortie " . ($action === 'publish' ? "publiée" : "enregistrée") . " avec succès.");
-
-
-            return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
-        } //end form
-
-        return $this->render('sortie/create.html.twig', [
-            "formSorti"=>$form,
-            "modif"=>$modif
-        ]);
+        return $this->handleSortieForm($request, $sortie, true, $em, $etatRepo, $validator);
     }
 
 
-    #[Route('/modifier/{id}', name: 'sortie_edit', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function editSorti( Request $request,
-                               Sortie $sortie,
-                               EntityManagerInterface $em,
-                               EtatRepository $etatRepo,
-                               PublishableSortieValidator $validator
-    ): Response {
 
-        //utilisation du Voter SortieVoter
-        $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
-
-        $modif = true;
-
+    private function handleSortieForm(Request $request, Sortie $sortie, bool $modif, EntityManagerInterface $em, EtatRepository $etatRepo, PublishableSortieValidator $validator): Response
+    {
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $action = $request->request->get('action');
 
-            $action = $request->request->get('action');
             if ($action === 'publish') {
-
                 $errors = $validator->validate($sortie);
-
                 if (!empty($errors)) {
-
                     foreach ($errors as $error) {
                         $this->addFlash('error', $error);
                     }
@@ -127,7 +73,7 @@ final class SortieController extends AbstractController
                     $em->flush();
 
                     return $this->redirectToRoute('sortie_edit', ['id' => $sortie->getId()]);
-                }else{
+                } else {
                     $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
                     $sortie->setEtat($state);
                 }
@@ -137,21 +83,37 @@ final class SortieController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', "Sortie " . ($action === 'publish' ? "publiée" : "enregistrée") . " avec succès.");
-
             return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
         }
 
         return $this->render('sortie/create.html.twig', [
-            "formSorti"=>$form,
-            "modif"=>$modif
+            'formSorti' => $form,
+            'modif' => $modif,
         ]);
     }
 
 
     #[Route('/publier/{id}', name: 'sortie_publish', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
-    public function publish(Sortie $sortie,  EntityManagerInterface $em, EtatRepository $etatRepo){
-
+    public function publish(Sortie $sortie,  EntityManagerInterface $em, EtatRepository $etatRepo, PublishableSortieValidator $validator){
+        //publication direct depuis la page d'accueil
         $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
+
+
+        $errors = $validator->validate($sortie);
+        if (!empty($errors)) {
+            foreach ($errors as $error) {
+                $this->addFlash('error', $error);
+            }
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('sortie_edit', ['id' => $sortie->getId()]);
+        } else {
+            $state = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
+            $sortie->setEtat($state);
+        }
+
+
 
         $etatOuvert = $etatRepo->findOneBy(['code' => Etat::CODE_OUVERTE]);
         $sortie->setEtat( $etatOuvert );

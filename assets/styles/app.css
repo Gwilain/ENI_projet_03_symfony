@@ -222,7 +222,10 @@ dl .flexLine:last-of-type {
 }
 
 .flash{
-    margin-bottom: var(--l);
+    margin-bottom: var(--s);
+}
+.flash:last-of-type{
+    margin-bottom: var(--xl);
 }
 
 .check{
