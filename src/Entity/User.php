@@ -66,7 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 18, nullable: true)]
     private ?string $phoneNumber = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
+//    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     #[Assert\NotNull(message: 'Veuillez sélectionner un campus', groups: ['edit'])]
     private ?Campus $campus = null;
 

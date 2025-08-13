@@ -5,13 +5,13 @@
         <h2>Administration</h2>
         <ul class="adminMenu">
             <li><a class="bigButton" href="{{ path("users") }}"><img src="{{ asset("img/person2.svg") }}" alt="picto person">Gérer les utilisateurs</a></li>
-            <li><a class="bigButton" href="#"><img src="{{ asset("img/campus.svg") }}" alt="picto person">Gérer les campus</a></li>
+            <li><a class="bigButton" href="{{ path("campus") }}"><img src="{{ asset("img/campus.svg") }}" alt="picto person">Gérer les campus</a></li>
             <li><a class="bigButton" href="{{ path("villes") }}"><img src="{{ asset("img/pointer.svg") }}" alt="picto person">Gérer les villes</a></li>
         </ul>
     </section>
 {% endblock %}
 
 {% block title %}
-
+    Admin {{ parent() }}
 {% endblock %}
 

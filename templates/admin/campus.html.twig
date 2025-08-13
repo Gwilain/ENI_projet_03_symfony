@@ -1,10 +1,64 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-
+    Campus {{ parent() }}
 {% endblock %}
-
 {% block body %}
+    <section class="subContent">
+        <h2>Gérer les campus</h2>
+        {% include "_flash.twig.html" %}
+        <ul class="citiesList">
+            {% for campus in campuses %}
+                <li>
+                    {{ form_start(campusForms[campus.id], {'action': path('campus_edit', {'id': campus.id})}) }}
+                    {{ form_widget(campusForms[campus.id]) }}
+                    <div class="villesBtns">
+                        <button class="btn btnModif" type="button" onclick="editField( this )">Modifier</button>
+                        <button class="btn btnWhite btnSave hidden" type="submit">Enregistrer</button>
 
+                        <button class="noButton btnTrash"
+                                data-template="deleteCampusModal"
+                                title="Supprimer ce campus"
+                                data-second-title="{{ campus.name }}"
+                                data-link="{{ path("campus_delete",{id : campus.id}) }}"
+                                type="button"><img src="{{ asset("img/trash2.svg") }}" alt="Image poubelle"></button>
+                    </div>
+                    {{ form_end(campusForms[campus.id]) }}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="newVille">
+            {{ form_start(newCampusForm, {'action': path('campus_new')}) }}
+            {{ form_widget(newCampusForm) }}
+            <div class="villesBtns">
+                <button type="submit" class="btn btnWhite">Ajouter</button>
+            </div>
+            {{ form_end(newCampusForm) }}
+        </div>
+        {% include "modal.html.twig" %}
+        <template id="deleteCampusModal">
+            <h3>Supprimer le campus</h3>
+            <h4 id="secondTitle"></h4>
+            <p>Voulez-vous certain de vouloir <br>supprimer ce campus ?</p>
+            <p>Les sorties associées à ce campus seront <br>également perdus.</p>
+            <a id="modalLink" class="btn btn-danger" href="#">Supprimer</a>
+        </template>
+
+    </section>
+
+    <script>
+        function editField(btn) {
+            let btnSave = btn.parentElement.querySelector('.btnSave');
+            btn.classList.toggle('hidden');
+            btnSave.classList.toggle('hidden');
+            let form = btn.closest('form');
+            let inputs = form.querySelectorAll('input[type="text"]');
+            inputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+            if (inputs.length > 0) {
+                inputs[0].focus();
+            }
+        }
+    </script>
 {% endblock %}
-

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-
-{% endblock %}{% block body %}
+    Villes {{ parent() }}
+{% endblock %}
+{% block body %}
     <section class="subContent">
         <h2>Gérer les Villes</h2>
         {% include "_flash.twig.html" %}
