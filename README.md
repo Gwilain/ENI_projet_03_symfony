@@ -117,9 +117,6 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🔎 Tri dynamique des villes
 ![](./captures/20_adminVilles2.png)
 
-#### 🔎 Tri dynamique des villes
-![](./captures/20_adminVilles2.png)
-
 #### 📱 Le site est responsive
 ![](./captures/23_responsive.png)
 
