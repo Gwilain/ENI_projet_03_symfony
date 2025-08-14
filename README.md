@@ -75,7 +75,7 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🔍 Filtres
 ![](./captures/06_filtres.png)
 
-#### 🔍 Filtres
+#### 🔍 Filtres (les sorties passées sont visuellement différentes)
 ![](./captures/07_filtres2.png)
 
 #### ➕ RollOver création d'une sortie
@@ -84,8 +84,8 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### ➕ Création d'une sortie
 ![](./captures/09_creationSortie.png)
 
-#### 🚩 Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
-![](./captures/10_creationSortieVerifg.png)
+#### 🚩 Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions mais il est possible de l'enregistrer pour une publication utltérieure)
+![](./captures/10_creationSortieVerif.png)
 
 #### ➕ Création d'une sortie (complétée)
 ![](./captures/11_creationSortieRempli.png)
@@ -116,6 +116,24 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 
 #### 🔎 Tri dynamique des villes
 ![](./captures/20_adminVilles2.png)
+
+#### 🔎 Tri dynamique des villes
+![](./captures/20_adminVilles2.png)
+
+#### 📱 Le site est responsive
+![](./captures/23_responsive.png)
+
+#### ⛔ Page 404 (page inexistante)
+![](./captures/21_404.png)
+
+#### ⛔ Erreur 500 (erreur du serveur)
+![](./captures/22_500.png)
+
+---
+
+### 👨‍💻 Auteur  
+**Ghislain Gillet** – Développeur Full Stack en reconversion  
+🔗 [Mon profil LinkedIn](https://www.linkedin.com/in/ghislain-gillet44)
 
 
 
