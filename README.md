@@ -120,6 +120,15 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🔎 Tri dynamique des villes
 ![](./captures/20_adminVilles2.png)
 
+#### 📱 Le site est responsive
+![](./captures/23_responsive.png)
+
+#### ⛔ Page 404 (page inexistante)
+![](./captures/21_404.png)
+
+#### ⛔ Erreur 500 (erreur du serveur)
+![](./captures/21_500.png)
+
 
 
 
