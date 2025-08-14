@@ -113,7 +113,7 @@ L'affichage est aussi grandement facilité.
 
 ```twig
 {% if is_granted('SORTIE_EDIT', sortie) %}
-    //ici le bouton qui n'apparaîtra que si l'utilisateur a le droit d'édition sur la sortie
+    //ici le bouton qui n'apparaîtra que si l'utilisateur a le droit d'éditer la sortie
 {% endif %}
 ```
 
