@@ -55,6 +55,7 @@ Le fichier security.yaml est configuré pour bloquer l’accès à toutes les ro
         # Interdire tout le reste aux non-authentifiés
         - { path: ^/, roles: ROLE_USER }
 ```
+
 Pour les autorisations de créations, modifications, éditions, visibilités, annulation, désistements,..., des sorties et des membres tout passe par des Voters ; Des classes qui gèrent l'accés selon les cas. Seul l'organsateur peut annuler une sortie à la condition que celle ci soit publiée par exemple.
 Exemple d'un extrait du Voter de Sortie.
 
@@ -99,7 +100,9 @@ protected function voteOnAttribute(string $attribute, mixed $subject, TokenInter
         return false;
     }
 ```
+
 Une simple ligne dans le controller suffit alors à donner l'accés ou pas
+
 ```php
 $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
 ```
