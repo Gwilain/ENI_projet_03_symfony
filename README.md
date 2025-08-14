@@ -13,7 +13,7 @@ Ce projet est le **troisième réalisé en autonomie**, sur un peu moins de deux
 
 L’objectif était de développer en partie, un site de gestion d'évènement entre stagiaires de formation.
 
-#### ✅ Fonctionnalités développées (toutes fonctionnelles avec persistance en base de données) :
+### ✅ Fonctionnalités développées (toutes fonctionnelles avec persistance en base de données) :
 
 - **Sécurité** - Les pages ne sont accessibles qu'aux membres (seuls les administrateurs peuvent créer des participants).
 - **Fixtures**  - mise en place de la génération de fausses données réalistes.
@@ -43,3 +43,7 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
       Autant la documentation Symfony est très complète et bien expliquée, autant celle de Twig (le moteur de template) est très succincte et les exemples toujours un peu particuliers.
 
 
+### 🔍 Aperçu
+
+#### 📐 Wireframes fournis (pas de maquettes graphiques)
+![exemples maquettes](./captures/000_wireframes.png)
