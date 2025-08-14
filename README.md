@@ -42,6 +42,77 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 - Documentation Twig
       Autant la documentation Symfony est très complète et bien expliquée, autant celle de Twig (le moteur de template) est très succincte et les exemples toujours un peu particuliers.
 
+### 👮 Securité
+La sécurité repose sur la configuration de Symfony.
+Le fichier security.yaml est configuré pour bloquer l’accès à toutes les routes, sauf à la page de connexion, pour les utilisateurs non authentifiés.
+
+```yaml
+    access_control:
+        # Autoriser l'accès public uniquement à la page de login et logout
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/logout, roles: PUBLIC_ACCESS }
+
+        # Interdire tout le reste aux non-authentifiés
+        - { path: ^/, roles: ROLE_USER }
+```
+Pour les autorisations de créations, modifications, éditions, visibilités, annulation, désistements,..., des sorties et des membres tout passe par des Voters ; Des classes qui gèrent l'accés selon les cas. Seul l'organsateur peut annuler une sortie à la condition que celle ci soit publiée par exemple.
+Exemple d'un extrait du Voter de Sortie.
+
+```php
+protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    {
+        $user = $token->getUser();
+
+        if (!$user instanceof UserInterface) {
+            return false;
+        }
+        $sortie = $subject;
+
+        switch ($attribute) {
+            case self::EDIT:
+                return $sortie->getOrganisateur() === $user
+                    && $sortie->getEtat()->getCode() === Etat::CODE_EN_CREATION;
+
+            case self::VIEW:
+                return $sortie->getOrganisateur() === $user
+                    || in_array($sortie->getEtat()->getCode(), [ Etat::CODE_OUVERTE,  Etat::CODE_EN_COURS, Etat::CODE_CLOTUREE, Etat::CODE_ANNULEE], true);
+
+            case self::ENROLL:
+                return
+                    !in_array($user, $sortie->getParticipants()->toArray(), true)
+                    && $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE
+                    && $sortie->getDateLimiteInscription() > new \DateTimeImmutable('now')
+                    && count($sortie->getParticipants()) < $sortie->getNbInscriptionMax();
+
+            case self::WITHDRAW:
+                return in_array($user, $sortie->getParticipants()->toArray(), true)
+                    && ($sortie->getEtat()->getCode() === Etat::CODE_OUVERTE
+                    || $sortie->getEtat()->getCode() === Etat::CODE_CLOTUREE)
+                    && $sortie->getEtat()->getCode() !== Etat::CODE_ANNULEE
+                    && $sortie->getDateHeureDebut() > new \DateTimeImmutable('now');
+
+            case self::CANCELABLE:
+                return $sortie->getOrganisateur() === $user
+                    && $sortie->getEtat()->getCode() === Etat::CODE_OUVERTE;
+        }
+
+        return false;
+    }
+```
+Une simple ligne dans le controller suffit alors à donner l'accés ou pas
+```php
+$this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
+```
+
+L'affichage est aussi grandement facilité.
+
+```twig
+{% if is_granted('SORTIE_EDIT', sortie) %}
+    //ici le bouton qui n'appaitra que si l'utilisateur à le droit d'édition sur la sortie
+{% endif %}
+```
+
+
 
 ### 🔍 Aperçu
 
