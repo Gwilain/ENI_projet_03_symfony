@@ -75,7 +75,7 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🔍 Filtres
 ![](./captures/06_filtres.png)
 
-#### 🔍 Filtres
+#### 🔍 Filtres (les sorties passées sont visuellement différentes)
 ![](./captures/07_filtres2.png)
 
 #### ➕ RollOver création d'une sortie
