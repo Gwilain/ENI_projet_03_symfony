@@ -62,3 +62,63 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 
 #### ❌ Désistement depuis la page d'accueil (en cliquant sur le pictogramme 👤 qui signifie l'inscription aux sorties )
 ![](./captures/04_sortie-desistement2.png)
+
+#### 🙍‍♂️ Détail d'un profil
+![](./captures/05_profil_detail.png)
+
+#### 🙍‍♂️ Modification de son profil avec upload d'image
+![](./captures/15_modificationProfil.png)
+
+#### 🖼️ Détail profil modifié
+![](./captures/16_detailMonprofil.png)
+
+#### 🔍 Filtres
+![](./captures/06_filtres.png)
+
+#### 🔍 Filtres
+![](./captures/07_filtres2.png)
+
+#### ➕ RollOver création d'une sortie
+![](./captures/08_creationRoll.png)
+
+#### ➕ Création d'une sortie
+![](./captures/09_creationSortie.png)
+
+#### 🚩 Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
+![](./captures/10_creationSortieVerifg.png)
+
+#### ➕ Création d'une sortie (complétée)
+![](./captures/11_creationSortieRempli.png)
+
+#### ✔️ Inscription à une sortie 
+![](./captures/12_creationSortieDetail.png)
+
+#### ❌ Annulation d'une sortie par son organisateur
+![](./captures/13_creationSortieAnnulation.png)
+
+#### 🚨 La sortie annulée est visuellement marquée dans la liste
+![](./captures/14_accueil-annule.png)
+
+#### 🤖 Page admin
+![](./captures/17_administrattion.png)
+
+#### 👨‍👨 Admin utilisateurs
+![](./captures/18_utilisateurs.png)
+
+#### 🏛️ Admin campus
+![](./captures/19_adminCampus.png)
+
+#### 🏛️ Admin campus (modification - les cahamps sont vérouillés par défaut)
+![](./captures/19_adminCampus2.png)
+
+#### 🏙️ Admin villes
+![](./captures/20_adminVilles.png)
+
+#### 🔎 Tri dynamique des villes
+![](./captures/20_adminVilles2.png)
+
+
+
+
+
+
