@@ -56,7 +56,9 @@ Le fichier security.yaml est configuré pour bloquer l’accès à toutes les ro
         - { path: ^/, roles: ROLE_USER }
 ```
 
-Pour les autorisations de créations, modifications, éditions, visibilités, annulation, désistements,..., des sorties et des membres tout passe par des Voters ; Des classes qui gèrent l'accés selon les cas. Seul l'organsateur peut annuler une sortie à la condition que celle ci soit publiée par exemple.
+Les attaques CSRF sont nativement prévenues par Symfony, qui ajoute un champ caché avec un token unique dans les formulaires.
+
+Pour les autorisations de création, modifications, édition, visibilité, annulations, désistements,..., des sorties et des membres tout passe par des Voters ; Des classes qui gèrent l'accès selon les cas. Seul l'organisateur peut annuler une sortie à condition que celle-ci soit publiée par exemple.
 Exemple d'un extrait du Voter de Sortie.
 
 ```php
@@ -101,7 +103,7 @@ protected function voteOnAttribute(string $attribute, mixed $subject, TokenInter
     }
 ```
 
-Une simple ligne dans le controller suffit alors à donner l'accés ou pas
+Une simple ligne dans le controller suffit alors à donner l'accès ou pas
 
 ```php
 $this->denyAccessUnlessGranted('SORTIE_EDIT', $sortie);
@@ -111,7 +113,7 @@ L'affichage est aussi grandement facilité.
 
 ```twig
 {% if is_granted('SORTIE_EDIT', sortie) %}
-    //ici le bouton qui n'appaitra que si l'utilisateur à le droit d'édition sur la sortie
+    //ici le bouton qui n'apparaîtra que si l'utilisateur a le droit d'édition sur la sortie
 {% endif %}
 ```
 
