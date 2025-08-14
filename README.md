@@ -127,7 +127,13 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 ![](./captures/21_404.png)
 
 #### ⛔ Erreur 500 (erreur du serveur)
-![](./captures/21_500.png)
+![](./captures/22_500.png)
+
+---
+
+### 👨‍💻 Auteur  
+**Ghislain Gillet** – Développeur Full Stack en reconversion  
+🔗 [Mon profil LinkedIn](https://www.linkedin.com/in/ghislain-gillet44)
 
 
 
