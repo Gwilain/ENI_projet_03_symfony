@@ -73,4 +73,24 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 ![](./captures/07_filtres2.png)
 
 #### ➕ RollOver création d'une sortie
-![](./captures/06_filtres.png)
+![](./captures/08_creationRoll.png)
+
+#### ➕ Création d'une sortie
+![](./captures/09_creationSortie.png)
+
+#### 🚩 Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
+![](./captures/10_creationSortieVerifg.png)
+
+#### ➕ Création d'une sortie (complétée)
+![](./captures/11_creationSortieRempli.png)
+
+#### ✔️ Inscription à une sortie 
+![](./captures/12_creationSortieDetail.png)
+
+#### ❌ Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
+![](./captures/13_creationSortieAnnulation.png)
+
+
+
+
+
