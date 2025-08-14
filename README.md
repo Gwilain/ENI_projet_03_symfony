@@ -66,6 +66,12 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🙍‍♂️ Détail d'un profil
 ![](./captures/05_profil_detail.png)
 
+#### 🙍‍♂️ Modification de son profil avec upload d'image
+![](./captures/15_modificationProfil.png)
+
+#### 🖼️ Détail profil modifié
+![](./captures/16_detailMonprofil.png)
+
 #### 🔍 Filtres
 ![](./captures/06_filtres.png)
 
@@ -93,14 +99,23 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 🚨 La sortie annulée est visuellement marquée dans la liste
 ![](./captures/14_accueil-annule.png)
 
-#### 🙍‍♂️ Modification du profil avec upload d'image
-![](./captures/15_modificationProfil.png)
-
-#### 🖼️ Détail profil modifié
-![](./captures/16_detailMonprofil.png)
-
 #### 🤖 Page admin
 ![](./captures/17_administrattion.png)
+
+#### 👨‍👨 Admin utilisateurs
+![](./captures/18_utilisateurs.png)
+
+#### 🏛️ Admin campus
+![](./captures/19_adminCampus.png)
+
+#### 🏛️ Admin campus (modification - les cahamps sont vérouillés par défaut)
+![](./captures/19_adminCampus2.png)
+
+#### 🏙️ Admin villes
+![](./captures/20_adminVilles.png)
+
+#### 🔎 Tri dynamique des villes
+![](./captures/20_adminVilles2.png)
 
 
 
