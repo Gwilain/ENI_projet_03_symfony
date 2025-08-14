@@ -48,6 +48,17 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### 📐 Wireframes fournis (pas de maquettes graphiques)
 ![exemples maquettes](./captures/000_wireframes.png)
 
-
 #### 🔑 Login
-![exemples maquettes](./captures/00_login.png)
+![](./captures/00_login.png)
+
+#### 🏠 Page d'accueil
+![](./captures/01_liste-sorties.png)
+
+#### 📅 Détail d'une sortie
+![](./captures/02_sortie-detail.png)
+
+#### ❌ Désistement
+![](./captures/03_sortie-desistement.png)
+
+#### ❌ Désistement depuis la page d'accueil (en cliquant sur le pictogramme 👤 qui signifie l'inscription aux sorties )
+![](./captures/04_sortie-desistement2.png)
