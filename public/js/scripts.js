@@ -155,7 +155,7 @@ function displayModal(item) {
     let modalBody = document.getElementById("modal-body");
 
     modalBody.innerHTML = document.getElementById(template).innerHTML;
-    modal.style.display = "block";
+    modal.style.display = "flex";
 
     const secondTItle = document.getElementById("secondTitle");
     secondTItle.innerHTML = item.dataset.secondTitle;

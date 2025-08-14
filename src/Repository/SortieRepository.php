@@ -54,9 +54,26 @@ class SortieRepository extends ServiceEntityRepository
         if (!empty($filters['sortiesQue']) && is_array($filters['sortiesQue'])) {
             $selected = $filters['sortiesQue'];
 
-            if (in_array('organise', $selected)) {
+
+            if (in_array('terminee', $selected) && in_array('organise', $selected)) {
+                $etats[] = Etat::CODE_TERMINEE;
+                $qb->andWhere($qb->expr()->orX(
+                    'e.organisateur = :user',
+                    'e.organisateur = :user AND etat.code = :terminee'
+                ))
+                    ->setParameter('terminee', Etat::CODE_TERMINEE);
+            }else{
+
+                if (in_array('organise', $selected)) {
 //                $etats[] = Etat::CODE_EN_CREATION;
-                $qb->andWhere('e.organisateur = :user');
+                    $qb->andWhere('e.organisateur = :user');
+                }
+
+                if (in_array('terminee', $selected)) {
+                    $etats[] = Etat::CODE_TERMINEE;
+                    $qb->andWhere('e.organisateur = :user AND etat.code = :terminee')
+                        ->setParameter('terminee', Etat::CODE_TERMINEE);
+                }
             }
 
             if (in_array('inscrit', $selected)) {
@@ -65,11 +82,6 @@ class SortieRepository extends ServiceEntityRepository
 
             if (in_array('pasInscrit', $selected)) {
                 $qb->andWhere(':user NOT MEMBER OF e.participants');
-            }
-
-            if (in_array('terminee', $selected)) {
-                $etats[] = Etat::CODE_TERMINEE;
-                $qb->andWhere('e.organisateur = :user');
             }
 
         }

@@ -106,8 +106,26 @@
         {% endif %}
 
         {% if is_granted('SORTIE_EDIT', sortie) %}
-            <a class="btn btnAccentColor" href="{{ path('sortie_publish', {id: sortie.id}) }}">S'inscrire</a>
+{#            <a class="btn btnAccentColor" href="{{ path('sortie_publish', {id: sortie.id}) }}">S'inscrire</a>#}
+            <button
+                    class="btn btnAccentColor"
+                    data-template="publishModal"
+                    title="Publier votre sortie"
+                    data-second-title="{{ sortie.name }}"
+                    data-link="{{ path("sortie_publish",{id : sortie.id}) }}"
+                    data-second-link="{{ path("sortie_detail",{id : sortie.id}) }}">
+                Publier
+            </button>
         {% endif %}
+
+        <template id="publishModal">
+            <h3>Publier la Sortie</h3>
+            <h4 id="secondTitle"></h4>
+            <p>Voulez-vous vraiment publier cette sortie ?</p>
+            <p>Vous ne pourrez plus la modifier.</p>
+            <p>Si vous avez un doute, allez <a id="secondLink" href="#">voir le détail.</a></p>
+            <a id="modalLink" class="btn btnAccentColor" href="#">Publier</a>
+        </template>
 
     </section>
 
