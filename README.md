@@ -62,3 +62,15 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 
 #### ❌ Désistement depuis la page d'accueil (en cliquant sur le pictogramme 👤 qui signifie l'inscription aux sorties )
 ![](./captures/04_sortie-desistement2.png)
+
+#### 🙍‍♂️ Détail d'un profil
+![](./captures/05_profil_detail.png)
+
+#### 🔍 Filtres
+![](./captures/06_filtres.png)
+
+#### 🔍 Filtres
+![](./captures/07_filtres2.png)
+
+#### ➕ RollOver création d'une sortie
+![](./captures/06_filtres.png)
