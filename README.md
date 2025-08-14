@@ -85,7 +85,7 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 ![](./captures/09_creationSortie.png)
 
 #### 🚩 Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
-![](./captures/10_creationSortieVerifg.png)
+![](./captures/10_creationSortieVerif.png)
 
 #### ➕ Création d'une sortie (complétée)
 ![](./captures/11_creationSortieRempli.png)
