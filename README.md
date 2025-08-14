@@ -87,8 +87,21 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 #### ✔️ Inscription à une sortie 
 ![](./captures/12_creationSortieDetail.png)
 
-#### ❌ Vérification d'une sortie (une sortie ne peut être publiée qu'à certaines conditions)
+#### ❌ Annulation d'une sortie par son organisateur
 ![](./captures/13_creationSortieAnnulation.png)
+
+#### 🚨 La sortie annulée est visuellement marquée dans la liste
+![](./captures/14_accueil-annule.png)
+
+#### 🙍‍♂️ Modification du profil avec upload d'image
+![](./captures/15_modificationProfil.png)
+
+#### 🖼️ Détail profil modifié
+![](./captures/16_detailMonprofil.png)
+
+#### 🤖 Page admin
+![](./captures/17_administrattion.png)
+
 
 
 
