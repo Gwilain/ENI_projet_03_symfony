@@ -19,6 +19,8 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
     - Les pages  (seul les membres avec le rôle administrateur peuvent créer des participants) 
 - Affichage par défaut des sorties créées et ouvertes à l'inscription
 
+- 
+
 ###🐞Difficultés rencontrées
 
 - Anticipation
@@ -26,3 +28,6 @@ L’objectif était de développer en partie, un site de gestion d'évènement e
 
 - Persistance du cache
     J'ai rencontré à plusieures reprise des difficultés causé par le cache de Symfony, les modifications n'étaient pas prise en compte ou seulement partiellement.
+
+- Documentation Twig
+      Autant la documentation Symfony est très complète et bien expliqué, autant celles de Twig (le moteur de template) est très succinte et les exemple toujours un peu particulier.
